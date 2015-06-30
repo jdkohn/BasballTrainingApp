@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		269C13E4CE2081C228D1AA3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9250170FB8D116B185F7A7F3 /* libPods.a */; };
+		2C771ADB1B3A05CF00FA6E2D /* cruz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C771ADA1B3A05CF00FA6E2D /* cruz.jpg */; };
+		2C771ADD1B3CA3EE00FA6E2D /* HitterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */; };
+		2C771ADF1B3CAB6800FA6E2D /* RHHitterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771ADE1B3CAB6800FA6E2D /* RHHitterTableViewController.swift */; };
 		2CCD84C21B39EA41001EC2FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD84C11B39EA41001EC2FD /* AppDelegate.swift */; };
 		2CCD84C41B39EA41001EC2FD /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD84C31B39EA41001EC2FD /* MasterViewController.swift */; };
 		2CCD84C61B39EA41001EC2FD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD84C51B39EA41001EC2FD /* DetailViewController.swift */; };
@@ -28,6 +31,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C771ADA1B3A05CF00FA6E2D /* cruz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cruz.jpg; sourceTree = "<group>"; };
+		2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitterViewController.swift; sourceTree = "<group>"; };
+		2C771ADE1B3CAB6800FA6E2D /* RHHitterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHHitterTableViewController.swift; sourceTree = "<group>"; };
 		2CCD84BC1B39EA41001EC2FD /* BasballTrainingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasballTrainingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CCD84C01B39EA41001EC2FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CCD84C11B39EA41001EC2FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,7 +104,9 @@
 				2CCD84C11B39EA41001EC2FD /* AppDelegate.swift */,
 				2CCD84C31B39EA41001EC2FD /* MasterViewController.swift */,
 				2CCD84C51B39EA41001EC2FD /* DetailViewController.swift */,
+				2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */,
 				2CCD84C71B39EA41001EC2FD /* Main.storyboard */,
+				2C771ADE1B3CAB6800FA6E2D /* RHHitterTableViewController.swift */,
 				2CCD84CA1B39EA41001EC2FD /* Images.xcassets */,
 				2CCD84CC1B39EA41001EC2FD /* LaunchScreen.xib */,
 				2CCD84BF1B39EA41001EC2FD /* Supporting Files */,
@@ -110,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				2CCD84C01B39EA41001EC2FD /* Info.plist */,
+				2C771ADA1B3A05CF00FA6E2D /* cruz.jpg */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -224,6 +233,7 @@
 				2CCD84C91B39EA41001EC2FD /* Main.storyboard in Resources */,
 				2CCD84CE1B39EA41001EC2FD /* LaunchScreen.xib in Resources */,
 				2CCD84CB1B39EA41001EC2FD /* Images.xcassets in Resources */,
+				2C771ADB1B3A05CF00FA6E2D /* cruz.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -274,7 +284,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C771ADD1B3CA3EE00FA6E2D /* HitterViewController.swift in Sources */,
 				2CCD84C61B39EA41001EC2FD /* DetailViewController.swift in Sources */,
+				2C771ADF1B3CAB6800FA6E2D /* RHHitterTableViewController.swift in Sources */,
 				2CCD84C41B39EA41001EC2FD /* MasterViewController.swift in Sources */,
 				2CCD84C21B39EA41001EC2FD /* AppDelegate.swift in Sources */,
 			);
