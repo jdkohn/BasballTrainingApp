@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>0DC2112D-CD64-45AD-839E-82F041808A74</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>BasballTrainingApp</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>AE183FC7D58C2583A57929AD0D85131B19B8732A</key>
 		<string>https://github.com/jdkohn/BasballTrainingApp.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>BasballTrainingApp.xcodeproj/project.xcworkspace</string>
+	<string>BasballTrainingApp.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>AE183FC7D58C2583A57929AD0D85131B19B8732A</key>

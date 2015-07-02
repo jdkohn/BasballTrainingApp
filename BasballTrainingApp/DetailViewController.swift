@@ -6,6 +6,22 @@
 //  Copyright (c) 2015 Jacob Kohn. All rights reserved.
 //
 
+
+
+
+/*
+
+Navigate from thumbnail button to new view which is player
+Picture selector
+Find way to get thumbnail from video
+
+*/
+
+
+
+
+
+
 import UIKit
 
 class DetailViewController: UIViewController {
@@ -14,8 +30,12 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var videoThumbnail: UIImageView!
     
-    
     @IBOutlet weak var compareButton: UIButton!
+    
+    @IBOutlet weak var thumbnail: UIImageView!
+
+    var img = UIImage()
+    
     
     
     
@@ -32,9 +52,23 @@ class DetailViewController: UIViewController {
             if let label = self.detailDescriptionLabel {
                 label.text = detail.description
             }
+            
         }
     }
-
+    
+    func navToPlayer(sender: UITapGestureRecognizer) {
+        
+        
+        let PlayerViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("PlayerViewController")) as! UIViewController
+        
+        self.presentViewController(PlayerViewController, animated:true, completion:nil)
+        
+    }
+    
+    func setImageThumbnail(image: UIImage) {
+        self.img = image
+    }
+    
     
     func configureActions() {
         compareButton.addTarget(self, action: "sendAlert:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -45,6 +79,18 @@ class DetailViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
         self.configureActions()
+        
+        thumbnail.image = self.img
+        
+        
+        let tapView = UITapGestureRecognizer()
+        tapView.addTarget(self, action: "navToPlayer:")
+        
+        thumbnail.addGestureRecognizer(tapView)
+        thumbnail.userInteractionEnabled = true
+        
+        self.view.addSubview(compareButton)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,8 +128,9 @@ class DetailViewController: UIViewController {
             //Present the AlertController
             self.presentViewController(alert, animated: true, completion: nil)
         }
-    }
 
-    
-    
+}
+
+
+
 

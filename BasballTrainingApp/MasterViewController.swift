@@ -8,11 +8,16 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
+class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
 
     var detailViewController: DetailViewController? = nil
     var objects = [AnyObject]()
+    var images = [UIImage]()
+    
 
+    var picker:UIImagePickerController?=UIImagePickerController()
+    var popover:UIPopoverController?=nil
+    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -36,6 +41,8 @@ class MasterViewController: UITableViewController {
             let controllers = split.viewControllers
             self.detailViewController = controllers[controllers.count-1].topViewController as? DetailViewController
         }
+        picker!.delegate = self
+        println("App opened")
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,11 +50,7 @@ class MasterViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    
-    func uploadVideo() {
-        
-        
-    }
+
 
     
     /*  Returns the date in String format - way it will show up in table view
@@ -84,7 +87,13 @@ class MasterViewController: UITableViewController {
         else if(monthNum == "11") { month = "November" }
         else if(monthNum == "12") { month = "December" }
         
-        let date = month + " " + day + ", " + year
+        //get the time
+        let getTime = NSDateFormatter()
+        getTime.dateFormat = "HH:mm"
+        let time = getTime.stringFromDate(NSDate())
+        
+        
+        let date = month + " " + day + ", " + year + " at " + time
         
         return date
         
@@ -93,7 +102,7 @@ class MasterViewController: UITableViewController {
     
     func getVideo() {
         
-        let alert: UIAlertController = UIAlertController(title: "Compare Your Swing", message: "Left-Handed or Right-Handed?", preferredStyle: .ActionSheet)
+        let alert: UIAlertController = UIAlertController(title: "!", message: "!", preferredStyle: .ActionSheet)
         
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
@@ -103,15 +112,9 @@ class MasterViewController: UITableViewController {
         //Create and add first option action
         let chooseSide: UIAlertAction = UIAlertAction(title: "Upload Video", style: .Default) { action -> Void in
  
-            let imagePicker = UIImagePickerController()
             
-            //imagePicker.delegate = self
-            imagePicker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
-            //imagePicker.mediaTypes = [kUTTypeImage as NSString]
-            imagePicker.allowsEditing = false
-            
-            self.presentViewController(imagePicker, animated: true,
-                completion: nil)
+            self.openGallary()
+
             
         }
         alert.addAction(chooseSide)
@@ -126,6 +129,35 @@ class MasterViewController: UITableViewController {
         //Present the AlertController
         self.presentViewController(alert, animated: true, completion: nil)
 }
+    
+    
+    
+    func openGallary()
+    {
+        picker!.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        if UIDevice.currentDevice().userInterfaceIdiom == .Phone
+        {
+            self.presentViewController(picker!, animated: true, completion: nil)
+        }
+        else
+        {
+            popover=UIPopoverController(contentViewController: picker!)
+            //popover!.presentPopoverFromRect(btnClickMe.frame, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
+        }
+    }
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
+    {
+        println("!")
+        picker .dismissViewControllerAnimated(true, completion: nil)
+        
+        images.insert((info[UIImagePickerControllerOriginalImage] as? UIImage)!, atIndex: 0)
+        
+        
+    }
+    func imagePickerControllerDidCancel(picker: UIImagePickerController)
+    {
+        println("picker cancel.")
+    }
 
 
 
@@ -152,9 +184,11 @@ class MasterViewController: UITableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let object = objects[indexPath.row] as! NSString
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
+                controller.setImageThumbnail(images[indexPath.row])
                 controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
+                
             }
         }
     }

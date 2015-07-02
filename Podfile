@@ -1,2 +1,4 @@
-platform :ios, '7.0'
-	pod 'PIVideoPlayer'
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+	use_frameworks!
+	pod 'Player'

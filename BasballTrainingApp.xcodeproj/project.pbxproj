@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		269C13E4CE2081C228D1AA3F /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9250170FB8D116B185F7A7F3 /* libPods.a */; };
+		2C6450F91B45D99F002651F9 /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6450F81B45D99F002651F9 /* PlayerViewController.swift */; };
 		2C771ADB1B3A05CF00FA6E2D /* cruz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C771ADA1B3A05CF00FA6E2D /* cruz.jpg */; };
 		2C771ADD1B3CA3EE00FA6E2D /* HitterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */; };
 		2C771ADF1B3CAB6800FA6E2D /* RHHitterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771ADE1B3CAB6800FA6E2D /* RHHitterTableViewController.swift */; };
@@ -18,6 +18,7 @@
 		2CCD84CB1B39EA41001EC2FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD84CA1B39EA41001EC2FD /* Images.xcassets */; };
 		2CCD84CE1B39EA41001EC2FD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2CCD84CC1B39EA41001EC2FD /* LaunchScreen.xib */; };
 		2CCD84DA1B39EA41001EC2FD /* BasballTrainingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD84D91B39EA41001EC2FD /* BasballTrainingAppTests.swift */; };
+		DAE3AADC4E06EC2DF52431B4 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D4463260AE5243A58647724 /* Pods.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2C6450F81B45D99F002651F9 /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		2C771ADA1B3A05CF00FA6E2D /* cruz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cruz.jpg; sourceTree = "<group>"; };
 		2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitterViewController.swift; sourceTree = "<group>"; };
 		2C771ADE1B3CAB6800FA6E2D /* RHHitterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHHitterTableViewController.swift; sourceTree = "<group>"; };
@@ -47,7 +49,7 @@
 		2CCD84D91B39EA41001EC2FD /* BasballTrainingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasballTrainingAppTests.swift; sourceTree = "<group>"; };
 		592ACA8642030DDDDDC6422C /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		737CE1A7AA3CD2FBDB54E8C1 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		9250170FB8D116B185F7A7F3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D4463260AE5243A58647724 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				269C13E4CE2081C228D1AA3F /* libPods.a in Frameworks */,
+				DAE3AADC4E06EC2DF52431B4 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -103,12 +105,14 @@
 			children = (
 				2CCD84C11B39EA41001EC2FD /* AppDelegate.swift */,
 				2CCD84C31B39EA41001EC2FD /* MasterViewController.swift */,
+				2C6450F81B45D99F002651F9 /* PlayerViewController.swift */,
 				2CCD84C51B39EA41001EC2FD /* DetailViewController.swift */,
 				2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */,
 				2CCD84C71B39EA41001EC2FD /* Main.storyboard */,
-				2C771ADE1B3CAB6800FA6E2D /* RHHitterTableViewController.swift */,
 				2CCD84CA1B39EA41001EC2FD /* Images.xcassets */,
+				2C771ADA1B3A05CF00FA6E2D /* cruz.jpg */,
 				2CCD84CC1B39EA41001EC2FD /* LaunchScreen.xib */,
+				2C771ADE1B3CAB6800FA6E2D /* RHHitterTableViewController.swift */,
 				2CCD84BF1B39EA41001EC2FD /* Supporting Files */,
 			);
 			path = BasballTrainingApp;
@@ -118,7 +122,6 @@
 			isa = PBXGroup;
 			children = (
 				2CCD84C01B39EA41001EC2FD /* Info.plist */,
-				2C771ADA1B3A05CF00FA6E2D /* cruz.jpg */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -143,7 +146,7 @@
 		C115BD5CC6120ED936CACCDB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9250170FB8D116B185F7A7F3 /* libPods.a */,
+				9D4463260AE5243A58647724 /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -160,6 +163,7 @@
 				2CCD84B91B39EA41001EC2FD /* Frameworks */,
 				2CCD84BA1B39EA41001EC2FD /* Resources */,
 				C72B8407E10E4ABAC8F235AB /* Copy Pods Resources */,
+				FBF870A696F1649DF31D4BA3 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -277,6 +281,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FBF870A696F1649DF31D4BA3 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -289,6 +308,7 @@
 				2C771ADF1B3CAB6800FA6E2D /* RHHitterTableViewController.swift in Sources */,
 				2CCD84C41B39EA41001EC2FD /* MasterViewController.swift in Sources */,
 				2CCD84C21B39EA41001EC2FD /* AppDelegate.swift in Sources */,
+				2C6450F91B45D99F002651F9 /* PlayerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -6,9 +6,9 @@
 // project.
 
 
-// PIVideoPlayer
-#define COCOAPODS_POD_AVAILABLE_PIVideoPlayer
-#define COCOAPODS_VERSION_MAJOR_PIVideoPlayer 0
-#define COCOAPODS_VERSION_MINOR_PIVideoPlayer 1
-#define COCOAPODS_VERSION_PATCH_PIVideoPlayer 2
+// Player
+#define COCOAPODS_POD_AVAILABLE_Player
+#define COCOAPODS_VERSION_MAJOR_Player 0
+#define COCOAPODS_VERSION_MINOR_Player 0
+#define COCOAPODS_VERSION_PATCH_Player 5
 

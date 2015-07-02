@@ -1,10 +1,10 @@
 PODS:
-  - PIVideoPlayer (0.1.2)
+  - Player (0.0.5)
 
 DEPENDENCIES:
-  - PIVideoPlayer
+  - Player
 
 SPEC CHECKSUMS:
-  PIVideoPlayer: 6f751a8446094d41baa2266b1e0f5285d5b52c90
+  Player: b5611abde6be7b3eeeaf57537b3979cd7531daad
 
 COCOAPODS: 0.37.2
