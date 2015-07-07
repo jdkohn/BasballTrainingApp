@@ -116,9 +116,11 @@ class DetailViewController: UIViewController {
             let chooseSide: UIAlertAction = UIAlertAction(title: "Righty", style: .Default) { action -> Void in
 
                 
-                let HitterViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("HitterVC")) as! UIViewController
-                
+                let HitterViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("HitterViewController")) as! UIViewController
+    
                 self.presentViewController(HitterViewController, animated:true, completion:nil)
+                
+        
         
         }
             alert.addAction(chooseSide)

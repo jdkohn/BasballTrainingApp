@@ -23,7 +23,6 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
 
     var picker:UIImagePickerController?=UIImagePickerController()
     var popover:UIPopoverController?=nil
-    
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -49,6 +48,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         }
         picker!.delegate = self
         println("App opened")
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -56,6 +56,17 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         // Dispose of any resources that can be recreated.
     }
 
+    
+    
+    // input searcher - for testing
+    func input() -> String {
+        var keyboard = NSFileHandle.fileHandleWithStandardInput()
+        var inputData = keyboard.availableData
+        var strData = NSString(data: inputData, encoding: NSUTF8StringEncoding)!
+        
+        println(strData.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet()))
+        return strData.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet())
+    }
 
 
     
