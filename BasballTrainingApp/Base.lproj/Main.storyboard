@@ -150,7 +150,7 @@
         <!--PlayerViewController-->
         <scene sceneID="iaw-YQ-H3k">
             <objects>
-                <viewController storyboardIdentifier="PlayerViewController" title="PlayerViewController" id="kwg-PK-vK0" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlayerViewController" title="PlayerViewController" id="kwg-PK-vK0" customClass="PlayerViewController" customModule="BasballTrainingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="FJf-gX-yvo"/>
                         <viewControllerLayoutGuide type="bottom" id="gHW-Un-ROS"/>

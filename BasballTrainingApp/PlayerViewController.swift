@@ -11,7 +11,10 @@ import Player
 
 class PlayerViewController: Player, PlayerDelegate {
 
+    var player:Player!
+    
     override func viewDidLoad() {
+        super.viewDidLoad()
         
         self.player = Player()
         self.player.delegate = self
@@ -19,8 +22,10 @@ class PlayerViewController: Player, PlayerDelegate {
         
         self.addChildViewController(self.player)
         self.view.addSubview(self.player.view)
-        self.player.didMoveToParentViewController(self)
+
     }
+    
+    
 
     
     

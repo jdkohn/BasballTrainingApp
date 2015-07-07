@@ -6,6 +6,12 @@
 //  Copyright (c) 2015 Jacob Kohn. All rights reserved.
 //
 
+
+// video url
+// righty/lefty
+// other stuff
+
+
 import UIKit
 
 class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
