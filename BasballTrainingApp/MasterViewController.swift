@@ -23,6 +23,7 @@ youtube links
 
 import UIKit
 import CoreData
+import MobileCoreServices
 
 class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
 
@@ -177,7 +178,9 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     func openGallary()
     {
         picker!.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
-       // picker!.mediaTypes
+        picker?.mediaTypes = [kUTTypeMovie as NSString]
+        
+        
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone
         {
             self.presentViewController(picker!, animated: true, completion: nil)
@@ -192,21 +195,18 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     {
         picker.dismissViewControllerAnimated(true, completion: nil)
         
-        images.insert((info[UIImagePickerControllerOriginalImage] as? UIImage)!, atIndex: 0)
         
         let url = info["UIImagePickerControllerReferenceURL"]
+        let urlString = url?.absoluteString
         
-        let image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
-        
+        //let image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
+        let image = UIImage(named: "cruz.jpg")!
         let thumbnail = UIImagePNGRepresentation(image)
-        
-        println(url!.absoluteURL)
-        
 
         //gets the date
         let date = getDate()
         
-        
+        //CoreData stuff
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext!
@@ -214,16 +214,14 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             inManagedObjectContext:
             managedContext)
         
-        
-        //saves the date
+        //creates new swing object
         let swingObject = NSManagedObject(entity: entity!,
             insertIntoManagedObjectContext:managedContext)
-
         swingObject.setValue(date, forKey: "date")
-        
-        //swingObject.setValue(url, forKey: "url")
-        
+        swingObject.setValue(urlString!, forKey: "url")
         swingObject.setValue(thumbnail, forKey: "thumbnail")
+        
+        
         
         
         var error: NSError?
@@ -231,7 +229,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             println("Could not save \(error), \(error?.userInfo)")
         }  
         
-        swings.append(swingObject)
+        swings.insert(swingObject, atIndex: 0)
         
         
         
@@ -246,7 +244,6 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     func imagePickerControllerDidCancel(picker: UIImagePickerController)
     {
         picker.dismissViewControllerAnimated(true, completion: nil)
-        //images.insert(, atIndex: 0)
         println("picker cancel.")
     }
 
