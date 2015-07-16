@@ -14,23 +14,14 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     var hitters = [String]()
     var hitterPictures = [UIImage]()
 
-    @IBOutlet weak var HitterName: UILabel!
-    
-    @IBOutlet weak var HitterPicture: UIImageView!
-    
-    
+
     
     let data = Data()
     override func viewDidLoad() {
         super.viewDidLoad()
-        println("viewDidLoad")
-        self.tableView?.registerClass(UITableViewCell.self, forCellReuseIdentifier: "HitterCell")
-        
-        //self.tableView.separatorStyle = UITableViewCellSeparatorStyle.None
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        println("numSections")
         return 1
     }
     
@@ -39,17 +30,34 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        println("a")
-        var cell = tableView.dequeueReusableCellWithIdentifier("HitterCell") as! HitterCell
-        println("b")
+        println(data.places[indexPath.row])
+        var cell: HitterCell = tableView.dequeueReusableCellWithIdentifier("HitterCellID", forIndexPath: indexPath) as! HitterCell
+        let rowNum = indexPath.row
         let entry = data.places[indexPath.row]
-        println("c")
         let image = UIImage(named: entry.filename)
-        println("d")
         cell.bkImageView.image = image
-        println("e")
         cell.headingLabel.text = entry.heading
-        println("f")
+
+        
+        let tapView = UITapGestureRecognizer()
+        tapView.addTarget(self, action: "comparison:")
+        
+        cell.addGestureRecognizer(tapView)
+        cell.userInteractionEnabled = true
+        
+        
         return cell
+    }
+    
+    func test(sender: UITapGestureRecognizer) {
+        println("works")
+    }
+    
+    
+    func comparison(sender: UITapGestureRecognizer, rowNum : Int) {
+        
+        let PlayerViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("PlayerViewController")) as! UIViewController
+       // PlayerViewController.link = data.places[rowNum]
+        self.presentViewController(PlayerViewController, animated:true, completion:nil)
     }
 }

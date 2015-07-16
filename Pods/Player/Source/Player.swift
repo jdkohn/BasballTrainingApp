@@ -125,15 +125,20 @@ public class Player: UIViewController {
             var remoteUrl: NSURL? = NSURL(string: newValue)
             if remoteUrl != nil && remoteUrl?.scheme != nil {
                 if let asset = AVURLAsset(URL: remoteUrl, options: .None) {
+                    
                     self.setupAsset(asset)
                 }
+                println("!")
             } else {
                 var localURL: NSURL? = NSURL(fileURLWithPath: newValue)
                 if let asset = AVURLAsset(URL: localURL, options: .None) {
                     self.setupAsset(asset)
                 }
+                
             }
+            println(filepath)
         }
+        
     }
     
     public var muted: Bool! {

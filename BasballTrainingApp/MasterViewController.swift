@@ -7,12 +7,23 @@
 //
 
 
-// video url
-// righty/lefty
-// other stuff
+/*
+fast forward/rewind
+    Create method/enum in player
+add a done button to player view controller
+add stepper to player
+core data tutorial
+two players next to each other
+thumbnails from videos
+getting videos from photo library
+
+
+youtube links
+*/
 
 
 import UIKit
+import CoreData
 
 class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
 
@@ -57,16 +68,6 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     }
 
     
-    
-    // input searcher - for testing
-    func input() -> String {
-        var keyboard = NSFileHandle.fileHandleWithStandardInput()
-        var inputData = keyboard.availableData
-        var strData = NSString(data: inputData, encoding: NSUTF8StringEncoding)!
-        
-        println(strData.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet()))
-        return strData.stringByTrimmingCharactersInSet(NSCharacterSet.newlineCharacterSet())
-    }
 
 
     
@@ -110,6 +111,8 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         let time = getTime.stringFromDate(NSDate())
         
         
+        
+        
         let date = month + " " + day + ", " + year + " at " + time
         
         return date
@@ -119,7 +122,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     
     func getVideo() {
         
-        let alert: UIAlertController = UIAlertController(title: "!", message: "!", preferredStyle: .ActionSheet)
+        let alert: UIAlertController = UIAlertController(title: "", message: "", preferredStyle: .ActionSheet)
         
         //Create and add the Cancel action
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in
@@ -151,7 +154,8 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     
     func openGallary()
     {
-        picker!.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        picker!.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
+       // picker!.mediaTypes
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone
         {
             self.presentViewController(picker!, animated: true, completion: nil)
@@ -164,15 +168,27 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     }
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
-        println("!")
-        picker .dismissViewControllerAnimated(true, completion: nil)
+        picker.dismissViewControllerAnimated(true, completion: nil)
         
         images.insert((info[UIImagePickerControllerOriginalImage] as? UIImage)!, atIndex: 0)
+        
+        let url = info["UIImagePickerControllerReferenceURL"]
+        
+        println(url!.absoluteURL)
+        
+        //gets the date
+        let date = getDate()
+        
+        objects.insert(date, atIndex: 0)
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         
         
     }
     func imagePickerControllerDidCancel(picker: UIImagePickerController)
     {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        //images.insert(, atIndex: 0)
         println("picker cancel.")
     }
 
@@ -182,14 +198,6 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     func insertNewObject(sender: AnyObject) {
         
         getVideo()
-        
-        //gets the date
-        let date = getDate()
-        
-        objects.insert(date, atIndex: 0)
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        
         
         
     }
