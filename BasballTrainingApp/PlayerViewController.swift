@@ -32,7 +32,7 @@ class PlayerViewController: UIViewController, PlayerDelegate {
     
    // var link = "file:///Users/jdkohn/Desktop/Spanish%20Video%20Final.mp4"
     
-    var link = "https://www.youtube.com/watch?v=pX8BXH3SJn0"
+    var link = String()
     
     var pauseItems = [AnyObject]()
     
@@ -44,8 +44,6 @@ class PlayerViewController: UIViewController, PlayerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         
         var viewSize: CGSize = UIScreen.mainScreen().bounds.size
@@ -91,6 +89,9 @@ class PlayerViewController: UIViewController, PlayerDelegate {
         println("button works")
     }
     
+    func setURL(link: String) {
+        self.link = link
+    }
     
     
     func playerReady(player: Player) {}

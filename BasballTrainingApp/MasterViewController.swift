@@ -268,6 +268,11 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
                 let image = UIImage(data: (swings[indexPath.row].valueForKey("thumbnail") as! NSData))!
                 
                 controller.setImageThumbnail(image)
+                
+                let url = swings[indexPath.row].valueForKey("url")
+                
+                controller.setLink(url as! String)
+                
                 //controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true

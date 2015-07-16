@@ -23,9 +23,12 @@ Find way to get thumbnail from video
 
 
 import UIKit
+import Player
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, PlayerDelegate {
 
+    var player:Player!
+    
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
     @IBOutlet weak var videoThumbnail: UIImageView!
@@ -36,7 +39,7 @@ class DetailViewController: UIViewController {
 
     var img = UIImage()
     
-    
+    var url = String()
     
     
     var detailItem: AnyObject? {
@@ -59,14 +62,42 @@ class DetailViewController: UIViewController {
     func navToPlayer(sender: UITapGestureRecognizer) {
         
         
-        let PlayerViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("PlayerViewController")) as! UIViewController
         
-        self.presentViewController(PlayerViewController, animated:true, completion:nil)
+        
+        
+        var viewSize: CGSize = UIScreen.mainScreen().bounds.size
+        
+        self.view.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height)
+        
+        self.player = Player()
+        self.player.delegate = self
+        self.player.view.frame = self.view.bounds
+        
+        
+        self.view.addSubview(self.player.view)
+        
+        
+        self.player.path = self.url
+        
+        player.playbackState = PlaybackState.Playing
+        
+//        
+//        let controller = (segue.destinationViewController as! UINavigationController).topViewController as! PlayerViewController
+//        
+//        let PlayerViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("PlayerViewController")) as! UIViewController
+//        
+//        PlayerViewController.link = self.url
+//        
+//        self.presentViewController(PlayerViewController, animated:true, completion:nil)
         
     }
     
     func setImageThumbnail(image: UIImage) {
         self.img = image
+    }
+    
+    func setLink(url : String) {
+        self.url = url
     }
     
     
@@ -162,6 +193,37 @@ class DetailViewController: UIViewController {
         UIGraphicsEndImageContext()
         
         return newImage
+    }
+    
+    
+    func playerReady(player: Player) {}
+    func playerPlaybackStateDidChange(player: Player) {
+        //        print("playback state changes ")
+        //        println(player.playbackState)
+    }
+    func playerBufferingStateDidChange(player: Player) {
+        //        print("buffering state changes ")
+        //        println(player.bufferingState)
+    }
+    
+    func playerPlaybackWillStartFromBeginning(player: Player) {}
+    func playerPlaybackDidEnd(player: Player) {}
+    
+    
+    
+    func pause(sender: UIBarButtonItem) {
+//        self.player.pause()
+//        toolbar.setItems(playItems, animated: true)
+        
+    }
+    
+    func play(sender: UIBarButtonItem) {
+//        self.player.playFromCurrentTime()
+//        toolbar.setItems(pauseItems, animated: true)
+    }
+    
+    func done(sender: UIButton) {
+        player.dismissViewControllerAnimated(true, completion: nil)
     }
 
 }
