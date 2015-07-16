@@ -30,7 +30,9 @@ class PlayerViewController: UIViewController, PlayerDelegate {
     
     var player:Player!
     
-    var link = "file:///Users/jdkohn/Desktop/Spanish%20Video%20Final.mp4"
+   // var link = "file:///Users/jdkohn/Desktop/Spanish%20Video%20Final.mp4"
+    
+    var link = "https://www.youtube.com/watch?v=pX8BXH3SJn0"
     
     var pauseItems = [AnyObject]()
     

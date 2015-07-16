@@ -12,7 +12,6 @@ fast forward/rewind
     Create method/enum in player
 add a done button to player view controller
 add stepper to player
-core data tutorial
 two players next to each other
 thumbnails from videos
 getting videos from photo library
@@ -28,7 +27,13 @@ import CoreData
 class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
 
     var detailViewController: DetailViewController? = nil
-    var objects = [AnyObject]()
+    var swings = [NSManagedObject]()
+    var p = [NSManagedObject]()
+    
+    
+    
+    
+    //var objects = [AnyObject]()
     var images = [UIImage]()
     
 
@@ -59,6 +64,26 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         }
         picker!.delegate = self
         println("App opened")
+        
+        
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext!
+        
+        let fetchRequest = NSFetchRequest(entityName:"Swing")
+
+        var error: NSError?
+        
+        let fetchedResults =
+        managedContext.executeFetchRequest(fetchRequest,
+            error: &error) as? [NSManagedObject]
+        
+        if let results = fetchedResults {
+            swings = results
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+        }
         
     }
 
@@ -109,10 +134,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         let getTime = NSDateFormatter()
         getTime.dateFormat = "HH:mm"
         let time = getTime.stringFromDate(NSDate())
-        
-        
-        
-        
+
         let date = month + " " + day + ", " + year + " at " + time
         
         return date
@@ -174,12 +196,48 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         
         let url = info["UIImagePickerControllerReferenceURL"]
         
+        let image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
+        
+        let thumbnail = UIImagePNGRepresentation(image)
+        
         println(url!.absoluteURL)
         
+
         //gets the date
         let date = getDate()
         
-        objects.insert(date, atIndex: 0)
+        
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext!
+        let entity =  NSEntityDescription.entityForName("Swing",
+            inManagedObjectContext:
+            managedContext)
+        
+        
+        //saves the date
+        let swingObject = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext:managedContext)
+
+        swingObject.setValue(date, forKey: "date")
+        
+        //swingObject.setValue(url, forKey: "url")
+        
+        swingObject.setValue(thumbnail, forKey: "thumbnail")
+        
+        
+        var error: NSError?
+        if !managedContext.save(&error) {
+            println("Could not save \(error), \(error?.userInfo)")
+        }  
+        
+        swings.append(swingObject)
+        
+        
+        
+        println(swings)
+    
+        
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         
@@ -207,10 +265,13 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                let object = objects[indexPath.row] as! NSString
+                //let object = objects[indexPath.row] as! NSString
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
-                controller.setImageThumbnail(images[indexPath.row])
-                controller.detailItem = object
+                
+                let image = UIImage(data: (swings[indexPath.row].valueForKey("thumbnail") as! NSData))!
+                
+                controller.setImageThumbnail(image)
+                //controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
                 
@@ -225,14 +286,15 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return objects.count
+        return swings.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
 
-        let object = objects[indexPath.row] as! NSString
-        cell.textLabel!.text = object.description
+
+        cell.textLabel!.text = swings[indexPath.row].valueForKey("date") as? String
+        println(swings)
         return cell
     }
 
@@ -245,7 +307,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     //remove item from list
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            objects.removeAtIndex(indexPath.row)
+            //objects.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
