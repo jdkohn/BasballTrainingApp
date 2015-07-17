@@ -28,6 +28,7 @@ import UIKit
 import Foundation
 import AVFoundation
 import CoreGraphics
+import CoreMedia
 
 public enum PlaybackState: Int, Printable {
     case Stopped = 0
@@ -199,7 +200,7 @@ public class Player: UIViewController {
         self.player.actionAtItemEnd = .Pause
         self.player.addObserver(self, forKeyPath: PlayerRateKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old) , context: &PlayerObserverContext)
 
-        self.playbackLoops = false
+        self.playbackLoops = true
         self.playbackFreezesAtEnd = false
         self.playbackState = .Stopped
         self.bufferingState = .Unknown
@@ -262,6 +263,18 @@ public class Player: UIViewController {
         self.delegate?.playerPlaybackStateDidChange(self)
         self.player.play()
     }
+    
+    public func stepForward() {
+        var step = CMTimeMake(1, 20)
+        var newTime = CMTimeAdd(playerItem!.currentTime(), step)
+        self.player.seekToTime(newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
+    }
+    
+    public func stepBackward() {
+        var step = CMTimeMake(1, 20)
+        var newTime = CMTimeSubtract(playerItem!.currentTime(), step)
+        self.player.seekToTime(newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
+    }
 
     public func pause() {
         if self.playbackState != .Playing {
@@ -282,6 +295,10 @@ public class Player: UIViewController {
         self.playbackState = .Stopped
         self.delegate?.playerPlaybackStateDidChange(self)
         self.delegate?.playerPlaybackDidEnd(self)
+    }
+    
+    public func printTime(time: CMTime) {
+        println(Float(CMTimeGetSeconds(time)))
     }
 
     // MARK: private setup

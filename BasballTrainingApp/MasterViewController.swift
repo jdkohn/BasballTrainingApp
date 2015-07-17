@@ -14,9 +14,6 @@ add a done button to player view controller
 add stepper to player
 two players next to each other
 thumbnails from videos
-getting videos from photo library
-
-
 youtube links
 */
 

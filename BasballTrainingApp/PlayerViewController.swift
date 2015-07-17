@@ -81,8 +81,6 @@ class PlayerViewController: UIViewController, PlayerDelegate {
         //add toolbar to the view
         toolbar.barStyle = UIBarStyle.Black
         self.player.view.addSubview(toolbar)
-        
-
     }
 
     func testButton(sender: UIBarButtonItem) {
@@ -113,6 +111,10 @@ class PlayerViewController: UIViewController, PlayerDelegate {
         self.player.pause()
         toolbar.setItems(playItems, animated: true)
 
+    }
+    
+    func stepForward(sender: UIBarButtonItem) {
+        
     }
     
     func play(sender: UIBarButtonItem) {

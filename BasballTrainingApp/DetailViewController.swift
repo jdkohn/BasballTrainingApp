@@ -62,9 +62,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
     func navToPlayer(sender: UITapGestureRecognizer) {
         
         
-        
-        
-        
         var viewSize: CGSize = UIScreen.mainScreen().bounds.size
         
         self.view.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height)
@@ -226,6 +223,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
         player.dismissViewControllerAnimated(true, completion: nil)
     }
 
+    }
 }
 
 
