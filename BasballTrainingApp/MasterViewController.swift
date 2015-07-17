@@ -8,10 +8,10 @@
 
 
 /*
-fast forward/rewind
-    Create method/enum in player
+
 add a done button to player view controller
-add stepper to player
+add drawing
+add name/notes from DVC
 two players next to each other
 thumbnails from videos
 youtube links
@@ -290,10 +290,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
-
-
         cell.textLabel!.text = swings[indexPath.row].valueForKey("date") as? String
-        println(swings)
         return cell
     }
 
