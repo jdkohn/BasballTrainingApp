@@ -16,6 +16,7 @@
 		2C631CEE1B4C785E002E4932 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C631CED1B4C785E002E4932 /* Data.swift */; };
 		2C771ADB1B3A05CF00FA6E2D /* cruz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C771ADA1B3A05CF00FA6E2D /* cruz.jpg */; };
 		2C771ADD1B3CA3EE00FA6E2D /* HitterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */; };
+		2C8AF2241B5F071D00FCE4EF /* CompareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8AF2231B5F071D00FCE4EF /* CompareView.swift */; };
 		2CBBC40B1B59C5F700996BB5 /* drawsomething.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBBC40A1B59C5F700996BB5 /* drawsomething.png */; };
 		2CBBC40D1B59C98900996BB5 /* pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBBC40C1B59C98900996BB5 /* pencil.png */; };
 		2CBBC40F1B59CB4C00996BB5 /* pencil2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBBC40E1B59CB4C00996BB5 /* pencil2.png */; };
@@ -50,6 +51,7 @@
 		2C631CED1B4C785E002E4932 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		2C771ADA1B3A05CF00FA6E2D /* cruz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cruz.jpg; sourceTree = "<group>"; };
 		2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitterViewController.swift; sourceTree = "<group>"; };
+		2C8AF2231B5F071D00FCE4EF /* CompareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompareView.swift; sourceTree = "<group>"; };
 		2CBBC40A1B59C5F700996BB5 /* drawsomething.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drawsomething.png; sourceTree = "<group>"; };
 		2CBBC40C1B59C98900996BB5 /* pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil.png; sourceTree = "<group>"; };
 		2CBBC40E1B59CB4C00996BB5 /* pencil2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil2.png; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 				2C631CBD1B4C61D5002E4932 /* HitterCell.swift */,
 				2CCD84C31B39EA41001EC2FD /* MasterViewController.swift */,
 				2CCD84C51B39EA41001EC2FD /* DetailViewController.swift */,
+				2C8AF2231B5F071D00FCE4EF /* CompareView.swift */,
 				2C631CED1B4C785E002E4932 /* Data.swift */,
 				2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */,
 				2CCD84C71B39EA41001EC2FD /* Main.storyboard */,
@@ -344,6 +347,7 @@
 				2C4757261B55D0B000921B24 /* SavedData.xcdatamodeld in Sources */,
 				2C631CBE1B4C61D5002E4932 /* HitterCell.swift in Sources */,
 				2CCD84C21B39EA41001EC2FD /* AppDelegate.swift in Sources */,
+				2C8AF2241B5F071D00FCE4EF /* CompareView.swift in Sources */,
 				2C631CEE1B4C785E002E4932 /* Data.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

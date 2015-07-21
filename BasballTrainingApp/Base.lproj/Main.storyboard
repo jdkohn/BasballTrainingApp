@@ -104,10 +104,10 @@
             </objects>
             <point key="canvasLocation" x="709" y="129"/>
         </scene>
-        <!--View Controller-->
+        <!--CompareView-->
         <scene sceneID="9GD-Hk-O2H">
             <objects>
-                <viewController id="oz4-by-ahY" sceneMemberID="viewController">
+                <viewController title="CompareView" id="oz4-by-ahY" customClass="CompareView" customModule="BasballTrainingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="IKl-ug-PnH"/>
                         <viewControllerLayoutGuide type="bottom" id="wCy-8s-p0m"/>
@@ -117,6 +117,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ifZ-yq-z8V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

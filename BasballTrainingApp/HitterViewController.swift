@@ -32,6 +32,8 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
         return data.places.count
     }
     
+
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         println(data.places[indexPath.row])
         var cell: HitterCell = tableView.dequeueReusableCellWithIdentifier("HitterCellID", forIndexPath: indexPath) as! HitterCell
@@ -40,25 +42,13 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
         let image = UIImage(named: entry.filename)
         cell.bkImageView.image = image
         cell.headingLabel.text = entry.heading
-
-        
-        let tapView = UITapGestureRecognizer()
-        tapView.addTarget(self, action: "comparison:")
-        
-        cell.addGestureRecognizer(tapView)
-        cell.userInteractionEnabled = true
-        
         
         return cell
     }
-    
-    func test(sender: UITapGestureRecognizer) {
-        println("works")
+
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
     }
     
-    
-    func comparison(sender: UITapGestureRecognizer) {
-        print("works: ")
-//        println(indexPath)
-    }
+
 }
