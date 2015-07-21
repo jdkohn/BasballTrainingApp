@@ -9,8 +9,6 @@
 
 /*
 
-add a done button to player view controller
-add drawing
 add name/notes from DVC
 two players next to each other
 thumbnails from videos
@@ -188,6 +186,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             //popover!.presentPopoverFromRect(btnClickMe.frame, inView: self.view, permittedArrowDirections: UIPopoverArrowDirection.Any, animated: true)
         }
     }
+    
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
         picker.dismissViewControllerAnimated(true, completion: nil)

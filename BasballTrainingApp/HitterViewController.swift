@@ -14,11 +14,14 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     var hitters = [String]()
     var hitterPictures = [UIImage]()
 
+    @IBOutlet weak var topBar: UINavigationItem!
 
+    
     
     let data = Data()
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false, animated: true)
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -54,10 +57,8 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     }
     
     
-    func comparison(sender: UITapGestureRecognizer, rowNum : Int) {
-        
-        let PlayerViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("PlayerViewController")) as! UIViewController
-       // PlayerViewController.link = data.places[rowNum]
-        self.presentViewController(PlayerViewController, animated:true, completion:nil)
+    func comparison(sender: UITapGestureRecognizer) {
+        print("works: ")
+//        println(indexPath)
     }
 }

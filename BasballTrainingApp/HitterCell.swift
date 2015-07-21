@@ -14,8 +14,6 @@ class HitterCell: UITableViewCell {
     @IBOutlet weak var bkImageView: UIImageView!
     @IBOutlet weak var headingLabel: UILabel!
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
             
