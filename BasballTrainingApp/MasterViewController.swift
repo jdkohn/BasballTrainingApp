@@ -230,7 +230,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             picker.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
             image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
-            //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
             
             picker.dismissViewControllerAnimated(true, completion: nil)
             
@@ -397,6 +397,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             
         
             swings.removeAtIndex(indexPath.row)
+            managedContext.save(nil)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
 
             
