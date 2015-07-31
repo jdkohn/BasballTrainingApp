@@ -13,26 +13,29 @@ import CoreData
 
 class DetailViewController: UIViewController, PlayerDelegate {
 
+    var swings = [NSManagedObject]()
+    var idx = Int()
+    
+    var masterViewController: MasterViewController? = nil
+    
     var player:Player!
     
     var playerLeft: Player!
     var playerRight: Player!
     
-    var TP:Player!
-    
     var proUrl = String()
     
     var RHTable = UITableView()
-    
+
     
     @IBOutlet weak var detailDescriptionLabel: UILabel!
     @IBOutlet weak var videoThumbnail: UIImageView!
     @IBOutlet weak var compareButton: UIButton!
     @IBOutlet weak var thumbnail: UIImageView!
+    @IBOutlet weak var renameButton: UIButton!
+    @IBOutlet weak var deleteButton: UIButton!
 
-    //@IBOutlet weak var mainImageView: UIImageView!
-    //@IBOutlet weak var tempImageView: UIImageView!
-    
+
     var mainImageView = UIImageView()
     var tempImageView = UIImageView()
     
@@ -193,6 +196,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
     
     func configureActions() {
         compareButton.addTarget(self, action: "sendAlert:", forControlEvents: UIControlEvents.TouchUpInside)
+        renameButton.addTarget(self, action: "renameSwing:", forControlEvents: UIControlEvents.TouchUpInside)
+        deleteButton.addTarget(self,action: "deleteSwing:", forControlEvents: UIControlEvents.TouchUpInside)
     }
     
     override func viewDidLoad() {
@@ -217,10 +222,129 @@ class DetailViewController: UIViewController, PlayerDelegate {
         thumbnail.userInteractionEnabled = true
         
         self.view.addSubview(compareButton)
+     
+        //CoreData stuff
         
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        
+        let managedContext = appDelegate.managedObjectContext!
+        
+        let fetchRequest = NSFetchRequest(entityName:"Swing")
+        
+        var error: NSError?
+        
+        let fetchedResults =
+        managedContext.executeFetchRequest(fetchRequest,
+            error: &error) as? [NSManagedObject]
+        
+        if let results = fetchedResults {
+            swings = results
+        } else {
+            println("Could not fetch \(error), \(error!.userInfo)")
+        }
         
         
     }
+    
+    func deleteSwing(sender: UIButton) {
+        let checkAlert = UIAlertController(title: "Delete this swing?", message: "Are you sure you want to delete?", preferredStyle: UIAlertControllerStyle.Alert)
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in }
+        checkAlert.addAction(cancelAction)
+        let confirmAction: UIAlertAction = UIAlertAction(title: "Delete", style: .Default) { action -> Void in
+            
+            
+            let appDelegate =
+            UIApplication.sharedApplication().delegate as! AppDelegate
+            let managedContext = appDelegate.managedObjectContext!
+            let entity =  NSEntityDescription.entityForName("Swing",
+                inManagedObjectContext:
+                managedContext)
+            
+            println(self.swings[self.idx])
+            
+            
+            managedContext.deleteObject(self.swings[self.idx])
+            
+            
+            self.swings.removeAtIndex(self.idx)
+            managedContext.save(nil)
+
+            
+            self.navigationController?.popViewControllerAnimated(true)
+            self.navigationController!.popToRootViewControllerAnimated(true)
+            
+            //self.returnToMain()
+            
+            //
+//            if let navigationController = self.navigationController
+//            {
+//                println("yip")
+//                navigationController.popViewControllerAnimated(true)
+//            }
+//            
+            //tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
+            
+
+        }
+        checkAlert.addAction(confirmAction)
+        self.presentViewController(checkAlert, animated: true, completion: nil)
+        
+    }
+    
+    
+    func returnToMain() {
+        //let main = UIStoryboard(name: "Master", bundle: nil)
+        
+        var currController = self.view.window?.rootViewController
+
+        let tabBarController     = UITabBarController()
+        var navigationController = UINavigationController(rootViewController: currController!)
+
+
+        
+        tabBarController.viewControllers = [navigationController]
+        self.view.window?.rootViewController = tabBarController
+        
+        let HitterViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("Master")) as! UIViewController
+        
+        self.presentViewController(HitterViewController, animated:true, completion:nil)
+    }
+    
+    
+    func renameSwing(sender: UIButton) {
+
+        var alert = UIAlertController(title: "Rename", message: "", preferredStyle: .Alert)
+        
+        alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
+            textField.text = self.swings[self.idx].valueForKey("date") as! String
+        })
+        
+        alert.addAction(UIAlertAction(title: "Rename", style: .Default, handler: { (action) -> Void in
+            let textField = alert.textFields![0] as! UITextField
+            println("Text field: \(textField.text)")
+            
+            //CoreData stuff
+            let appDelegate =
+            UIApplication.sharedApplication().delegate as! AppDelegate
+            let managedContext = appDelegate.managedObjectContext!
+            let entity =  NSEntityDescription.entityForName("Swing",
+                inManagedObjectContext:
+                managedContext)
+
+            
+            self.swings[self.idx].setValue(textField.text, forKey: "date")
+            
+            println(self.swings[self.idx])
+            
+            managedContext.save(nil)
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in })
+        
+        self.presentViewController(alert, animated: true, completion: nil)
+      
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -259,15 +383,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
     //MARK: PlayerDelegate functions
     
     func playerReady(player: Player) {}
-    func playerPlaybackStateDidChange(player: Player) {
-        //print("playback state changes ")
-        //println(player.playbackState)
-    }
-    func playerBufferingStateDidChange(player: Player) {
-        //        print("buffering state changes ")
-        //        println(player.bufferingState)
-    }
-    
+    func playerPlaybackStateDidChange(player: Player) {}
+    func playerBufferingStateDidChange(player: Player) {}
     func playerPlaybackWillStartFromBeginning(player: Player) {}
     func playerPlaybackDidEnd(player: Player) {}
     

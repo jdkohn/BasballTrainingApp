@@ -52,6 +52,14 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
+        if((navigationController?.navigationBarHidden) == nil) {
+            println("yeeyee")
+            navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false, animated: true)
+        }
+        
+        
+        
+        
         //creates add button
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
@@ -92,6 +100,9 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     }
     
     
+    override func viewDidAppear(animated: Bool) {
+        self.tableView.reloadData()
+    }
     
     
     
@@ -166,7 +177,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
                 
                 
-                println("captureVideoPressed and camera available.")
+                //println("captureVideoPressed and camera available.")
                 
                 //var imagePicker = UIImagePickerController()
                 
@@ -218,7 +229,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
         
-        let size = CGSizeMake(self.view.frame.width, self.view.frame.height - 140)
+        let size = CGSizeMake(self.view.frame.width, self.view.frame.height - 215)
         
 
         
@@ -298,6 +309,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         
         
     }
+    
     func imagePickerControllerDidCancel(picker: UIImagePickerController)
     {
         picker.dismissViewControllerAnimated(true, completion: nil)
@@ -379,8 +391,6 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     //remove item from list
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            //objects.removeAtIndex(indexPath.row)
-            //tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             
             //CoreData stuff
             let appDelegate =
