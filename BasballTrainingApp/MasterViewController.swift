@@ -8,7 +8,6 @@
 
 
 /*
-
 deleting
 add name/notes from DVC
 two players next to each other
@@ -24,18 +23,22 @@ import MobileCoreServices
 import Player
 
 class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
-
+    
     
     var image = UIImage()
     var detailViewController: DetailViewController? = nil
     var swings = [NSManagedObject]()
-
+    var recorded = false
+    var url = String()
+    
+    
+    
     var images = [UIImage]()
     
-
+    
     var picker:UIImagePickerController?=UIImagePickerController()
     var popover:UIPopoverController?=nil
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
@@ -43,12 +46,12 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             self.preferredContentSize = CGSize(width: 320.0, height: 600.0)
         }
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
-
+        
         //creates add button
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
@@ -68,7 +71,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         let managedContext = appDelegate.managedObjectContext!
         
         let fetchRequest = NSFetchRequest(entityName:"Swing")
-
+        
         var error: NSError?
         
         let fetchedResults =
@@ -82,18 +85,18 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         }
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
     
-
-
+    
+    
+    
     
     /*  Returns the date in String format - way it will show up in table view
-        @Return: String - date */
+    @Return: String - date */
     func getDate() -> String {
         
         //get the month
@@ -110,7 +113,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         let getYear = NSDateFormatter()
         getYear.dateFormat = "yyyy"
         let year = getYear.stringFromDate(NSDate())
-
+        
         var month = ""
         
         if(monthNum == "01") { month = "January" }
@@ -130,7 +133,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         let getTime = NSDateFormatter()
         getTime.dateFormat = "HH:mm"
         let time = getTime.stringFromDate(NSDate())
-
+        
         let date = month + " " + day + ", " + year + " at " + time
         
         return date
@@ -149,10 +152,10 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         alert.addAction(cancelAction)
         //Create and add first option action
         let chooseSide: UIAlertAction = UIAlertAction(title: "Upload Video", style: .Default) { action -> Void in
- 
+            
             
             self.openGallary()
-
+            
             
         }
         alert.addAction(chooseSide)
@@ -160,13 +163,39 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         //Create and add a second option action
         let chooseSide2: UIAlertAction = UIAlertAction(title: "Record Video", style: .Default) { action -> Void in
             
+            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
+                
+                
+                println("captureVideoPressed and camera available.")
+                
+                //var imagePicker = UIImagePickerController()
+                
+                self.picker!.delegate = self
+                self.picker!.sourceType = .Camera;
+                self.picker!.mediaTypes = [kUTTypeMovie!]
+                self.picker!.allowsEditing = false
+                
+                self.picker!.showsCameraControls = true
+                
+                
+                self.presentViewController(self.picker!, animated: true, completion: nil)
+                
+                self.recorded = true
+            }
+                
+            else {
+                println("Camera not available.")
+            }
+
+            
+            
         }
         alert.addAction(chooseSide2)
         
         
         //Present the AlertController
         self.presentViewController(alert, animated: true, completion: nil)
-}
+    }
     
     
     
@@ -191,28 +220,51 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         
         let size = CGSizeMake(self.view.frame.width, self.view.frame.height - 140)
         
-        UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
-        picker.view.layer.renderInContext(UIGraphicsGetCurrentContext())
-        
-        picker.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
 
-        picker.dismissViewControllerAnimated(true, completion: nil)
         
-        let url = info["UIImagePickerControllerReferenceURL"]
-        println(url)
-        let urlString = url?.absoluteString
-        println(urlString)
+        if(recorded == false) {
+            
+            UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
+            picker.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+            
+            picker.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
+            image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            
+            picker.dismissViewControllerAnimated(true, completion: nil)
+            
+            
+            let nsbsurl = info["UIImagePickerControllerReferenceURL"] as! NSURL
+            url = nsbsurl.absoluteString!
+
+        } else {
+            let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
+            let pathString = tempImage.relativePath
+            self.dismissViewControllerAnimated(true, completion: {})
+            
+            UISaveVideoAtPathToSavedPhotosAlbum(pathString, self, nil, nil)
+            url = pathString!
+            image = UIImage(named: "cruz.jpg")!
+            
+            recorded = false
+        }
+        
+        println("about to print url")
+        println("url: " + url)
+        let urlString = url
+        println("url String: " + urlString)
         
         
         //let image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
-        //let image = UIImage(named: "cruz.jpg")!
+        
+        
         let thumbnail = UIImagePNGRepresentation(image)
-
+        println("gets PNGRep of image")
+        
         //gets the date
         let date = getDate()
+        println("gets date")
         
         //CoreData stuff
         let appDelegate =
@@ -226,7 +278,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         let swingObject = NSManagedObject(entity: entity!,
             insertIntoManagedObjectContext:managedContext)
         swingObject.setValue(date, forKey: "date")
-        swingObject.setValue(urlString!, forKey: "url")
+        swingObject.setValue(urlString, forKey: "url")
         swingObject.setValue(thumbnail, forKey: "thumbnail")
         
         
@@ -235,11 +287,11 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         var error: NSError?
         if !managedContext.save(&error) {
             println("Could not save \(error), \(error?.userInfo)")
-        }  
+        }
         
         swings.insert(swingObject, atIndex: 0)
         
-    
+        
         
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
@@ -267,9 +319,9 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         return image
     }
     
-
-
-
+    
+    
+    
     //adds new object
     func insertNewObject(sender: AnyObject) {
         
@@ -277,9 +329,9 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         
         
     }
-
+    
     // Segues
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
@@ -301,47 +353,61 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             }
         }
     }
-
+    
     // Table View
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return swings.count
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel!.text = swings[indexPath.row].valueForKey("date") as? String
         return cell
     }
-
+    
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-
+    
     
     //remove item from list
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             //objects.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            //tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
             
-            let appDel:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-            let context:NSManagedObjectContext = appDel.managedObjectContext!
-            context.deleteObject(swings[indexPath.row] as NSManagedObject)
+            //CoreData stuff
+            let appDelegate =
+            UIApplication.sharedApplication().delegate as! AppDelegate
+            let managedContext = appDelegate.managedObjectContext!
+            let entity =  NSEntityDescription.entityForName("Swing",
+                inManagedObjectContext:
+                managedContext)
+            
+            println(swings[indexPath.row])
+            
+            
+            managedContext.deleteObject(swings[indexPath.row])
+            
+        
             swings.removeAtIndex(indexPath.row)
-            context.save(nil)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
 
+            
             
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
+    
 
+    
     
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
@@ -352,4 +418,3 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             dispatch_get_main_queue(), closure)
     }
 }
-
