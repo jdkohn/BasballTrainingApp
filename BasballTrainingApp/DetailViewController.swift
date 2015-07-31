@@ -9,10 +9,21 @@
 
 import UIKit
 import Player
+import CoreData
 
 class DetailViewController: UIViewController, PlayerDelegate {
 
     var player:Player!
+    
+    var playerLeft: Player!
+    var playerRight: Player!
+    
+    var TP:Player!
+    
+    var proUrl = String()
+    
+    var RHTable = UITableView()
+    
     
     @IBOutlet weak var detailDescriptionLabel: UILabel!
     @IBOutlet weak var videoThumbnail: UIImageView!
@@ -142,12 +153,41 @@ class DetailViewController: UIViewController, PlayerDelegate {
         
     }
     
+    func twoPlayers() {
+        let leftFrame = CGRectMake(0, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
+        let rightFrame = CGRectMake(self.view.frame.size.width / 2, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
+        
+        
+        self.playerLeft = Player()
+        self.playerLeft.delegate = self
+        self.playerLeft.view.frame = leftFrame
+        
+        
+        self.playerRight = Player()
+        self.playerRight.delegate = self
+        self.playerRight.view.frame = rightFrame
+        
+        
+        self.view.addSubview(self.playerLeft.view)
+        self.view.addSubview(self.playerRight.view)
+        
+        self.playerLeft.path = self.url
+        self.playerRight.path = self.proUrl
+        
+        playerLeft.playbackState = PlaybackState.Playing
+        playerRight.playbackState = PlaybackState.Playing
+    }
+    
     func setImageThumbnail(image: UIImage) {
         self.img = image
     }
     
     func setLink(url : String) {
         self.url = url
+    }
+    
+    func setPro(url : String) {
+        self.proUrl = url
     }
     
     
@@ -164,7 +204,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
         
         var bounds = UIScreen.mainScreen().bounds
         var width = bounds.size.width
-        var size = CGSize(width: width - 4, height: 250)
+        var size = CGSize(width: width - 4, height: self.view.frame.height - 200)
 
         
         thumbnail.image = RBResizeImage(self.img, targetSize: size)
@@ -177,6 +217,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
         thumbnail.userInteractionEnabled = true
         
         self.view.addSubview(compareButton)
+        
+        
         
     }
 
@@ -198,6 +240,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
 
 
                 let HitterViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("HitterViewController")) as! UIViewController
+                
                 self.presentViewController(HitterViewController, animated:true, completion:nil)
         }
             alert.addAction(chooseSide)
@@ -207,6 +250,9 @@ class DetailViewController: UIViewController, PlayerDelegate {
             //Present the AlertController
             self.presentViewController(alert, animated: true, completion: nil)
         }
+    
+    
+    
     
 
     
@@ -287,7 +333,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
         clearButton.opaque = false
         clearButton.alpha = 0.75
         player.view.addSubview(clearButton)
-        
     }
     
     func endDraw(sender: UIBarButtonItem) {
@@ -328,6 +373,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
     
     //image resizer
     func RBResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let croppedImage: UIImage = ImageUtil().cropToSquare(image: image)
+        
         let size = image.size
         
         let widthRatio  = targetSize.width  / image.size.width

@@ -12,6 +12,7 @@
 		2C2B9F171B4F1F4100BE340A /* bryant.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B9F161B4F1F4100BE340A /* bryant.jpg */; };
 		2C4757231B55D05600921B24 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C4757221B55D05600921B24 /* CoreData.framework */; };
 		2C4757261B55D0B000921B24 /* SavedData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C4757241B55D0AF00921B24 /* SavedData.xcdatamodeld */; };
+		2C5C360D1B6AD82B00C586F1 /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C5C360C1B6AD82B00C586F1 /* ImageUtil.swift */; };
 		2C631CBE1B4C61D5002E4932 /* HitterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C631CBD1B4C61D5002E4932 /* HitterCell.swift */; };
 		2C631CEE1B4C785E002E4932 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C631CED1B4C785E002E4932 /* Data.swift */; };
 		2C771ADB1B3A05CF00FA6E2D /* cruz.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C771ADA1B3A05CF00FA6E2D /* cruz.jpg */; };
@@ -47,6 +48,7 @@
 		2C2B9F161B4F1F4100BE340A /* bryant.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bryant.jpg; sourceTree = "<group>"; };
 		2C4757221B55D05600921B24 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2C4757251B55D0B000921B24 /* SavedData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SavedData.xcdatamodel; sourceTree = "<group>"; };
+		2C5C360C1B6AD82B00C586F1 /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		2C631CBD1B4C61D5002E4932 /* HitterCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitterCell.swift; sourceTree = "<group>"; };
 		2C631CED1B4C785E002E4932 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		2C771ADA1B3A05CF00FA6E2D /* cruz.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cruz.jpg; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				2C631CBD1B4C61D5002E4932 /* HitterCell.swift */,
 				2CCD84C31B39EA41001EC2FD /* MasterViewController.swift */,
 				2CCD84C51B39EA41001EC2FD /* DetailViewController.swift */,
+				2C5C360C1B6AD82B00C586F1 /* ImageUtil.swift */,
 				2C8AF2231B5F071D00FCE4EF /* CompareView.swift */,
 				2C631CED1B4C785E002E4932 /* Data.swift */,
 				2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */,
@@ -234,6 +237,7 @@
 				TargetAttributes = {
 					2CCD84BB1B39EA41001EC2FD = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = J44PM8Q84B;
 					};
 					2CCD84D21B39EA41001EC2FD = {
 						CreatedOnToolsVersion = 6.3.1;
@@ -341,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C5C360D1B6AD82B00C586F1 /* ImageUtil.swift in Sources */,
 				2C771ADD1B3CA3EE00FA6E2D /* HitterViewController.swift in Sources */,
 				2CCD84C61B39EA41001EC2FD /* DetailViewController.swift in Sources */,
 				2CCD84C41B39EA41001EC2FD /* MasterViewController.swift in Sources */,
@@ -478,6 +483,7 @@
 			baseConfigurationReference = 592ACA8642030DDDDDC6422C /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BasballTrainingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -489,6 +495,7 @@
 			baseConfigurationReference = 737CE1A7AA3CD2FBDB54E8C1 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = BasballTrainingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

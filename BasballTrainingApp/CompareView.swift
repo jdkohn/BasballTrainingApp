@@ -34,7 +34,8 @@ class CompareView: UIViewController, PlayerDelegate {
         self.playerRight.delegate = self
         self.playerRight.view.frame = rightFrame
         
-        
+        self.view.addSubview(self.playerLeft.view)
+        self.view.addSubview(self.playerRight.view)
         
         
     }

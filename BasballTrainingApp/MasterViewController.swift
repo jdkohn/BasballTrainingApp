@@ -9,27 +9,27 @@
 
 /*
 
+deleting
 add name/notes from DVC
 two players next to each other
 thumbnails from videos
 youtube links
+install unity
 */
 
 
 import UIKit
 import CoreData
 import MobileCoreServices
+import Player
 
 class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
 
+    
+    var image = UIImage()
     var detailViewController: DetailViewController? = nil
     var swings = [NSManagedObject]()
-    var p = [NSManagedObject]()
-    
-    
-    
-    
-    //var objects = [AnyObject]()
+
     var images = [UIImage]()
     
 
@@ -175,7 +175,6 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         picker!.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum
         picker?.mediaTypes = [kUTTypeMovie as NSString]
         
-        
         if UIDevice.currentDevice().userInterfaceIdiom == .Phone
         {
             self.presentViewController(picker!, animated: true, completion: nil)
@@ -189,14 +188,27 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
+        
+        let size = CGSizeMake(self.view.frame.width, self.view.frame.height - 140)
+        
+        UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
+        picker.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+        
+        picker.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+
         picker.dismissViewControllerAnimated(true, completion: nil)
         
-        
         let url = info["UIImagePickerControllerReferenceURL"]
+        println(url)
         let urlString = url?.absoluteString
+        println(urlString)
+        
         
         //let image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
-        let image = UIImage(named: "cruz.jpg")!
+        //let image = UIImage(named: "cruz.jpg")!
         let thumbnail = UIImagePNGRepresentation(image)
 
         //gets the date
@@ -227,9 +239,6 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         
         swings.insert(swingObject, atIndex: 0)
         
-        
-        
-        println(swings)
     
         
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
@@ -242,6 +251,22 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         picker.dismissViewControllerAnimated(true, completion: nil)
         println("picker cancel.")
     }
+    
+    func capture() -> UIImage {
+        
+        let size = CGSizeMake(self.view.frame.width, self.view.frame.height - 100)
+        
+        UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
+        picker!.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+        
+        picker!.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        println("screenshot")
+        return image
+    }
+    
 
 
 
@@ -304,11 +329,27 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         if editingStyle == .Delete {
             //objects.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
+            let appDel:AppDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let context:NSManagedObjectContext = appDel.managedObjectContext!
+            context.deleteObject(swings[indexPath.row] as NSManagedObject)
+            swings.removeAtIndex(indexPath.row)
+            context.save(nil)
+
+            
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
 
-
+    
+    func delay(delay:Double, closure:()->()) {
+        dispatch_after(
+            dispatch_time(
+                DISPATCH_TIME_NOW,
+                Int64(delay * Double(NSEC_PER_SEC))
+            ),
+            dispatch_get_main_queue(), closure)
+    }
 }
 
