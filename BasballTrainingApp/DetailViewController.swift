@@ -183,6 +183,10 @@ class DetailViewController: UIViewController, PlayerDelegate {
         playerRight.playbackState = PlaybackState.Playing
     }
     
+    func passIdx(index: Int) {
+        self.idx = index
+    }
+    
     func setImageThumbnail(image: UIImage) {
         self.img = image
     }
@@ -198,11 +202,31 @@ class DetailViewController: UIViewController, PlayerDelegate {
     
     func configureActions() {
         compareButton.addTarget(self, action: "sendAlert:", forControlEvents: UIControlEvents.TouchUpInside)
-        renameButton.addTarget(self, action: "renameSwing:", forControlEvents: UIControlEvents.TouchUpInside)
-        deleteButton.addTarget(self,action: "deleteSwing:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        
+        let renameButton2 = UIButton.buttonWithType(.System) as! UIButton
+        renameButton2.frame = CGRectMake(4, self.view.frame.maxY - 60, (self.view.frame.width - 8) / 2, 44)
+        renameButton2.addTarget(self, action: "renameSwing:", forControlEvents: .TouchUpInside)
+        renameButton2.setTitle("Rename", forState: .Normal)
+        renameButton2.backgroundColor = UIColor.blackColor()
+        renameButton2.tintColor = UIColor.whiteColor()
+        self.view.addSubview(renameButton2)
+        
+        let deleteButton2 = UIButton.buttonWithType(.System) as! UIButton
+        deleteButton2.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.maxY - 60, (self.view.frame.width - 8) / 2, 44)
+        deleteButton2.addTarget(self, action: "deleteSwing:", forControlEvents: .TouchUpInside)
+        deleteButton2.setTitle("Delete", forState: .Normal)
+        deleteButton2.backgroundColor = UIColor.redColor()
+        deleteButton2.tintColor = UIColor.whiteColor()
+        self.view.addSubview(deleteButton2)
+        
+       
+        
     }
     
     func refreshName() {
+        print("idx: ")
+        println(self.idx)
         topBar.title = self.swings[self.idx].valueForKey("name") as? String
     }
     

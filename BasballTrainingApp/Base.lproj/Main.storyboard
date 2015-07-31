@@ -45,40 +45,6 @@
                                     <accessibilityTraits key="traits" none="YES" button="YES" image="YES"/>
                                 </accessibility>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rHU-kd-gYf">
-                                <rect key="frame" x="20" y="465" width="277" height="44"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="U8t-cG-SZT"/>
-                                    <constraint firstAttribute="width" constant="560" id="z2W-Yd-oxw"/>
-                                </constraints>
-                                <state key="normal" title="Rename">
-                                    <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="z2W-Yd-oxw"/>
-                                    </mask>
-                                </variation>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LDH-A9-4JV">
-                                <rect key="frame" x="297" y="465" width="283" height="44"/>
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.070236308712233964" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="Lh8-ij-Tg2"/>
-                                    <constraint firstAttribute="width" constant="560" id="ZQB-4e-Sq7"/>
-                                </constraints>
-                                <state key="normal" title="Delete">
-                                    <color key="titleColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="ZQB-4e-Sq7"/>
-                                    </mask>
-                                </variation>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-mE-0GL">
                                 <rect key="frame" x="20" y="413" width="560" height="44"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -99,24 +65,17 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="LDH-A9-4JV" firstAttribute="leading" secondItem="rHU-kd-gYf" secondAttribute="trailing" constant="22" id="0Vq-1F-jAR"/>
                             <constraint firstItem="TFc-mE-0GL" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="4" id="6Uq-Ez-cpX"/>
-                            <constraint firstItem="rHU-kd-gYf" firstAttribute="top" secondItem="TFc-mE-0GL" secondAttribute="bottom" constant="8" id="Big-O9-6m0"/>
                             <constraint firstItem="TFc-mE-0GL" firstAttribute="top" secondItem="xP7-MF-lU5" secondAttribute="bottom" constant="27" id="HzU-SD-xWE"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xP7-MF-lU5" secondAttribute="trailing" constant="4" id="K8I-MZ-yXf"/>
                             <constraint firstItem="0XM-y9-sOw" firstAttribute="top" secondItem="svH-Pt-448" secondAttribute="topMargin" constant="72" id="OVe-m6-Zq6"/>
                             <constraint firstItem="TFc-mE-0GL" firstAttribute="top" secondItem="xP7-MF-lU5" secondAttribute="bottom" constant="8" id="ObG-dv-U1q"/>
                             <constraint firstAttribute="trailingMargin" secondItem="TFc-mE-0GL" secondAttribute="trailing" constant="155" id="Sie-SG-JZT"/>
                             <constraint firstItem="0XM-y9-sOw" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="20" symbolic="YES" id="Tsc-yG-G1q"/>
-                            <constraint firstItem="LDH-A9-4JV" firstAttribute="leading" secondItem="rHU-kd-gYf" secondAttribute="trailing" constant="22" id="UYz-Os-G58"/>
                             <constraint firstItem="TFc-mE-0GL" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="155" id="UrS-EK-sNG"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="LDH-A9-4JV" secondAttribute="trailing" constant="4" id="Vgp-6S-DP3"/>
                             <constraint firstItem="xP7-MF-lU5" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="4" id="WRo-St-HI6"/>
-                            <constraint firstItem="rHU-kd-gYf" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leadingMargin" constant="4" id="WaE-Gr-RXr"/>
-                            <constraint firstItem="LDH-A9-4JV" firstAttribute="leading" secondItem="rHU-kd-gYf" secondAttribute="trailing" id="Xpq-iw-KRx"/>
                             <constraint firstItem="xP7-MF-lU5" firstAttribute="top" secondItem="0XM-y9-sOw" secondAttribute="bottom" constant="8" id="gY3-iS-mEJ"/>
                             <constraint firstItem="0XM-y9-sOw" firstAttribute="centerY" secondItem="svH-Pt-448" secondAttribute="centerY" id="jWN-iV-94e"/>
-                            <constraint firstItem="LDH-A9-4JV" firstAttribute="top" secondItem="TFc-mE-0GL" secondAttribute="bottom" constant="8" id="mdT-1P-zgg"/>
                             <constraint firstAttribute="trailingMargin" secondItem="TFc-mE-0GL" secondAttribute="trailing" constant="4" id="qiw-Fj-Zwa"/>
                             <constraint firstItem="0XM-y9-sOw" firstAttribute="top" secondItem="SYR-Wa-9uf" secondAttribute="bottom" constant="50" id="rrg-08-bXO"/>
                             <constraint firstAttribute="trailing" secondItem="0XM-y9-sOw" secondAttribute="trailing" constant="20" symbolic="YES" id="tHV-ZD-HQj"/>
@@ -130,8 +89,6 @@
                                 <exclude reference="HzU-SD-xWE"/>
                                 <exclude reference="Sie-SG-JZT"/>
                                 <exclude reference="UrS-EK-sNG"/>
-                                <exclude reference="0Vq-1F-jAR"/>
-                                <exclude reference="UYz-Os-G58"/>
                             </mask>
                         </variation>
                     </view>
@@ -139,9 +96,7 @@
                     <navigationItem key="navigationItem" title="--" id="mOI-FS-AaM"/>
                     <connections>
                         <outlet property="compareButton" destination="TFc-mE-0GL" id="fmV-qh-hAg"/>
-                        <outlet property="deleteButton" destination="LDH-A9-4JV" id="C6s-9F-whR"/>
                         <outlet property="detailDescriptionLabel" destination="0XM-y9-sOw" id="deQ-Na-JPF"/>
-                        <outlet property="renameButton" destination="rHU-kd-gYf" id="E4k-6e-GWa"/>
                         <outlet property="thumbnail" destination="xP7-MF-lU5" id="iJM-X2-y4g"/>
                         <outlet property="topBar" destination="mOI-FS-AaM" id="Uic-7p-D0p"/>
                     </connections>

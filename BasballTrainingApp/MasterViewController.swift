@@ -8,11 +8,12 @@
 
 
 /*
-deleting
-add name/notes from DVC
+
 two players next to each other
-thumbnails from videos
-youtube links
+
+thumbnails from videos ?????
+
+
 install unity
 */
 
@@ -252,11 +253,20 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         } else {
             let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
             let pathString = tempImage.relativePath
+            
+            UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
+            picker.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+            
+            picker.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
+            image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            
+            
             self.dismissViewControllerAnimated(true, completion: {})
             
             UISaveVideoAtPathToSavedPhotosAlbum(pathString, self, nil, nil)
             url = pathString!
-            image = UIImage(named: "cruz.jpg")!
             
             recorded = false
         }
@@ -357,6 +367,8 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
                 let url = swings[indexPath.row].valueForKey("url")
                 
                 controller.setLink(url as! String)
+                
+                controller.passIdx(indexPath.row)
                 
                 //controller.detailItem = object
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
