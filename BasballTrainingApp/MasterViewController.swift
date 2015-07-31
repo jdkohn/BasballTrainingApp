@@ -291,7 +291,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         swingObject.setValue(date, forKey: "date")
         swingObject.setValue(urlString, forKey: "url")
         swingObject.setValue(thumbnail, forKey: "thumbnail")
-        
+        swingObject.setValue(date, forKey: "name")
         
         
         
@@ -378,7 +378,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
-        cell.textLabel!.text = swings[indexPath.row].valueForKey("date") as? String
+        cell.textLabel!.text = swings[indexPath.row].valueForKey("name") as? String
         return cell
     }
     

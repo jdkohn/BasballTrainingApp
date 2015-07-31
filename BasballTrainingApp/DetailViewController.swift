@@ -28,6 +28,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
     var RHTable = UITableView()
 
     
+    @IBOutlet var topBar: UINavigationItem!
+
     @IBOutlet weak var detailDescriptionLabel: UILabel!
     @IBOutlet weak var videoThumbnail: UIImageView!
     @IBOutlet weak var compareButton: UIButton!
@@ -200,6 +202,10 @@ class DetailViewController: UIViewController, PlayerDelegate {
         deleteButton.addTarget(self,action: "deleteSwing:", forControlEvents: UIControlEvents.TouchUpInside)
     }
     
+    func refreshName() {
+        topBar.title = self.swings[self.idx].valueForKey("name") as? String
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -244,7 +250,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
             println("Could not fetch \(error), \(error!.userInfo)")
         }
         
-        
+        refreshName()
+        detailDescriptionLabel.text = self.swings[self.idx].valueForKey("date") as? String
     }
     
     func deleteSwing(sender: UIButton) {
@@ -333,16 +340,18 @@ class DetailViewController: UIViewController, PlayerDelegate {
                 managedContext)
 
             
-            self.swings[self.idx].setValue(textField.text, forKey: "date")
+            self.swings[self.idx].setValue(textField.text, forKey: "name")
             
             println(self.swings[self.idx])
             
             managedContext.save(nil)
+            
+            self.refreshName()
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in })
         
         self.presentViewController(alert, animated: true, completion: nil)
-      
+        
     }
     
 
