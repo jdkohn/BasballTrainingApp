@@ -305,17 +305,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
             self.navigationController?.popViewControllerAnimated(true)
             self.navigationController!.popToRootViewControllerAnimated(true)
             
-            //self.returnToMain()
-            
-            //
-//            if let navigationController = self.navigationController
-//            {
-//                println("yip")
-//                navigationController.popViewControllerAnimated(true)
-//            }
-//            
-            //tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Fade)
-            
+            self.returnToMain()
 
         }
         checkAlert.addAction(confirmAction)
@@ -325,21 +315,12 @@ class DetailViewController: UIViewController, PlayerDelegate {
     
     
     func returnToMain() {
-        //let main = UIStoryboard(name: "Master", bundle: nil)
         
-        var currController = self.view.window?.rootViewController
-
-        let tabBarController     = UITabBarController()
-        var navigationController = UINavigationController(rootViewController: currController!)
-
+        
+        let MasterViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("Master")) as! UIViewController
 
         
-        tabBarController.viewControllers = [navigationController]
-        self.view.window?.rootViewController = tabBarController
-        
-        let HitterViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("Master")) as! UIViewController
-        
-        self.presentViewController(HitterViewController, animated:true, completion:nil)
+        self.presentViewController(MasterViewController, animated:true, completion:nil)
     }
     
     

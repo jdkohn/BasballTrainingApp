@@ -176,16 +176,11 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         let chooseSide2: UIAlertAction = UIAlertAction(title: "Record Video", style: .Default) { action -> Void in
             
             if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera) {
-                
-                
-                //println("captureVideoPressed and camera available.")
-                
-                //var imagePicker = UIImagePickerController()
-                
+
                 self.picker!.delegate = self
                 self.picker!.sourceType = .Camera;
                 self.picker!.mediaTypes = [kUTTypeMovie!]
-                self.picker!.allowsEditing = false
+                self.picker!.allowsEditing = true
                 
                 self.picker!.showsCameraControls = true
                 
@@ -237,9 +232,10 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         if(recorded == false) {
             
             UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
-            picker.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+            self.picker!.view.
+            self.picker!.view.layer.renderInContext(UIGraphicsGetCurrentContext())
             
-            picker.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
+            self.picker!.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
             image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
@@ -255,9 +251,9 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             let pathString = tempImage.relativePath
             
             UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
-            picker.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+            self.picker!.view.layer.renderInContext(UIGraphicsGetCurrentContext())
             
-            picker.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
+            self.picker!.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
             image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
@@ -310,7 +306,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             println("Could not save \(error), \(error?.userInfo)")
         }
         
-        swings.insert(swingObject, atIndex: 0)
+        swings.insert(swingObject, atIndex: swings.count)
         
         
         
