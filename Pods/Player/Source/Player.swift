@@ -267,13 +267,25 @@ public class Player: UIViewController {
     public func stepForward() {
         var step = CMTimeMake(1, 20)
         var newTime = CMTimeAdd(playerItem!.currentTime(), step)
-        self.player.seekToTime(newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
+        let floatNew = Float(CMTimeGetSeconds(newTime))
+        var totalTime = Float(CMTimeGetSeconds(playerItem!.duration))
+        if(floatNew >= totalTime) {
+            self.player.seekToTime(kCMTimeZero)
+        } else {
+            self.player.seekToTime(newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
+        }
     }
     
     public func stepBackward() {
         var step = CMTimeMake(1, 20)
         var newTime = CMTimeSubtract(playerItem!.currentTime(), step)
-        self.player.seekToTime(newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
+        
+        let floatNew = Float(CMTimeGetSeconds(newTime))
+        if(floatNew <= 0) {
+            self.player.seekToTime(kCMTimeZero)
+        } else {
+            self.player.seekToTime(playerItem!.duration, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
+        }
     }
 
     public func pause() {

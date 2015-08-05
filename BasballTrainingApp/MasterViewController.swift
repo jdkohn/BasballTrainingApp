@@ -13,8 +13,10 @@ two players next to each other
 
 thumbnails from videos ?????
 
+*/
 
-install unity
+/* Problems
+
 */
 
 
@@ -22,6 +24,9 @@ import UIKit
 import CoreData
 import MobileCoreServices
 import Player
+import MediaPlayer
+import AVFoundation
+
 
 class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
     
@@ -32,6 +37,10 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     var recorded = false
     var url = String()
     
+    
+    let captureSession = AVCaptureSession()
+    var previewLayer : AVCaptureVideoPreviewLayer?
+    var captureDevice : AVCaptureDevice?
     
     
     var images = [UIImage]()
@@ -167,8 +176,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             
             
             self.openGallary()
-            
-            
+
         }
         alert.addAction(chooseSide)
         
@@ -181,7 +189,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
                 self.picker!.sourceType = .Camera;
                 self.picker!.mediaTypes = [kUTTypeMovie!]
                 self.picker!.allowsEditing = true
-                
+                self.picker!.videoQuality = UIImagePickerControllerQualityType.TypeHigh
                 self.picker!.showsCameraControls = true
                 
                 
@@ -193,9 +201,6 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             else {
                 println("Camera not available.")
             }
-
-            
-            
         }
         alert.addAction(chooseSide2)
         
@@ -227,26 +232,47 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         
         let size = CGSizeMake(self.view.frame.width, self.view.frame.height - 215)
         
+        println("didFinishPickingMediaWithInfo")
 
         
         if(recorded == false) {
+            println("Uploaded")
             
-            UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
-            self.picker!.view.
-            self.picker!.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+            let asseturl = info["UIImagePickerControllerReferenceURL"] as! NSURL
+            url = asseturl.absoluteString!
             
-            self.picker!.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
-            image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            let asset: AVAsset = AVAsset.assetWithURL(asseturl) as! AVAsset
+            let imageGenerator = AVAssetImageGenerator(asset: asset);
+            let time = CMTimeMakeWithSeconds(1.0, 1)
             
+            var actualTime : CMTime = CMTimeMake(0, 0)
+            var error : NSError?
+            let myImage = imageGenerator.copyCGImageAtTime(time, actualTime: &actualTime, error: &error)
+            
+            let testImage = UIImage(CGImage: myImage)!
+            
+            println(testImage.imageOrientation.rawValue)
+            
+            image = UIImage(CGImage: myImage, scale: 1.0, orientation: .LeftMirrored)!
+            
+            println(image.imageOrientation.rawValue)
+            
+//            UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
+////            self.picker!.view. -> must update or render ??
+//            self.picker!.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+//            
+//            self.picker!.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
+//            image = UIGraphicsGetImageFromCurrentImageContext()
+//            UIGraphicsEndImageContext()
+//            //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+//            
             picker.dismissViewControllerAnimated(true, completion: nil)
             
             
-            let nsbsurl = info["UIImagePickerControllerReferenceURL"] as! NSURL
-            url = nsbsurl.absoluteString!
+            
 
         } else {
+            println("recorded")
             let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
             let pathString = tempImage.relativePath
             
@@ -256,7 +282,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             self.picker!.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
             image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
-            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+            //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
             
             
             self.dismissViewControllerAnimated(true, completion: {})
@@ -274,8 +300,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         
         
         //let image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
-        
-        
+
         let thumbnail = UIImagePNGRepresentation(image)
         println("gets PNGRep of image")
         

@@ -61,6 +61,9 @@
                                         <exclude reference="aUu-YS-dge"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <segue destination="uIy-if-dHA" kind="showDetail" identifier="showHitterList" id="FuH-K5-Jx5"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -99,13 +102,14 @@
                         <outlet property="detailDescriptionLabel" destination="0XM-y9-sOw" id="deQ-Na-JPF"/>
                         <outlet property="thumbnail" destination="xP7-MF-lU5" id="iJM-X2-y4g"/>
                         <outlet property="topBar" destination="mOI-FS-AaM" id="Uic-7p-D0p"/>
+                        <segue destination="7bK-jq-Zjz" kind="show" identifier="returnToMain" id="TDP-U1-HPA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="EZ3-dr-zit"/>
                 <tapGestureRecognizer id="sAi-0U-mEe"/>
             </objects>
-            <point key="canvasLocation" x="709" y="129"/>
+            <point key="canvasLocation" x="763" y="155"/>
         </scene>
         <!--CompareView-->
         <scene sceneID="9GD-Hk-O2H">
@@ -176,9 +180,10 @@
                             <outlet property="delegate" destination="uIy-if-dHA" id="ZgW-W6-miN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Hitters" id="9aP-wM-AKJ">
+                    <navigationItem key="navigationItem" title="Hitters" id="9aP-wM-AKJ" propertyAccessControl="none">
                         <barButtonItem key="leftBarButtonItem" title="Cancel" id="6jh-c8-0qC"/>
                     </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="topBar" destination="9aP-wM-AKJ" id="XjH-hd-d0K"/>
                     </connections>
@@ -288,5 +293,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="6S0-TO-JiA"/>
+        <segue reference="TDP-U1-HPA"/>
     </inferredMetricsTieBreakers>
 </document>

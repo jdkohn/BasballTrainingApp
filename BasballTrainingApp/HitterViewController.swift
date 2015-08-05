@@ -18,7 +18,7 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     var hitterPictures = [UIImage]()
     var swings = [NSManagedObject]()
     
-    
+    var player: Player!
     var playerLeft: Player!
     var playerRight: Player!
     
@@ -34,11 +34,18 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     let data = Data()
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false, animated: true)
+        //navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == true, animated: true)
         
-        myUrl = "Optional(assets-library://asset/asset.mp4?id=18F6EABD-42D3-4EDA-B22F-D55EAB7E76C0&ext=mp4)"
+        let newBar = UINavigationBar()
+        
+        
+        self.view.addSubview(newBar)
+        
+        myUrl = "assets-library://asset/asset.MOV?id=403F2DDB-E72C-428D-BF87-F80C7962DF96&ext=MOV"
 
-        proUrl = "Optional(assets-library://asset/asset.mp4?id=18F6EABD-42D3-4EDA-B22F-D55EAB7E76C0&ext=mp4)"
+        proUrl = "assets-library://asset/asset.MOV?id=403F2DDB-E72C-428D-BF87-F80C7962DF96&ext=MOV"
+        
+         navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false, animated: true)
 
     }
     
@@ -50,6 +57,9 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
         return data.places.count
     }
     
+    func setMyURL(url : String) {
+        self.myUrl = url
+    }
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -67,7 +77,10 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     
     //on click of the cell
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
         println("yes")
+        
+        UIDevice.currentDevice().orientation == UIDeviceOrientation.LandscapeLeft
         
         let leftFrame = CGRectMake(0, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
         let rightFrame = CGRectMake(self.view.frame.size.width / 2, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
@@ -78,20 +91,21 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
         self.playerLeft.view.frame = leftFrame
         
         
+        
         self.playerRight = Player()
         self.playerRight.delegate = self
         self.playerRight.view.frame = rightFrame
         
+        self.playerLeft.path = self.myUrl
+        self.playerRight.path = self.proUrl
         
         self.view.addSubview(self.playerLeft.view)
         self.view.addSubview(self.playerRight.view)
         
-        self.playerLeft.path = self.myUrl
-        self.playerRight.path = self.proUrl
-        
         playerLeft.playbackState = PlaybackState.Playing
         playerRight.playbackState = PlaybackState.Playing
         
+       
         
     }
     
@@ -127,16 +141,17 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     //MARK: PlayerDelegate functions
     
     func playerReady(player: Player) {}
-    func playerPlaybackStateDidChange(player: Player) {
-        //print("playback state changes ")
-        //println(player.playbackState)
-    }
-    func playerBufferingStateDidChange(player: Player) {
-        //        print("buffering state changes ")
-        //        println(player.bufferingState)
-    }
-    
+    func playerPlaybackStateDidChange(player: Player) {}
+    func playerBufferingStateDidChange(player: Player) {}
     func playerPlaybackWillStartFromBeginning(player: Player) {}
     func playerPlaybackDidEnd(player: Player) {}
+
+    
+    
+    override func shouldAutorotate() -> Bool {
+        
+        return false
+        
+    }
 
 }

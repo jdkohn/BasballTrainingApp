@@ -17,6 +17,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
     var idx = Int()
     
     var masterViewController: MasterViewController? = nil
+    var hitterViewController: HitterViewController? = nil
     
     var player:Player!
     
@@ -158,6 +159,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
         
     }
     
+    
     func twoPlayers() {
         let leftFrame = CGRectMake(0, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
         let rightFrame = CGRectMake(self.view.frame.size.width / 2, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
@@ -205,7 +207,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
         
         
         let renameButton2 = UIButton.buttonWithType(.System) as! UIButton
-        renameButton2.frame = CGRectMake(4, self.view.frame.maxY - 60, (self.view.frame.width - 8) / 2, 44)
+        renameButton2.frame = CGRectMake(4, self.view.frame.maxY - 48, (self.view.frame.width - 8) / 2, 44)
         renameButton2.addTarget(self, action: "renameSwing:", forControlEvents: .TouchUpInside)
         renameButton2.setTitle("Rename", forState: .Normal)
         renameButton2.backgroundColor = UIColor.blackColor()
@@ -213,7 +215,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
         self.view.addSubview(renameButton2)
         
         let deleteButton2 = UIButton.buttonWithType(.System) as! UIButton
-        deleteButton2.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.maxY - 60, (self.view.frame.width - 8) / 2, 44)
+        deleteButton2.frame = CGRectMake(self.view.frame.width / 2, self.view.frame.maxY - 48, (self.view.frame.width - 8) / 2, 44)
         deleteButton2.addTarget(self, action: "deleteSwing:", forControlEvents: .TouchUpInside)
         deleteButton2.setTitle("Delete", forState: .Normal)
         deleteButton2.backgroundColor = UIColor.redColor()
@@ -240,9 +242,14 @@ class DetailViewController: UIViewController, PlayerDelegate {
         var bounds = UIScreen.mainScreen().bounds
         var width = bounds.size.width
         var size = CGSize(width: width - 4, height: self.view.frame.height - 200)
-
+        
+        
         
         thumbnail.image = RBResizeImage(self.img, targetSize: size)
+        
+        let rotateImage = thumbnail.image?.CGImage
+        
+        thumbnail.image = UIImage(CGImage: rotateImage, scale: 1.0, orientation: .Right)
         
         
         let tapView = UITapGestureRecognizer()
@@ -276,6 +283,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
         
         refreshName()
         detailDescriptionLabel.text = self.swings[self.idx].valueForKey("date") as? String
+        
     }
     
     func deleteSwing(sender: UIButton) {
@@ -302,34 +310,23 @@ class DetailViewController: UIViewController, PlayerDelegate {
             managedContext.save(nil)
 
             
-            self.navigationController?.popViewControllerAnimated(true)
-            self.navigationController!.popToRootViewControllerAnimated(true)
+            self.performSegueWithIdentifier("returnToMain", sender: nil)
             
-            self.returnToMain()
-
+            
         }
         checkAlert.addAction(confirmAction)
         self.presentViewController(checkAlert, animated: true, completion: nil)
         
     }
     
-    
-    func returnToMain() {
-        
-        
-        let MasterViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("Master")) as! UIViewController
 
-        
-        self.presentViewController(MasterViewController, animated:true, completion:nil)
-    }
-    
     
     func renameSwing(sender: UIButton) {
 
         var alert = UIAlertController(title: "Rename", message: "", preferredStyle: .Alert)
         
         alert.addTextFieldWithConfigurationHandler({ (textField) -> Void in
-            textField.text = self.swings[self.idx].valueForKey("date") as! String
+            textField.text = self.swings[self.idx].valueForKey("name") as! String
         })
         
         alert.addAction(UIAlertAction(title: "Rename", style: .Default, handler: { (action) -> Void in
@@ -379,6 +376,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
 
                 let HitterViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("HitterViewController")) as! UIViewController
                 
+                
+                
                 self.presentViewController(HitterViewController, animated:true, completion:nil)
         }
             alert.addAction(chooseSide)
@@ -389,7 +388,22 @@ class DetailViewController: UIViewController, PlayerDelegate {
             self.presentViewController(alert, animated: true, completion: nil)
         }
     
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showHitterList" {
+
+            let controller = segue.destinationViewController as! HitterViewController
+            
+            controller.setMyURL(url)
+            
+            //controller.detailItem = object
+            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+            controller.navigationItem.leftItemsSupplementBackButton = true
+        
+        } else if segue.identifier == "returnToMain" {
+            println("segue opened")
+            let controller = segue.destinationViewController as! MasterViewController
+        }
+    }
     
     
 
