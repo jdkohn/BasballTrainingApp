@@ -40,6 +40,16 @@ class CompareView: UIViewController, PlayerDelegate {
         
         UIDevice.currentDevice().setValue(value, forKey: "orientation")
         
+        openPlayer()
+        
+        self.view.addSubview(toolbar)
+    }
+    
+    func openPlayer() {
+        
+        
+        navigationController?.setNavigationBarHidden(true , animated: true)
+
         let leftFrame = CGRectMake(0, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
         let rightFrame = CGRectMake(self.view.frame.size.width / 2, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
         
@@ -61,9 +71,7 @@ class CompareView: UIViewController, PlayerDelegate {
         playerLeft.playbackState = PlaybackState.Playing
         playerRight.playbackState = PlaybackState.Playing
         
-        navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false , animated: true)
-        
-        self.view.addSubview(toolbar)
+
     }
     
     func setHitterUrl(url : String) {
@@ -155,7 +163,11 @@ class CompareView: UIViewController, PlayerDelegate {
         let value = UIInterfaceOrientation.Portrait.rawValue
         
         UIDevice.currentDevice().setValue(value, forKey: "orientation")
+        
+        navigationController?.setNavigationBarHidden(false , animated: true)
+        
         navigationController?.popToRootViewControllerAnimated(true)
+        
     }
     
     func stepForward(sender: UIBarButtonItem) {
@@ -235,6 +247,10 @@ class CompareView: UIViewController, PlayerDelegate {
     override func shouldAutorotate() -> Bool {
         println("autoRotate")
         return false
+    }
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
     }
 
 }

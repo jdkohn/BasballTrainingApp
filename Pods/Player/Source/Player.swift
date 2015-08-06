@@ -111,7 +111,7 @@ public class Player: UIViewController {
     public var delegate: PlayerDelegate!
 
     public var startTime = CMTime()
-    public var endTime = CMTime()
+    public var finalDuration = CMTime()
     
 
     
@@ -119,8 +119,8 @@ public class Player: UIViewController {
         self.startTime = start
     }
     
-    public func setEndPoint(end : CMTime) {
-        self.endTime = end
+    public func setLength(end : CMTime) {
+        self.finalDuration = end
     }
     
     
