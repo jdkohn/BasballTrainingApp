@@ -30,6 +30,7 @@ import AVFoundation
 
 class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIPopoverControllerDelegate {
     
+    var bundle = NSBundle.mainBundle()
     
     var image = UIImage()
     var detailViewController: DetailViewController? = nil
@@ -61,15 +62,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        
-        if((navigationController?.navigationBarHidden) == nil) {
-            println("yeeyee")
-            navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false, animated: true)
-        }
-        
-        
-        
-        
+
         //creates add button
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
@@ -230,60 +223,22 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [NSObject : AnyObject])
     {
         
-        let size = CGSizeMake(self.view.frame.width, self.view.frame.height - 215)
-        
-        println("didFinishPickingMediaWithInfo")
-
+        let size = CGSizeMake(self.view.frame.width, self.view.frame.height - 150)
         
         if(recorded == false) {
-            println("Uploaded")
-            
             let asseturl = info["UIImagePickerControllerReferenceURL"] as! NSURL
             url = asseturl.absoluteString!
             
-            let asset: AVAsset = AVAsset.assetWithURL(asseturl) as! AVAsset
-            let imageGenerator = AVAssetImageGenerator(asset: asset);
-            let time = CMTimeMakeWithSeconds(1.0, 1)
+            image = capture(asseturl)
             
-            var actualTime : CMTime = CMTimeMake(0, 0)
-            var error : NSError?
-            let myImage = imageGenerator.copyCGImageAtTime(time, actualTime: &actualTime, error: &error)
-            
-            let testImage = UIImage(CGImage: myImage)!
-            
-            println(testImage.imageOrientation.rawValue)
-            
-            image = UIImage(CGImage: myImage, scale: 1.0, orientation: .LeftMirrored)!
-            
-            println(image.imageOrientation.rawValue)
-            
-//            UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
-////            self.picker!.view. -> must update or render ??
-//            self.picker!.view.layer.renderInContext(UIGraphicsGetCurrentContext())
-//            
-//            self.picker!.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
-//            image = UIGraphicsGetImageFromCurrentImageContext()
-//            UIGraphicsEndImageContext()
-//            //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-//            
             picker.dismissViewControllerAnimated(true, completion: nil)
-            
-            
-            
 
         } else {
-            println("recorded")
+
             let tempImage = info[UIImagePickerControllerMediaURL] as! NSURL!
             let pathString = tempImage.relativePath
             
-            UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
-            self.picker!.view.layer.renderInContext(UIGraphicsGetCurrentContext())
-            
-            self.picker!.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
-            image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            //UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-            
+            image = capture(tempImage)
             
             self.dismissViewControllerAnimated(true, completion: {})
             
@@ -347,19 +302,19 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         println("picker cancel.")
     }
     
-    func capture() -> UIImage {
+    func capture(url : NSURL) -> UIImage {
         
-        let size = CGSizeMake(self.view.frame.width, self.view.frame.height - 100)
+        let asset: AVAsset = AVAsset.assetWithURL(url) as! AVAsset
+        let imageGenerator = AVAssetImageGenerator(asset: asset);
+        let time = CMTimeMakeWithSeconds(1.0, 1)
         
-        UIGraphicsBeginImageContextWithOptions(size, self.view.opaque, 0.0)
-        picker!.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+        var actualTime : CMTime = CMTimeMake(0, 0)
+        var error : NSError?
+        let myImage = imageGenerator.copyCGImageAtTime(time, actualTime: &actualTime, error: &error)
         
-        picker!.view.drawViewHierarchyInRect(self.view.bounds, afterScreenUpdates: true)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        println("screenshot")
-        return image
+        let testImage = UIImage(CGImage: myImage)!
+
+        return UIImage(CGImage: myImage, scale: 1.0, orientation: .LeftMirrored)!
     }
     
     

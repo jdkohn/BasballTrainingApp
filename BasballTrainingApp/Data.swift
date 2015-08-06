@@ -7,28 +7,31 @@
 //
 
 import Foundation
-
+import MobileCoreServices
 
 class Data {
+    
+    var bundle = NSBundle.mainBundle()
+    
+    
     class Entry {
+        
         let filename : String
         let heading : String
-        let link : String
-        init(fname : String, heading : String, link: String) {
+        init(fname : String, heading : String) {
             self.heading = heading
             self.filename = fname
-            self.link = link
         }
     }
     
-    //All sent to Trout swing
     
     
-    let places = [
-        Entry(fname: "cruz.jpg", heading: "Nelson Cruz", link: "https://www.youtube.com/watch?v=DzJms7RW02A"),
-        Entry(fname: "trout.jpg", heading: "Mike Trout", link: "https://www.youtube.com/watch?v=DzJms7RW02A"),
-        Entry(fname: "bryant.jpg", heading: "Kris Bryant", link: "https://www.youtube.com/watch?v=DzJms7RW02A"),
-        Entry(fname: "mccutchen.jpg", heading: "Andrew McCutchen", link: "https://www.youtube.com/watch?v=DzJms7RW02A")
+    
+    let hitters = [
+        Entry(fname: "cruz.jpg", heading: "Nelson Cruz"),
+        Entry(fname: "trout.jpg", heading: "Mike Trout"),
+        Entry(fname: "bryant.jpg", heading: "Kris Bryant"),
+        Entry(fname: "mccutchen.jpg", heading: "Andrew McCutchen")
     ]
     
 }

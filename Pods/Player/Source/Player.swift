@@ -80,6 +80,7 @@ public protocol PlayerDelegate {
     func playerPlaybackDidEnd(player: Player)
 }
 
+
 // KVO contexts
 
 private var PlayerObserverContext = 0
@@ -109,6 +110,20 @@ public class Player: UIViewController {
 
     public var delegate: PlayerDelegate!
 
+    public var startTime = CMTime()
+    public var endTime = CMTime()
+    
+
+    
+    public func setStartPoint(start : CMTime) {
+        self.startTime = start
+    }
+    
+    public func setEndPoint(end : CMTime) {
+        self.endTime = end
+    }
+    
+    
     private var filepath: String!
     public var path: String! {
         get {

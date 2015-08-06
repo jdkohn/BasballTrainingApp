@@ -14,6 +14,8 @@ import CoreData
 
 class HitterViewController: UITableViewController, UITableViewDataSource, UITableViewDelegate, PlayerDelegate {
 
+    var bundle = NSBundle.mainBundle()
+    
     var hitters = [String]()
     var hitterPictures = [UIImage]()
     var swings = [NSManagedObject]()
@@ -25,93 +27,91 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     var myUrl = String()
     var proUrl = String()
     
+    var right = Bool()
     
-
-    @IBOutlet weak var topBar: UINavigationItem!
-
+    var rightLinks = [String]()
     
+    var compareVC : CompareView? = nil
+
+    let leftData = LeftData()
     
     let data = Data()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == true, animated: true)
         
-        let newBar = UINavigationBar()
+        getLinks()
         
+        self.tableView.reloadData()
         
-        self.view.addSubview(newBar)
-        
-        myUrl = "assets-library://asset/asset.MOV?id=403F2DDB-E72C-428D-BF87-F80C7962DF96&ext=MOV"
+        navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == true, animated: true)
 
-        proUrl = "assets-library://asset/asset.MOV?id=403F2DDB-E72C-428D-BF87-F80C7962DF96&ext=MOV"
+        proUrl = myUrl
         
-         navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false, animated: true)
-
     }
+    
+    func getLinks() {
+        rightLinks.append(bundle.pathForResource("KB.mp4", ofType: nil)!)
+        rightLinks.append(bundle.pathForResource("KB.mp4", ofType: nil)!)
+        rightLinks.append(bundle.pathForResource("KB.mp4", ofType: nil)!)
+        rightLinks.append(bundle.pathForResource("mccutchenVid.mp4", ofType: nil)!)
+    }
+    
+    
+
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.places.count
+        if(!right) {
+            return leftData.hitters.count
+        }
+        return data.hitters.count
     }
     
     func setMyURL(url : String) {
         self.myUrl = url
     }
 
+    func setHand(right : Bool) {
+        self.right = right
+    }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        println(data.places[indexPath.row])
         var cell: HitterCell = tableView.dequeueReusableCellWithIdentifier("HitterCellID", forIndexPath: indexPath) as! HitterCell
-        let rowNum = indexPath.row
-        let entry = data.places[indexPath.row]
-        let image = UIImage(named: entry.filename)
-        cell.bkImageView.image = image
-        cell.headingLabel.text = entry.heading
-        
+        if(right) {
+            let rowNum = indexPath.row
+            let entry = data.hitters[indexPath.row]
+            let image = UIImage(named: entry.filename)
+            cell.bkImageView.image = image
+            cell.headingLabel.text = entry.heading
+        } else {
+            let rowNum = indexPath.row
+            let entry = leftData.hitters[indexPath.row]
+            let image = UIImage(named: entry.filename)
+            cell.bkImageView.image = image
+            cell.headingLabel.text = entry.heading
+        }
         return cell
     }
-
     
     //on click of the cell
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        println("yes")
+        if(right) {
+            proUrl = rightLinks[indexPath.row]
+        } else {
+            
+        }
         
-        UIDevice.currentDevice().orientation == UIDeviceOrientation.LandscapeLeft
-        
-        let leftFrame = CGRectMake(0, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
-        let rightFrame = CGRectMake(self.view.frame.size.width / 2, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
-        
-        
-        self.playerLeft = Player()
-        self.playerLeft.delegate = self
-        self.playerLeft.view.frame = leftFrame
-        
-        
-        
-        self.playerRight = Player()
-        self.playerRight.delegate = self
-        self.playerRight.view.frame = rightFrame
-        
-        self.playerLeft.path = self.myUrl
-        self.playerRight.path = self.proUrl
-        
-        self.view.addSubview(self.playerLeft.view)
-        self.view.addSubview(self.playerRight.view)
-        
-        playerLeft.playbackState = PlaybackState.Playing
-        playerRight.playbackState = PlaybackState.Playing
-        
-       
-        
+        self.performSegueWithIdentifier("navToCompareView", sender: nil)
     }
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == "returnToDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 //let object = objects[indexPath.row] as! NSString
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
@@ -130,13 +130,22 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
                 
             }
         }
+        if segue.identifier == "navToCompareView" {
+            let controller = (segue.destinationViewController as! UIViewController) as! CompareView
+            navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == true, animated: true)
+            controller.setHitterUrl(myUrl)
+            controller.setProfessionalUrl(proUrl)
+            
+        }
     }
 
     func getLinkReady(mine : String) {
         self.myUrl = mine
-        println("URL set")
     }
     
+    func setSide(right : Bool) {
+        self.right = right
+    }
     
     //MARK: PlayerDelegate functions
     
@@ -149,9 +158,7 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     
     
     override func shouldAutorotate() -> Bool {
-        
         return false
-        
     }
 
 }

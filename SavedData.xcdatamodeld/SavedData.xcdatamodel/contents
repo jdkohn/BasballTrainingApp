@@ -3,10 +3,11 @@
     <entity name="Swing" syncable="YES">
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="rightHanded" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Swing" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="Swing" positionX="-63" positionY="-18" width="128" height="120"/>
     </elements>
 </model>

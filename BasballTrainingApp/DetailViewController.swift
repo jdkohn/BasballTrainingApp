@@ -104,7 +104,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
         
         let drawIcon = UIImage(named: "pencil2.png")
         let drawingIcon = UIImage(named: "pencil3.png")
-        if(firstTime) {
         
         let stopButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "done:")
         let stepBackwardButton = UIBarButtonItem(barButtonSystemItem: .Rewind, target: self, action: "stepBackward:")
@@ -152,37 +151,10 @@ class DetailViewController: UIViewController, PlayerDelegate {
         
         //add toolbar to the view
         toolbar.barStyle = UIBarStyle.Black
-            firstTime = false
-        }
+
         self.player.view.addSubview(toolbar)
         
         
-    }
-    
-    
-    func twoPlayers() {
-        let leftFrame = CGRectMake(0, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
-        let rightFrame = CGRectMake(self.view.frame.size.width / 2, 0, self.view.frame.size.width / 2, self.view.frame.size.height)
-        
-        
-        self.playerLeft = Player()
-        self.playerLeft.delegate = self
-        self.playerLeft.view.frame = leftFrame
-        
-        
-        self.playerRight = Player()
-        self.playerRight.delegate = self
-        self.playerRight.view.frame = rightFrame
-        
-        
-        self.view.addSubview(self.playerLeft.view)
-        self.view.addSubview(self.playerRight.view)
-        
-        self.playerLeft.path = self.url
-        self.playerRight.path = self.proUrl
-        
-        playerLeft.playbackState = PlaybackState.Playing
-        playerRight.playbackState = PlaybackState.Playing
     }
     
     func passIdx(index: Int) {
@@ -241,7 +213,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
         
         var bounds = UIScreen.mainScreen().bounds
         var width = bounds.size.width
-        var size = CGSize(width: width - 4, height: self.view.frame.height - 200)
+        var size = CGSize(width: self.view.frame.height - 204 , height: self.view.frame.width - 60)
         
         
         
@@ -364,29 +336,44 @@ class DetailViewController: UIViewController, PlayerDelegate {
     
     func sendAlert(sender: UIButton) {   
        
-            let alert: UIAlertController = UIAlertController(title: "Compare Your Swing", message: "Left-Handed or Right-Handed?", preferredStyle: .ActionSheet)
+        if(self.swings[self.idx].valueForKey("rightHanded") == nil) {
             
-            //Create and add the Cancel action
+            
+            //CoreData stuff
+            let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+            let managedContext = appDelegate.managedObjectContext!
+            let entity =  NSEntityDescription.entityForName("Swing", inManagedObjectContext: managedContext)
+
+            let alert: UIAlertController = UIAlertController(title: "Compare Your Swing", message: "Left-Handed or Right-Handed?", preferredStyle: .ActionSheet)
+                
+                //Create and add the Cancel action
             let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { action -> Void in }
-            alert.addAction(cancelAction)
-        
-        //Create and add first option action
-            let chooseSide: UIAlertAction = UIAlertAction(title: "Righty", style: .Default) { action -> Void in
+                alert.addAction(cancelAction)
+            
+            //Create and add first option action
+            let chooseSide: UIAlertAction = UIAlertAction(title: "Right-Handed", style: .Default) { action -> Void in
 
-
-                let HitterViewController = self.storyboard?.instantiateViewControllerWithIdentifier(("HitterViewController")) as! UIViewController
+                self.swings[self.idx].setValue(true, forKey: "rightHanded")
+                self.performSegueWithIdentifier("showHitterList", sender: nil)
                 
+            
+            }
+                alert.addAction(chooseSide)
+            //Create and add a second option action
+                let chooseSide2: UIAlertAction = UIAlertAction(title: "Left-Handed", style: .Default) { action -> Void in
+            
+                self.swings[self.idx].setValue(false, forKey: "rightHanded")
+                self.performSegueWithIdentifier("showHitterList", sender: nil)
+            
                 
-                
-                self.presentViewController(HitterViewController, animated:true, completion:nil)
+            }
+                alert.addAction(chooseSide2)
+                //Present the AlertController
+                self.presentViewController(alert, animated: true, completion: nil)
+        } else {
+            self.performSegueWithIdentifier("showHitterList", sender: nil)
         }
-            alert.addAction(chooseSide)
-        //Create and add a second option action
-            let chooseSide2: UIAlertAction = UIAlertAction(title: "Lefty", style: .Default) { action -> Void in }
-            alert.addAction(chooseSide2)
-            //Present the AlertController
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showHitterList" {
@@ -394,6 +381,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
             let controller = segue.destinationViewController as! HitterViewController
             
             controller.setMyURL(url)
+            
+            controller.setSide(self.swings[self.idx].valueForKey("rightHanded") as! Bool)
             
             //controller.detailItem = object
             controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
@@ -440,7 +429,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
     }
     
     func done(sender: UIBarButtonItem) {
-        println("done button pressed")
         player.view.removeFromSuperview()
         navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false, animated: true)
     }
@@ -518,8 +506,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
     
     //image resizer
     func RBResizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
-        let croppedImage: UIImage = ImageUtil().cropToSquare(image: image)
-        
         let size = image.size
         
         let widthRatio  = targetSize.width  / image.size.width
@@ -624,7 +610,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
     }
     
     func reset(sender : UIButton) {
-        println("clear button pressed")
         mainImageView.image = nil
     }
 
