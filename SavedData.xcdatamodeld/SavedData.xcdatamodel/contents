@@ -6,8 +6,9 @@
         <attribute name="rightHanded" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="thumbnail" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="yetToSetStartPoint" optional="YES" attributeType="Boolean" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Swing" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="Swing" positionX="-63" positionY="-18" width="128" height="135"/>
     </elements>
 </model>

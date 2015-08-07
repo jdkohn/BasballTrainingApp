@@ -10,6 +10,8 @@
 import UIKit
 import Player
 import CoreData
+import CoreMedia
+
 
 class DetailViewController: UIViewController, PlayerDelegate {
 
@@ -19,7 +21,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
     var masterViewController: MasterViewController? = nil
     var hitterViewController: HitterViewController? = nil
     
-    var player:Player!
+    var player = Player()
     
     var playerLeft: Player!
     var playerRight: Player!
@@ -28,6 +30,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
     
     var RHTable = UITableView()
 
+    
     
     @IBOutlet var topBar: UINavigationItem!
 
@@ -60,6 +63,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
     
     let clearButton = UIButton()
     
+    let setStartPointButton = UIButton()
+    let setEndPointButton = UIButton()
     
     
     var detailItem: AnyObject? {
@@ -81,26 +86,78 @@ class DetailViewController: UIViewController, PlayerDelegate {
     }
     
     func navToPlayer(sender: UITapGestureRecognizer) {
-        
-        
+
         var viewSize: CGSize = UIScreen.mainScreen().bounds.size
         
         self.view.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height)
         
-        self.player = Player()
+        //self.player = Player()
         self.player.delegate = self
         self.player.view.frame = self.view.bounds
+        
+        self.player.path = self.url
         
         navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false, animated: true)
         
         self.view.addSubview(self.player.view)
         
+        if((self.swings[self.idx].valueForKey("yetToSetStartPoint")) as! Bool == true) {
+            
+            self.player.setStartPoint(kCMTimeZero)
+
+            self.player.setEndPoint(player.getEndPoint())
+            
+            self.setStartPointButton.frame = CGRectMake(0,0,self.view.frame.width, 44)
+            self.setStartPointButton.setTitle("Set Start Point", forState: .Normal)
+            self.setStartPointButton.backgroundColor = UIColor.blackColor()
+            self.setStartPointButton.tintColor = UIColor.whiteColor()
+            self.setStartPointButton.addTarget(self, action: "setStartTimeToCurrent:", forControlEvents: UIControlEvents.TouchUpInside)
+            
+            self.player.view.addSubview(setStartPointButton)
+            
+            //self.player.setupPla
+            
+        }
         
         
-        self.player.path = self.url
         
         player.playbackState = PlaybackState.Playing
+
         
+        
+        //set toolbar size and contents
+        toolbar.frame = CGRectMake((self.view.frame.size.width / 2) - 85, self.view.frame.size.height - 44, 170, 44)
+        toolbar.setItems(pauseItems, animated: true)
+        
+        //add toolbar to the view
+        toolbar.barStyle = UIBarStyle.Black
+
+        self.player.view.addSubview(toolbar)
+        
+        
+    }
+
+    func setStartTimeToCurrent(sender: UIButton) {
+        player.setStartPoint(self.player.getCurrentTime())
+        self.setStartPointButton.removeFromSuperview()
+     
+        self.setEndPointButton.frame = CGRectMake(0,0,self.view.frame.width, 44)
+        self.setEndPointButton.setTitle("Set End Point", forState: .Normal)
+        self.setEndPointButton.backgroundColor = UIColor.blackColor()
+        self.setEndPointButton.tintColor = UIColor.whiteColor()
+        self.setEndPointButton.addTarget(self, action: "setEndTimeToCurrent:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.player.view.addSubview(setEndPointButton)
+        
+    }
+    
+    func setEndTimeToCurrent(sender: UIButton) {
+        self.player.setEndPoint(self.player.getCurrentTime())
+        self.setEndPointButton.removeFromSuperview()
+    }
+    
+    
+    func addButtons() {
         
         let drawIcon = UIImage(named: "pencil2.png")
         let drawingIcon = UIImage(named: "pencil3.png")
@@ -113,47 +170,35 @@ class DetailViewController: UIViewController, PlayerDelegate {
         let drawButton = UIBarButtonItem(image: drawIcon, style: .Plain, target: self, action: "draw:")
         let cancelDrawButton = UIBarButtonItem(image: drawingIcon, style: .Plain, target: self, action: "endDraw:")
         
-            
-            
+        
+        
         //add to paused toolbar
         pauseItems.append(stopButton)
         pauseItems.append(stepBackwardButton)
         pauseItems.append(pauseButton)
         pauseItems.append(stepForwardButton)
         pauseItems.append(drawButton)
-            
+        
         //add to play toolbar
         playItems.append(stopButton)
         playItems.append(stepBackwardButton)
         playItems.append(playButton)
         playItems.append(stepForwardButton)
         playItems.append(drawButton)
-            
+        
         //add to draw pause toolbar
         drawPlayItems.append(stopButton)
         drawPlayItems.append(stepBackwardButton)
         drawPlayItems.append(playButton)
         drawPlayItems.append(stepForwardButton)
         drawPlayItems.append(cancelDrawButton)
-            
+        
         //add to draw pause toolbar
         drawPauseItems.append(stopButton)
         drawPauseItems.append(stepBackwardButton)
         drawPauseItems.append(pauseButton)
         drawPauseItems.append(stepForwardButton)
         drawPauseItems.append(cancelDrawButton)
-
-            
-            
-        //set toolbar size and contents
-        toolbar.frame = CGRectMake((self.view.frame.size.width / 2) - 85, self.view.frame.size.height - 44, 170, 44)
-        toolbar.setItems(pauseItems, animated: true)
-        
-        //add toolbar to the view
-        toolbar.barStyle = UIBarStyle.Black
-
-        self.player.view.addSubview(toolbar)
-        
         
     }
     
@@ -194,13 +239,12 @@ class DetailViewController: UIViewController, PlayerDelegate {
         deleteButton2.tintColor = UIColor.whiteColor()
         self.view.addSubview(deleteButton2)
         
-       
+        
+        
         
     }
     
     func refreshName() {
-        print("idx: ")
-        println(self.idx)
         topBar.title = self.swings[self.idx].valueForKey("name") as? String
     }
     
@@ -210,6 +254,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
         self.configureView()
         self.configureActions()
 
+        addButtons()
         
         var bounds = UIScreen.mainScreen().bounds
         var width = bounds.size.width
@@ -256,6 +301,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
         refreshName()
         detailDescriptionLabel.text = self.swings[self.idx].valueForKey("date") as? String
         
+        self.url = self.swings[self.idx].valueForKey("url") as! String
     }
     
     func deleteSwing(sender: UIButton) {

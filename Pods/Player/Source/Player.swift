@@ -111,16 +111,40 @@ public class Player: UIViewController {
     public var delegate: PlayerDelegate!
 
     public var startTime = CMTime()
-    public var finalDuration = CMTime()
-    
+    public var endTime = CMTime()
+    public var duration = CMTime()
 
     
     public func setStartPoint(start : CMTime) {
+        println("sets start point")
+
         self.startTime = start
+        
+        if(CMTimeGetSeconds(endTime) > 0) {
+            duration = CMTimeSubtract(endTime, startTime)
+            println(CMTimeGetSeconds(duration))
+        }
     }
     
-    public func setLength(end : CMTime) {
-        self.finalDuration = end
+    public func setEndPoint(end : CMTime) {
+        self.endTime = end
+        duration = CMTimeSubtract(endTime, startTime)
+        
+    }
+    
+    public func getEndPoint() -> CMTime {
+        if let playerItem = self.playerItem {
+            println("!!")
+            return self.playerItem!.forwardPlaybackEndTime
+        }
+        return kCMTimeIndefinite
+    }
+    
+    public func getCurrentTime() -> CMTime {
+        if let playerItem = self.playerItem {
+            return self.playerItem!.currentTime()
+        }
+        return kCMTimeZero
     }
     
     
@@ -144,7 +168,6 @@ public class Player: UIViewController {
                     
                     self.setupAsset(asset)
                 }
-                println("!")
             } else {
                 var localURL: NSURL? = NSURL(fileURLWithPath: newValue)
                 if let asset = AVURLAsset(URL: localURL, options: .None) {
@@ -194,7 +217,7 @@ public class Player: UIViewController {
     public var maximumDuration: NSTimeInterval! {
         get {
             if let playerItem = self.playerItem {
-                return CMTimeGetSeconds(playerItem.duration)
+                return CMTimeGetSeconds(duration)
             } else {
                 return CMTimeGetSeconds(kCMTimeIndefinite)
             }
@@ -267,9 +290,11 @@ public class Player: UIViewController {
 
     // MARK: methods
 
+    
     public func playFromBeginning() {
+        println("!!")
         self.delegate?.playerPlaybackWillStartFromBeginning(self)
-        self.player.seekToTime(kCMTimeZero)
+        self.player.seekToTime(startTime)
         self.playFromCurrentTime()
     }
 
@@ -279,13 +304,19 @@ public class Player: UIViewController {
         self.player.play()
     }
     
+    public func goToEnd() {
+        self.playbackState = .Paused
+        self.player.seekToTime(self.playerItem!.forwardPlaybackEndTime)
+        self.player.pause()
+    }
+    
     public func stepForward() {
         var step = CMTimeMake(1, 20)
         var newTime = CMTimeAdd(playerItem!.currentTime(), step)
         let floatNew = Float(CMTimeGetSeconds(newTime))
-        var totalTime = Float(CMTimeGetSeconds(playerItem!.duration))
+        var totalTime = Float(CMTimeGetSeconds(duration))
         if(floatNew >= totalTime) {
-            self.player.seekToTime(kCMTimeZero)
+            self.player.seekToTime(startTime)
         } else {
             self.player.seekToTime(newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
         }
@@ -299,7 +330,7 @@ public class Player: UIViewController {
         if(floatNew <= 0) {
             self.player.seekToTime(kCMTimeZero)
         } else {
-            self.player.seekToTime(playerItem!.duration, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
+            self.player.seekToTime(newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
         }
     }
 
@@ -407,7 +438,7 @@ public class Player: UIViewController {
 
     public func playerItemDidPlayToEndTime(aNotification: NSNotification) {
         if self.playbackLoops.boolValue == true || self.playbackFreezesAtEnd.boolValue == true {
-            self.player.seekToTime(kCMTimeZero)
+            self.player.seekToTime(startTime)
         }
 
         if self.playbackLoops.boolValue == false {

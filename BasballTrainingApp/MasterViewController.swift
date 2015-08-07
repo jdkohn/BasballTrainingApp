@@ -278,7 +278,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         swingObject.setValue(urlString, forKey: "url")
         swingObject.setValue(thumbnail, forKey: "thumbnail")
         swingObject.setValue(date, forKey: "name")
-        
+        swingObject.setValue(true, forKey: "yetToSetStartPoint")
         
         
         var error: NSError?
