@@ -135,7 +135,7 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
             navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == true, animated: true)
             controller.setHitterUrl(myUrl)
             controller.setProfessionalUrl(proUrl)
-            
+            controller.setSide(right)
         }
     }
 

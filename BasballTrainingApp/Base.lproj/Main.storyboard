@@ -127,10 +127,13 @@
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <segue destination="uIy-if-dHA" kind="show" identifier="returnToHitterList" id="Vjg-YH-mcP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ifZ-yq-z8V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1800" y="-694"/>
+            <point key="canvasLocation" x="2212" y="50"/>
         </scene>
         <!--HitterVC-->
         <scene sceneID="oAF-8E-Snv">
@@ -297,8 +300,9 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
         <segue reference="TDP-U1-HPA"/>
         <segue reference="32q-nH-hhF"/>
+        <segue reference="JIi-HT-HP8"/>
+        <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
 </document>

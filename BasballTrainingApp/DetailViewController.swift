@@ -73,7 +73,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
             self.configureView()
         }
     }
-
     
     func configureView() {
         // Update the user interface for the detail item.
@@ -83,6 +82,12 @@ class DetailViewController: UIViewController, PlayerDelegate {
             }
             
         }
+    }
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(true)
+        
+        self.player.reset()
     }
     
     func navToPlayer(sender: UITapGestureRecognizer) {
@@ -101,11 +106,13 @@ class DetailViewController: UIViewController, PlayerDelegate {
         
         self.view.addSubview(self.player.view)
         
+        self.player.setStartPoint(kCMTimeZero)
+        
         if((self.swings[self.idx].valueForKey("yetToSetStartPoint")) as! Bool == true) {
             
             self.player.setStartPoint(kCMTimeZero)
-
-            self.player.setEndPoint(player.getEndPoint())
+            
+            
             
             self.setStartPointButton.frame = CGRectMake(0,0,self.view.frame.width, 44)
             self.setStartPointButton.setTitle("Set Start Point", forState: .Normal)
@@ -114,9 +121,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
             self.setStartPointButton.addTarget(self, action: "setStartTimeToCurrent:", forControlEvents: UIControlEvents.TouchUpInside)
             
             self.player.view.addSubview(setStartPointButton)
-            
-            //self.player.setupPla
-            
         }
         
         
@@ -139,23 +143,12 @@ class DetailViewController: UIViewController, PlayerDelegate {
 
     func setStartTimeToCurrent(sender: UIButton) {
         player.setStartPoint(self.player.getCurrentTime())
+        //var curTime = Float(CMTimeGetSeconds(self.player.getCurrentTime()))
+        //var curCMT = CMTimeMake(curTime * 10000, 10000)
         self.setStartPointButton.removeFromSuperview()
-     
-        self.setEndPointButton.frame = CGRectMake(0,0,self.view.frame.width, 44)
-        self.setEndPointButton.setTitle("Set End Point", forState: .Normal)
-        self.setEndPointButton.backgroundColor = UIColor.blackColor()
-        self.setEndPointButton.tintColor = UIColor.whiteColor()
-        self.setEndPointButton.addTarget(self, action: "setEndTimeToCurrent:", forControlEvents: UIControlEvents.TouchUpInside)
-        
-        self.player.view.addSubview(setEndPointButton)
-        
+        //self.player.changeFirstTime(false)
+        self.swings[self.idx].setValue(false, forKey: "yetToSetStartPoint")
     }
-    
-    func setEndTimeToCurrent(sender: UIButton) {
-        self.player.setEndPoint(self.player.getCurrentTime())
-        self.setEndPointButton.removeFromSuperview()
-    }
-    
     
     func addButtons() {
         
@@ -248,9 +241,16 @@ class DetailViewController: UIViewController, PlayerDelegate {
         topBar.title = self.swings[self.idx].valueForKey("name") as? String
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
+        println("!")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
         self.configureView()
         self.configureActions()
 
@@ -382,14 +382,17 @@ class DetailViewController: UIViewController, PlayerDelegate {
     
     func sendAlert(sender: UIButton) {   
        
-        if(self.swings[self.idx].valueForKey("rightHanded") == nil) {
+        println(self.swings[self.idx].valueForKey("rightHanded"))
+        
             
             
             //CoreData stuff
             let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let managedContext = appDelegate.managedObjectContext!
             let entity =  NSEntityDescription.entityForName("Swing", inManagedObjectContext: managedContext)
-
+        if(self.swings[self.idx].valueForKey("rightHanded") == nil) {
+            
+            
             let alert: UIAlertController = UIAlertController(title: "Compare Your Swing", message: "Left-Handed or Right-Handed?", preferredStyle: .ActionSheet)
                 
                 //Create and add the Cancel action

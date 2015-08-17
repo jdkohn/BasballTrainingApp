@@ -111,30 +111,18 @@ public class Player: UIViewController {
     public var delegate: PlayerDelegate!
 
     public var startTime = CMTime()
-    public var endTime = CMTime()
-    public var duration = CMTime()
 
+    public var didNotFinish = true
     
     public func setStartPoint(start : CMTime) {
         println("sets start point")
 
         self.startTime = start
         
-        if(CMTimeGetSeconds(endTime) > 0) {
-            duration = CMTimeSubtract(endTime, startTime)
-            println(CMTimeGetSeconds(duration))
-        }
     }
-    
-    public func setEndPoint(end : CMTime) {
-        self.endTime = end
-        duration = CMTimeSubtract(endTime, startTime)
-        
-    }
-    
+
     public func getEndPoint() -> CMTime {
         if let playerItem = self.playerItem {
-            println("!!")
             return self.playerItem!.forwardPlaybackEndTime
         }
         return kCMTimeIndefinite
@@ -217,7 +205,7 @@ public class Player: UIViewController {
     public var maximumDuration: NSTimeInterval! {
         get {
             if let playerItem = self.playerItem {
-                return CMTimeGetSeconds(duration)
+                return CMTimeGetSeconds(self.playerItem!.duration)
             } else {
                 return CMTimeGetSeconds(kCMTimeIndefinite)
             }
@@ -237,11 +225,11 @@ public class Player: UIViewController {
         self.player = AVPlayer()
         self.player.actionAtItemEnd = .Pause
         self.player.addObserver(self, forKeyPath: PlayerRateKey, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old) , context: &PlayerObserverContext)
-
         self.playbackLoops = true
         self.playbackFreezesAtEnd = false
         self.playbackState = .Stopped
         self.bufferingState = .Unknown
+        //self.player.setValue(2.0, forKey: "PlayerRateKey")
     }
 
     public required init(coder aDecoder: NSCoder) {
@@ -253,7 +241,9 @@ public class Player: UIViewController {
     }
 
     deinit {
+        
         self.playerView.player = nil
+        
         self.delegate = nil
 
         NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -265,6 +255,7 @@ public class Player: UIViewController {
         self.player.pause()
 
         self.setupPlayerItem(nil)
+        
     }
 
     // MARK: view lifecycle
@@ -275,7 +266,7 @@ public class Player: UIViewController {
         self.playerView.playerLayer.hidden = true
         self.view = self.playerView
         self.playerView.layer.addObserver(self, forKeyPath: PlayerReadyForDisplay, options: (NSKeyValueObservingOptions.New | NSKeyValueObservingOptions.Old), context: &PlayerLayerObserverContext)
-
+        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: UIApplication.sharedApplication())
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
     }
@@ -289,10 +280,9 @@ public class Player: UIViewController {
     }
 
     // MARK: methods
-
     
     public func playFromBeginning() {
-        println("!!")
+        didNotFinish = true
         self.delegate?.playerPlaybackWillStartFromBeginning(self)
         self.player.seekToTime(startTime)
         self.playFromCurrentTime()
@@ -310,11 +300,22 @@ public class Player: UIViewController {
         self.player.pause()
     }
     
+    public func changeFirstTime(val : Bool) {
+//        self.firstTime = val
+//        if(firstTime) {
+//            println("!")
+//            self.playbackLoops = false
+//        } else {
+//            println("!!")
+            self.playbackLoops = true
+//        }
+    }
+    
     public func stepForward() {
         var step = CMTimeMake(1, 20)
         var newTime = CMTimeAdd(playerItem!.currentTime(), step)
         let floatNew = Float(CMTimeGetSeconds(newTime))
-        var totalTime = Float(CMTimeGetSeconds(duration))
+        var totalTime = Float(CMTimeGetSeconds(self.playerItem!.duration))
         if(floatNew >= totalTime) {
             self.player.seekToTime(startTime)
         } else {
@@ -362,6 +363,8 @@ public class Player: UIViewController {
     // MARK: private setup
 
     private func setupAsset(asset: AVAsset) {
+
+        
         if self.playbackState == .Playing {
             self.pause()
         }
@@ -394,7 +397,7 @@ public class Player: UIViewController {
                     self.delegate?.playerPlaybackStateDidChange(self)
                     return
                 }
-
+                
                 let playerItem: AVPlayerItem = AVPlayerItem(asset:self.asset)
                 self.setupPlayerItem(playerItem)
 
@@ -427,6 +430,9 @@ public class Player: UIViewController {
 
         self.player.replaceCurrentItemWithPlayerItem(self.playerItem)
 
+        
+        
+        
         if self.playbackLoops.boolValue == true {
             self.player.actionAtItemEnd = .None
         } else {
@@ -437,6 +443,7 @@ public class Player: UIViewController {
     // MARK: NSNotifications
 
     public func playerItemDidPlayToEndTime(aNotification: NSNotification) {
+        didNotFinish = false
         if self.playbackLoops.boolValue == true || self.playbackFreezesAtEnd.boolValue == true {
             self.player.seekToTime(startTime)
         }
