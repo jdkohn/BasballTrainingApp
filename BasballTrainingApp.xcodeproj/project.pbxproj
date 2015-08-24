@@ -18,12 +18,20 @@
 		2C771ADD1B3CA3EE00FA6E2D /* HitterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */; };
 		2C7F74521B73DB4100EAC3A7 /* mccutchenVid.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2C7F74511B73DB4100EAC3A7 /* mccutchenVid.mp4 */; };
 		2CA4F69E1B71B2FF009F72BE /* LeftData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA4F69D1B71B2FF009F72BE /* LeftData.swift */; };
-		2CAEA23E1B729CC600B8BEA9 /* KB.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2CAEA23D1B729CC600B8BEA9 /* KB.mp4 */; };
 		2CAEA2401B72B44100B8BEA9 /* CompareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAEA23F1B72B44100B8BEA9 /* CompareView.swift */; };
 		2CAEA2421B73364500B8BEA9 /* cano.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CAEA2411B73364500B8BEA9 /* cano.jpg */; };
 		2CAEA2461B73365900B8BEA9 /* griffey.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CAEA2431B73365900B8BEA9 /* griffey.jpg */; };
 		2CAEA2471B73365900B8BEA9 /* harper.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CAEA2441B73365900B8BEA9 /* harper.jpg */; };
 		2CAEA2481B73365900B8BEA9 /* pederson.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CAEA2451B73365900B8BEA9 /* pederson.jpg */; };
+		2CB086621B8BB6E300594D63 /* BryantCropped.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2CB086611B8BB6E300594D63 /* BryantCropped.mp4 */; };
+		2CB086641B8BB6ED00594D63 /* PedersonCropped.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2CB086631B8BB6ED00594D63 /* PedersonCropped.mp4 */; };
+		2CB086661B8BB6F600594D63 /* StantonCropped.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2CB086651B8BB6F600594D63 /* StantonCropped.mp4 */; };
+		2CB086681B8BB6FE00594D63 /* Cano.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2CB086671B8BB6FE00594D63 /* Cano.mp4 */; };
+		2CB0866A1B8BB70300594D63 /* TroutCropped.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2CB086691B8BB70300594D63 /* TroutCropped.mp4 */; };
+		2CB0866C1B8BB70900594D63 /* GriffeyCropped.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2CB0866B1B8BB70900594D63 /* GriffeyCropped.mp4 */; };
+		2CB0866E1B8BB86800594D63 /* IchiroCropped.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2CB0866D1B8BB86800594D63 /* IchiroCropped.mp4 */; };
+		2CB086711B8BB9A100594D63 /* GStanton.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CB0866F1B8BB9A100594D63 /* GStanton.jpg */; };
+		2CB086721B8BB9A100594D63 /* ichiro-suzuki.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CB086701B8BB9A100594D63 /* ichiro-suzuki.jpg */; };
 		2CBBC40B1B59C5F700996BB5 /* drawsomething.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBBC40A1B59C5F700996BB5 /* drawsomething.png */; };
 		2CBBC40D1B59C98900996BB5 /* pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBBC40C1B59C98900996BB5 /* pencil.png */; };
 		2CBBC40F1B59CB4C00996BB5 /* pencil2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBBC40E1B59CB4C00996BB5 /* pencil2.png */; };
@@ -60,12 +68,20 @@
 		2C771ADC1B3CA3EE00FA6E2D /* HitterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HitterViewController.swift; sourceTree = "<group>"; };
 		2C7F74511B73DB4100EAC3A7 /* mccutchenVid.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = mccutchenVid.mp4; sourceTree = "<group>"; };
 		2CA4F69D1B71B2FF009F72BE /* LeftData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftData.swift; sourceTree = "<group>"; };
-		2CAEA23D1B729CC600B8BEA9 /* KB.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = KB.mp4; sourceTree = "<group>"; };
 		2CAEA23F1B72B44100B8BEA9 /* CompareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompareView.swift; sourceTree = "<group>"; };
 		2CAEA2411B73364500B8BEA9 /* cano.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cano.jpg; sourceTree = "<group>"; };
 		2CAEA2431B73365900B8BEA9 /* griffey.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = griffey.jpg; sourceTree = "<group>"; };
 		2CAEA2441B73365900B8BEA9 /* harper.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = harper.jpg; sourceTree = "<group>"; };
 		2CAEA2451B73365900B8BEA9 /* pederson.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pederson.jpg; sourceTree = "<group>"; };
+		2CB086611B8BB6E300594D63 /* BryantCropped.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = BryantCropped.mp4; sourceTree = "<group>"; };
+		2CB086631B8BB6ED00594D63 /* PedersonCropped.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = PedersonCropped.mp4; sourceTree = "<group>"; };
+		2CB086651B8BB6F600594D63 /* StantonCropped.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = StantonCropped.mp4; sourceTree = "<group>"; };
+		2CB086671B8BB6FE00594D63 /* Cano.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = Cano.mp4; sourceTree = "<group>"; };
+		2CB086691B8BB70300594D63 /* TroutCropped.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = TroutCropped.mp4; sourceTree = "<group>"; };
+		2CB0866B1B8BB70900594D63 /* GriffeyCropped.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = GriffeyCropped.mp4; sourceTree = "<group>"; };
+		2CB0866D1B8BB86800594D63 /* IchiroCropped.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = IchiroCropped.mp4; sourceTree = "<group>"; };
+		2CB0866F1B8BB9A100594D63 /* GStanton.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GStanton.jpg; sourceTree = "<group>"; };
+		2CB086701B8BB9A100594D63 /* ichiro-suzuki.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "ichiro-suzuki.jpg"; sourceTree = "<group>"; };
 		2CBBC40A1B59C5F700996BB5 /* drawsomething.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drawsomething.png; sourceTree = "<group>"; };
 		2CBBC40C1B59C98900996BB5 /* pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil.png; sourceTree = "<group>"; };
 		2CBBC40E1B59CB4C00996BB5 /* pencil2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil2.png; sourceTree = "<group>"; };
@@ -139,7 +155,13 @@
 		2CCD84BE1B39EA41001EC2FD /* BasballTrainingApp */ = {
 			isa = PBXGroup;
 			children = (
-				2CAEA23D1B729CC600B8BEA9 /* KB.mp4 */,
+				2CB086691B8BB70300594D63 /* TroutCropped.mp4 */,
+				2CB086671B8BB6FE00594D63 /* Cano.mp4 */,
+				2CB0866B1B8BB70900594D63 /* GriffeyCropped.mp4 */,
+				2CB0866D1B8BB86800594D63 /* IchiroCropped.mp4 */,
+				2CB086651B8BB6F600594D63 /* StantonCropped.mp4 */,
+				2CB086631B8BB6ED00594D63 /* PedersonCropped.mp4 */,
+				2CB086611B8BB6E300594D63 /* BryantCropped.mp4 */,
 				2C7F74511B73DB4100EAC3A7 /* mccutchenVid.mp4 */,
 				2CCD84C11B39EA41001EC2FD /* AppDelegate.swift */,
 				2C631CBD1B4C61D5002E4932 /* HitterCell.swift */,
@@ -156,6 +178,8 @@
 				2C2B9F121B4F1C3B00BE340A /* trout.jpg */,
 				2C2B9F141B4F1F2C00BE340A /* mccutchen.jpg */,
 				2CAEA2431B73365900B8BEA9 /* griffey.jpg */,
+				2CB0866F1B8BB9A100594D63 /* GStanton.jpg */,
+				2CB086701B8BB9A100594D63 /* ichiro-suzuki.jpg */,
 				2CAEA2441B73365900B8BEA9 /* harper.jpg */,
 				2CAEA2451B73365900B8BEA9 /* pederson.jpg */,
 				2C2B9F161B4F1F4100BE340A /* bryant.jpg */,
@@ -292,18 +316,26 @@
 				2CBBC4111B59CCDA00996BB5 /* pencil3.png in Resources */,
 				2CBBC40F1B59CB4C00996BB5 /* pencil2.png in Resources */,
 				2CCD84C91B39EA41001EC2FD /* Main.storyboard in Resources */,
+				2CB086621B8BB6E300594D63 /* BryantCropped.mp4 in Resources */,
 				2CCD84CE1B39EA41001EC2FD /* LaunchScreen.xib in Resources */,
 				2CCD84CB1B39EA41001EC2FD /* Images.xcassets in Resources */,
-				2CAEA23E1B729CC600B8BEA9 /* KB.mp4 in Resources */,
 				2C2B9F171B4F1F4100BE340A /* bryant.jpg in Resources */,
 				2C771ADB1B3A05CF00FA6E2D /* cruz.jpg in Resources */,
+				2CB0866C1B8BB70900594D63 /* GriffeyCropped.mp4 in Resources */,
 				2CBBC40D1B59C98900996BB5 /* pencil.png in Resources */,
 				2CAEA2421B73364500B8BEA9 /* cano.jpg in Resources */,
 				2CAEA2481B73365900B8BEA9 /* pederson.jpg in Resources */,
+				2CB0866A1B8BB70300594D63 /* TroutCropped.mp4 in Resources */,
+				2CB086721B8BB9A100594D63 /* ichiro-suzuki.jpg in Resources */,
 				2C2B9F151B4F1F2C00BE340A /* mccutchen.jpg in Resources */,
 				2CAEA2471B73365900B8BEA9 /* harper.jpg in Resources */,
+				2CB086711B8BB9A100594D63 /* GStanton.jpg in Resources */,
+				2CB0866E1B8BB86800594D63 /* IchiroCropped.mp4 in Resources */,
 				2CAEA2461B73365900B8BEA9 /* griffey.jpg in Resources */,
+				2CB086681B8BB6FE00594D63 /* Cano.mp4 in Resources */,
+				2CB086661B8BB6F600594D63 /* StantonCropped.mp4 in Resources */,
 				2C2B9F131B4F1C3B00BE340A /* trout.jpg in Resources */,
+				2CB086641B8BB6ED00594D63 /* PedersonCropped.mp4 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

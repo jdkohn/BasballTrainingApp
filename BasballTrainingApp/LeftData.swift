@@ -19,7 +19,7 @@ class LeftData {
     }
     
     let hitters = [
-        Entry(fname: "harper.jpg", heading: "Bryce Harper"),
+        Entry(fname: "ichiro-suzuki.jpg", heading: "Ichiro Suzuki"),
         Entry(fname: "cano.jpg", heading: "Robinson Cano"),
         Entry(fname: "pederson.jpg", heading: "Joc Pederson"),
         Entry(fname: "griffey.jpg", heading: "Ken Griffey Jr.")

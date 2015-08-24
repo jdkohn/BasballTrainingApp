@@ -30,6 +30,7 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     var right = Bool()
     
     var rightLinks = [String]()
+    var leftLinks = [String]()
     
     var compareVC : CompareView? = nil
 
@@ -51,10 +52,15 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     }
     
     func getLinks() {
-        rightLinks.append(bundle.pathForResource("KB.mp4", ofType: nil)!)
-        rightLinks.append(bundle.pathForResource("KB.mp4", ofType: nil)!)
-        rightLinks.append(bundle.pathForResource("KB.mp4", ofType: nil)!)
+        rightLinks.append(bundle.pathForResource("StantonCropped.mp4", ofType: nil)!)
+        rightLinks.append(bundle.pathForResource("TroutCropped.mp4", ofType: nil)!)
+        rightLinks.append(bundle.pathForResource("BryantCropped.mp4", ofType: nil)!)
         rightLinks.append(bundle.pathForResource("mccutchenVid.mp4", ofType: nil)!)
+        
+        leftLinks.append(bundle.pathForResource("IchiroCropped.mp4", ofType: nil)!)
+        leftLinks.append(bundle.pathForResource("Cano.mp4", ofType: nil)!)
+        leftLinks.append(bundle.pathForResource("PedersonCropped.mp4", ofType: nil)!)
+        leftLinks.append(bundle.pathForResource("GriffeyCropped.mp4", ofType: nil)!)
     }
     
     
@@ -103,7 +109,7 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
         if(right) {
             proUrl = rightLinks[indexPath.row]
         } else {
-            
+            proUrl = leftLinks[indexPath.row]
         }
         
         self.performSegueWithIdentifier("navToCompareView", sender: nil)

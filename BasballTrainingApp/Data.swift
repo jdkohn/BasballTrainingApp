@@ -28,7 +28,7 @@ class Data {
     
     
     let hitters = [
-        Entry(fname: "cruz.jpg", heading: "Nelson Cruz"),
+        Entry(fname: "GStanton.jpg", heading: "Giancarlo Stanton"),
         Entry(fname: "trout.jpg", heading: "Mike Trout"),
         Entry(fname: "bryant.jpg", heading: "Kris Bryant"),
         Entry(fname: "mccutchen.jpg", heading: "Andrew McCutchen")
