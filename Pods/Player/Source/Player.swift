@@ -111,7 +111,9 @@ public class Player: UIViewController {
     public var delegate: PlayerDelegate!
 
     public var startTime = CMTime()
-
+    
+    public var playerDidPlay = false
+    
     public var didNotFinish = true
     
     public func setStartPoint(start : CMTime) {
@@ -229,7 +231,6 @@ public class Player: UIViewController {
         self.playbackFreezesAtEnd = false
         self.playbackState = .Stopped
         self.bufferingState = .Unknown
-        //self.player.setValue(2.0, forKey: "PlayerRateKey")
     }
 
     public required init(coder aDecoder: NSCoder) {
@@ -243,19 +244,24 @@ public class Player: UIViewController {
     deinit {
         
         self.playerView.player = nil
-        
         self.delegate = nil
-
-        NSNotificationCenter.defaultCenter().removeObserver(self)
-
-        self.playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplay, context: &PlayerLayerObserverContext)
-
-        self.player.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
-
-        self.player.pause()
-
-        self.setupPlayerItem(nil)
         
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        
+        self.playerView.layer.removeObserver(self, forKeyPath: PlayerReadyForDisplay, context: &PlayerLayerObserverContext)
+        
+        self.player.removeObserver(self, forKeyPath: PlayerRateKey, context: &PlayerObserverContext)
+        
+        self.player.pause()
+        
+        self.setupPlayerItem(nil)
+    }
+    
+    override public func viewDidDisappear(animated: Bool) {
+        
+        if self.playbackState == .Playing {
+            self.pause()
+        }
     }
 
     // MARK: view lifecycle
@@ -271,18 +277,13 @@ public class Player: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
     }
 
-    public override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-
-        if self.playbackState == .Playing {
-            self.pause()
-        }
-    }
-
     // MARK: methods
     
     public func playFromBeginning() {
         didNotFinish = true
+        
+        playerDidPlay = true
+        
         self.delegate?.playerPlaybackWillStartFromBeginning(self)
         self.player.seekToTime(startTime)
         self.playFromCurrentTime()
@@ -317,6 +318,7 @@ public class Player: UIViewController {
         let floatNew = Float(CMTimeGetSeconds(newTime))
         var totalTime = Float(CMTimeGetSeconds(self.playerItem!.duration))
         if(floatNew >= totalTime) {
+            didNotFinish = false
             self.player.seekToTime(startTime)
         } else {
             self.player.seekToTime(newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)

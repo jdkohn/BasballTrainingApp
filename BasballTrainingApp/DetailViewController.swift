@@ -31,7 +31,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
     var RHTable = UITableView()
 
     
-    
     @IBOutlet var topBar: UINavigationItem!
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
@@ -84,31 +83,16 @@ class DetailViewController: UIViewController, PlayerDelegate {
         }
     }
     
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(true)
-        
-        self.player.reset()
-    }
-    
     func navToPlayer(sender: UITapGestureRecognizer) {
 
         var viewSize: CGSize = UIScreen.mainScreen().bounds.size
         
         self.view.frame = CGRect(x: 0, y: 0, width: viewSize.width, height: viewSize.height)
         
-        //self.player = Player()
-        self.player.delegate = self
-        self.player.view.frame = self.view.bounds
-        
-        self.player.path = self.url
-        
         navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false, animated: true)
         
         self.view.addSubview(self.player.view)
-        
-        self.player.setStartPoint(kCMTimeZero)
-        
-        if((self.swings[self.idx].valueForKey("yetToSetStartPoint")) as! Bool == true) {
+                if((self.swings[self.idx].valueForKey("yetToSetStartPoint")) as! Bool == true) {
             
             self.player.setStartPoint(kCMTimeZero)
             
@@ -122,13 +106,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
             
             self.player.view.addSubview(setStartPointButton)
         }
-        
-        
-        
         player.playbackState = PlaybackState.Playing
 
-        
-        
         //set toolbar size and contents
         toolbar.frame = CGRectMake((self.view.frame.size.width / 2) - 85, self.view.frame.size.height - 44, 170, 44)
         toolbar.setItems(pauseItems, animated: true)
@@ -137,8 +116,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
         toolbar.barStyle = UIBarStyle.Black
 
         self.player.view.addSubview(toolbar)
-        
-        
     }
 
     func setStartTimeToCurrent(sender: UIButton) {
@@ -231,10 +208,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
         deleteButton2.backgroundColor = UIColor.redColor()
         deleteButton2.tintColor = UIColor.whiteColor()
         self.view.addSubview(deleteButton2)
-        
-        
-        
-        
     }
     
     func refreshName() {
@@ -259,9 +232,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
         var bounds = UIScreen.mainScreen().bounds
         var width = bounds.size.width
         var size = CGSize(width: self.view.frame.height - 204 , height: self.view.frame.width - 60)
-        
-        
-        
+
         thumbnail.image = RBResizeImage(self.img, targetSize: size)
         
         let rotateImage = thumbnail.image?.CGImage
@@ -302,6 +273,13 @@ class DetailViewController: UIViewController, PlayerDelegate {
         detailDescriptionLabel.text = self.swings[self.idx].valueForKey("date") as? String
         
         self.url = self.swings[self.idx].valueForKey("url") as! String
+        
+        
+        self.player.delegate = self
+        self.player.view.frame = self.view.bounds
+        self.player.path = self.url
+        self.player.setStartPoint(kCMTimeZero)
+        
     }
     
     func deleteSwing(sender: UIButton) {
@@ -416,7 +394,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
             
                 
             }
-                alert.addAction(chooseSide2)
+            alert.addAction(chooseSide2)
+            managedContext.save(nil)
                 //Present the AlertController
                 self.presentViewController(alert, animated: true, completion: nil)
         } else {

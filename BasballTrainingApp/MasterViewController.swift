@@ -7,11 +7,11 @@
 //
 
 
-/*
+/* To Add
 
-two players next to each other
-
-thumbnails from videos ?????
+Syncing Videos Better - Restart both at same time
+Re-sync button
+Control speed of steps
 
 */
 
