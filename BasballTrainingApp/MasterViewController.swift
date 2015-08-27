@@ -10,9 +10,8 @@
 /* To Add
 
 CompareView
-    Undo button for draw
+    Change pro cancel button
     Control speed of steps
-    Compare to different player button
 */
 
 /* Problems
@@ -23,7 +22,7 @@ CompareView
 
 /* Kinda Problems
 
-Players restarting after being sync lagging - sent to pause instead
+Players restarting after being synced lagging - sent to pause instead
 
 
 */

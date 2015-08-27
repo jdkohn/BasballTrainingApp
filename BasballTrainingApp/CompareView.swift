@@ -39,6 +39,7 @@ class CompareView: UIViewController, PlayerDelegate {
     let pedersonButton = UIButton()
     let griffeyButton = UIButton()
     
+    
     var hitterNames = [String]()
     var hitterLinks = [AnyObject]()
     
@@ -52,11 +53,13 @@ class CompareView: UIViewController, PlayerDelegate {
     
     let resyncButton = UIButton()
     let changeHitterButton = UIButton()
+    let cancelChangeHitterButton = UIButton()
     let clearButton = UIButton()
-    
+    let undoButton = UIButton()
     
     var mainImageView = UIImageView()
     var tempImageView = UIImageView()
+    var lastImageView = UIImageView()
     
     var draw = false
     var exitNotPressed = true
@@ -244,6 +247,13 @@ class CompareView: UIViewController, PlayerDelegate {
         changeHitterButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
         changeHitterButton.addTarget(self, action: "changeHitter:", forControlEvents: UIControlEvents.TouchUpInside)
 
+        //cancelChangeHitterButton
+        cancelChangeHitterButton.frame = CGRectMake((self.view.frame.size.width / 2) - 50,50,100,45)
+        cancelChangeHitterButton.setTitle("Cancel", forState: UIControlState.Normal)
+        cancelChangeHitterButton.backgroundColor = UIColor.redColor()
+        cancelChangeHitterButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        cancelChangeHitterButton.addTarget(self, action: "cancelChangeHitter:", forControlEvents: UIControlEvents.TouchUpInside)
+        
         
         // Add links to videos
         hitterLinks.append(bundle.pathForResource("StantonCropped.mp4", ofType: nil)!)
@@ -329,23 +339,54 @@ class CompareView: UIViewController, PlayerDelegate {
         griffeyButton.tag = 7
         griffeyButton.addTarget(self, action: "changeProUrl:", forControlEvents: UIControlEvents.TouchUpInside)
         
+        //clear and undo buttons
         
+        let bluecolor = UIColor(red: 0, green: 122/255, blue: 255, alpha: 1)
         
+        clearButton.addTarget(self, action: "reset:", forControlEvents: UIControlEvents.TouchUpInside)
+        clearButton.frame = CGRectMake(0,self.view.frame.size.height - 44,60,44)
+        clearButton.setTitle("Clear", forState: UIControlState.Normal)
+        clearButton.backgroundColor = UIColor.blackColor()
+        clearButton.setTitleColor(bluecolor, forState: .Normal)
+        clearButton.opaque = false
+        clearButton.alpha = 0.75
+        
+        undoButton.addTarget(self, action: "undo:", forControlEvents: UIControlEvents.TouchUpInside)
+        undoButton.frame = CGRectMake(self.view.frame.size.width - 60,self.view.frame.size.height - 35,60,35)
+        undoButton.setTitle("Undo", forState: UIControlState.Normal)
+        undoButton.backgroundColor = UIColor.blackColor()
+        undoButton.setTitleColor(bluecolor, forState: .Normal)
+        undoButton.opaque = false
+        undoButton.alpha = 0.75
     }
     
     func changeProUrl(sender: UIButton) {
         playerRight.path = hitterLinks[sender.tag] as! String
         self.currentHitter = hitterNames[sender.tag]
-            self.stantonButton.removeFromSuperview()
-            self.troutButton.removeFromSuperview()
-            self.cutchButton.removeFromSuperview()
-            self.bryantButton.removeFromSuperview()
-            self.ichiroButton.removeFromSuperview()
-            self.canoButton.removeFromSuperview()
-            self.pedersonButton.removeFromSuperview()
-            self.griffeyButton.removeFromSuperview()
-            resync(resyncButton)
+        self.stantonButton.removeFromSuperview()
+        self.troutButton.removeFromSuperview()
+        self.cutchButton.removeFromSuperview()
+        self.bryantButton.removeFromSuperview()
+        self.ichiroButton.removeFromSuperview()
+        self.canoButton.removeFromSuperview()
+        self.pedersonButton.removeFromSuperview()
+        self.griffeyButton.removeFromSuperview()
+        self.cancelChangeHitterButton.removeFromSuperview()
+        resync(resyncButton)
     }
+    
+    func cancelChangeHitter(sender: UIButton) {
+        self.stantonButton.removeFromSuperview()
+        self.troutButton.removeFromSuperview()
+        self.cutchButton.removeFromSuperview()
+        self.bryantButton.removeFromSuperview()
+        self.ichiroButton.removeFromSuperview()
+        self.canoButton.removeFromSuperview()
+        self.pedersonButton.removeFromSuperview()
+        self.griffeyButton.removeFromSuperview()
+        self.cancelChangeHitterButton.removeFromSuperview()
+    }
+    
     
     func changeHitter(sender: UIButton) {
         if(currentHitter == "Stanton") {
@@ -387,6 +428,7 @@ class CompareView: UIViewController, PlayerDelegate {
             self.view.addSubview(pedersonButton)
             self.view.addSubview(ichiroButton)
         }
+        self.view.addSubview(cancelChangeHitterButton)
     }
     
     //MARK:
@@ -464,15 +506,6 @@ class CompareView: UIViewController, PlayerDelegate {
         }
         
         //add clear button
-        let bluecolor = UIColor(red: 0, green: 122/255, blue: 255, alpha: 1)
-        
-        clearButton.addTarget(self, action: "reset:", forControlEvents: UIControlEvents.TouchUpInside)
-        clearButton.frame = CGRectMake(0,self.view.frame.size.height - 44,60,44)
-        clearButton.setTitle("Clear", forState: UIControlState.Normal)
-        clearButton.backgroundColor = UIColor.blackColor()
-        clearButton.setTitleColor(bluecolor, forState: .Normal)
-        clearButton.opaque = false
-        clearButton.alpha = 0.75
         playerLeft.view.addSubview(clearButton)
     }
     
@@ -601,6 +634,9 @@ class CompareView: UIViewController, PlayerDelegate {
                 drawLineFrom(lastPoint, toPoint: lastPoint)
             }
             
+            // Make copy of current image view
+            lastImageView.image = mainImageView.image
+            
             // Merge tempImageView into mainImageView
             UIGraphicsBeginImageContext(mainImageView.frame.size)
             mainImageView.image?.drawInRect(CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height - 44), blendMode: kCGBlendModeNormal, alpha: 1.0)
@@ -609,6 +645,7 @@ class CompareView: UIViewController, PlayerDelegate {
             UIGraphicsEndImageContext()
             
             tempImageView.image = nil
+            self.view.addSubview(undoButton)
         }
     }
     
@@ -630,6 +667,10 @@ class CompareView: UIViewController, PlayerDelegate {
         mainImageView.image = nil
     }
 
+    func undo(sender : UIButton) {
+        mainImageView.image = lastImageView.image
+        undoButton.removeFromSuperview()
+    }
     
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
