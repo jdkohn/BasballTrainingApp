@@ -10,7 +10,11 @@ import Foundation
 import Player
 import CoreMedia
 
+let playerFinished = "com.andrewcbancroft.specialNotificationKey"
+
 class CompareView: UIViewController, PlayerDelegate {
+    
+    var bundle = NSBundle.mainBundle()
     
     var myUrl = String()
     var proUrl = String()
@@ -25,13 +29,31 @@ class CompareView: UIViewController, PlayerDelegate {
     
     let toolbar = UIToolbar()
     
+    let changeProToolbar = UIToolbar()
+    let stantonButton = UIButton()
+    let troutButton = UIButton()
+    let bryantButton = UIButton()
+    let cutchButton = UIButton()
+    let ichiroButton = UIButton()
+    let canoButton = UIButton()
+    let pedersonButton = UIButton()
+    let griffeyButton = UIButton()
+    
+    var hitterNames = [String]()
+    var hitterLinks = [AnyObject]()
+    
     let rightStepToolbar = UIToolbar()
     let leftStepToolbar = UIToolbar()
     let syncButton = UIButton()
     
+    var currentHitter = String()
+    
     var right = Bool()
     
+    let resyncButton = UIButton()
+    let changeHitterButton = UIButton()
     let clearButton = UIButton()
+    
     
     var mainImageView = UIImageView()
     var tempImageView = UIImageView()
@@ -51,6 +73,8 @@ class CompareView: UIViewController, PlayerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "restart", name: playerFinished, object: nil)
         
         addButtons()
         
@@ -94,6 +118,15 @@ class CompareView: UIViewController, PlayerDelegate {
         playerRight.playbackState = PlaybackState.Paused
     }
     
+    func resync(sender: UIButton) {
+        toolbar.removeFromSuperview()
+        clearButton.removeFromSuperview()
+        resyncButton.removeFromSuperview()
+        changeHitterButton.removeFromSuperview()
+        syncSwings()
+    }
+    
+    
     func syncSwings() {
         let stepLeftBack = UIBarButtonItem(barButtonSystemItem: .Rewind, target: self, action: "stepLeftBackward:")
         let stepLeftForward = UIBarButtonItem(barButtonSystemItem: .FastForward, target: self, action: "stepLeftForward:")
@@ -132,25 +165,10 @@ class CompareView: UIViewController, PlayerDelegate {
         playerLeft.setStartPoint(playerLeft.getCurrentTime())
         
         self.view.addSubview(toolbar)
-        
-        let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        dispatch_async(backgroundQueue, {
-            self.loopPlaying()
-        })
+        self.view.addSubview(resyncButton)
+        self.view.addSubview(changeHitterButton)
     }
-    
-    
 
-
-    func loopPlaying() {
-       while(1 == 1) {
-            while(playerLeft.didNotFinish && playerRight.didNotFinish) {
-                //wait to check if false
-            }
-            self.restart()
-       }
-    }
     
     func setHitterUrl(url : String) {
         self.myUrl = url
@@ -161,6 +179,8 @@ class CompareView: UIViewController, PlayerDelegate {
     }
     
     func addButtons() {
+        
+        //toobar buttons
         let drawIcon = UIImage(named: "pencil2.png")
         let drawingIcon = UIImage(named: "pencil3.png")
         
@@ -201,16 +221,176 @@ class CompareView: UIViewController, PlayerDelegate {
         drawPauseItems.append(pauseButton)
         drawPauseItems.append(stepForwardButton)
         drawPauseItems.append(cancelDrawButton)
-        
-        
-        
+
         //set toolbar size and contents
         toolbar.frame = CGRectMake((self.view.frame.size.width / 2) - 85, self.view.frame.size.height - 44, 170, 44)
         toolbar.setItems(playItems, animated: true)
         
         //add toolbar to the view
         toolbar.barStyle = UIBarStyle.Black
+        
+        //resync button
+        resyncButton.frame = CGRectMake(self.view.frame.size.width - 70, 0, 70, 30)
+        resyncButton.setTitle("Re-Sync", forState: .Normal)
+        resyncButton.backgroundColor = UIColor.lightGrayColor()
+        resyncButton.tintColor = UIColor.blackColor()
+        resyncButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        resyncButton.addTarget(self, action: "resync:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        //changeHitterButton
+        changeHitterButton.frame = CGRectMake(0,0,100,30)
+        changeHitterButton.setTitle("Change Pro", forState: UIControlState.Normal)
+        changeHitterButton.backgroundColor = UIColor.lightGrayColor()
+        changeHitterButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        changeHitterButton.addTarget(self, action: "changeHitter:", forControlEvents: UIControlEvents.TouchUpInside)
+
+        
+        // Add links to videos
+        hitterLinks.append(bundle.pathForResource("StantonCropped.mp4", ofType: nil)!)
+        hitterLinks.append(bundle.pathForResource("TroutCropped.mp4", ofType: nil)!)
+        hitterLinks.append(bundle.pathForResource("BryantCropped.mp4", ofType: nil)!)
+        hitterLinks.append(bundle.pathForResource("mccutchenVid.mp4", ofType: nil)!)
+        hitterLinks.append(bundle.pathForResource("IchiroCropped.mp4", ofType: nil)!)
+        hitterLinks.append(bundle.pathForResource("Cano.mp4", ofType: nil)!)
+        hitterLinks.append(bundle.pathForResource("PedersonCropped.mp4", ofType: nil)!)
+        hitterLinks.append(bundle.pathForResource("GriffeyCropped.mp4", ofType: nil)!)
+        
+        hitterNames.append("Stanton")
+        hitterNames.append("Trout")
+        hitterNames.append("Bryant")
+        hitterNames.append("McCutchen")
+        hitterNames.append("Ichiro")
+        hitterNames.append("Cano")
+        hitterNames.append("Pederson")
+        hitterNames.append("Griffey")
+        
+        //Hitter Buttons
+        
+        //stanton button
+        let stantonImage = UIImage(named: "GStanton.jpg")
+        stantonButton.frame = CGRectMake(0,self.view.frame.size.height - 75, self.view.frame.size.width / 3, 150)
+        stantonButton.setBackgroundImage(stantonImage, forState: UIControlState.Normal)
+        stantonButton.setTitle("Stanton", forState: UIControlState.Normal)
+        stantonButton.tag = 0
+        stantonButton.addTarget(self, action: "changeProUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+
+        //trout button
+        let troutImage = UIImage(named: "trout.jpg")
+        troutButton.frame = CGRectMake(0,self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+        troutButton.setBackgroundImage(troutImage, forState: UIControlState.Normal)
+        troutButton.setTitle("Trout", forState: UIControlState.Normal)
+        troutButton.tag = 1
+        troutButton.addTarget(self, action: "changeProUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        //bryant button
+        let bryantImage = UIImage(named: "bryant.jpg")
+        bryantButton.frame = CGRectMake(self.view.frame.size.width / 3,self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+        bryantButton.setBackgroundImage(bryantImage, forState: UIControlState.Normal)
+        bryantButton.setTitle("Bryant", forState: UIControlState.Normal)
+        bryantButton.tag = 2
+        bryantButton.addTarget(self, action: "changeProUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        //McCutchen button
+        let cutchImage = UIImage(named: "mccutchen.jpg")
+        cutchButton.frame = CGRectMake(2 * (self.view.frame.size.width / 3),self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+        cutchButton.setBackgroundImage(cutchImage, forState: UIControlState.Normal)
+        cutchButton.setTitle("McCutchen", forState: UIControlState.Normal)
+        cutchButton.tag = 3
+        cutchButton.addTarget(self, action: "changeProUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        //Ichiro button
+        let ichiroImage = UIImage(named: "ichiro-suzuki.jpg")
+        ichiroButton.setBackgroundImage(ichiroImage, forState: UIControlState.Normal)
+        ichiroButton.setTitle("Ichiro", forState: UIControlState.Normal)
+        ichiroButton.tag = 4
+        ichiroButton.addTarget(self, action: "changeProUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        //Cano button
+        let canoImage = UIImage(named: "cano.jpg")
+        canoButton.frame = CGRectMake(0,self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+        canoButton.setBackgroundImage(canoImage, forState: UIControlState.Normal)
+        canoButton.setTitle("Cano", forState: UIControlState.Normal)
+        canoButton.tag = 5
+        canoButton.addTarget(self, action: "changeProUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        //Pederson button
+        let pedersonImage = UIImage(named: "pederson.jpg")
+        pedersonButton.frame = CGRectMake(self.view.frame.size.width / 3,self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+        pedersonButton.setBackgroundImage(pedersonImage, forState: UIControlState.Normal)
+        pedersonButton.setTitle("Pederson", forState: UIControlState.Normal)
+        pedersonButton.tag = 6
+        pedersonButton.addTarget(self, action: "changeProUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        //Griffey button
+        let griffeyImage = UIImage(named: "griffey.jpg")
+        griffeyButton.frame = CGRectMake(2 * (self.view.frame.size.width / 3),self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+        griffeyButton.setBackgroundImage(griffeyImage, forState: UIControlState.Normal)
+        griffeyButton.setTitle("Griffey", forState: UIControlState.Normal)
+        griffeyButton.tag = 7
+        griffeyButton.addTarget(self, action: "changeProUrl:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        
+        
     }
+    
+    func changeProUrl(sender: UIButton) {
+        playerRight.path = hitterLinks[sender.tag] as! String
+        self.currentHitter = hitterNames[sender.tag]
+            self.stantonButton.removeFromSuperview()
+            self.troutButton.removeFromSuperview()
+            self.cutchButton.removeFromSuperview()
+            self.bryantButton.removeFromSuperview()
+            self.ichiroButton.removeFromSuperview()
+            self.canoButton.removeFromSuperview()
+            self.pedersonButton.removeFromSuperview()
+            self.griffeyButton.removeFromSuperview()
+            resync(resyncButton)
+    }
+    
+    func changeHitter(sender: UIButton) {
+        if(currentHitter == "Stanton") {
+            self.view.addSubview(troutButton)
+            self.view.addSubview(bryantButton)
+            self.view.addSubview(cutchButton)
+        } else if(currentHitter == "Trout") {
+            stantonButton.frame = CGRectMake(0,self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+            self.view.addSubview(stantonButton)
+            self.view.addSubview(bryantButton)
+            self.view.addSubview(cutchButton)
+        } else if(currentHitter == "Bryant") {
+            stantonButton.frame = CGRectMake(self.view.frame.size.width / 3,self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+            self.view.addSubview(troutButton)
+            self.view.addSubview(stantonButton)
+            self.view.addSubview(cutchButton)
+        } else if(currentHitter == "McCutchen") {
+            stantonButton.frame = CGRectMake(2 * (self.view.frame.size.width / 3),self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+            self.view.addSubview(troutButton)
+            self.view.addSubview(bryantButton)
+            self.view.addSubview(stantonButton)
+        } else if(currentHitter == "Ichiro") {
+            self.view.addSubview(canoButton)
+            self.view.addSubview(pedersonButton)
+            self.view.addSubview(griffeyButton)
+        } else if(currentHitter == "Cano") {
+            ichiroButton.frame = CGRectMake(0,self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+            self.view.addSubview(ichiroButton)
+            self.view.addSubview(pedersonButton)
+            self.view.addSubview(griffeyButton)
+        } else if(currentHitter == "Pederson") {
+            ichiroButton.frame = CGRectMake(self.view.frame.size.width / 3,self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+            self.view.addSubview(canoButton)
+            self.view.addSubview(ichiroButton)
+            self.view.addSubview(griffeyButton)
+        } else if(currentHitter == "Griffey") {
+            ichiroButton.frame = CGRectMake(2 * (self.view.frame.size.width / 3),self.view.frame.size.height - 150, self.view.frame.size.width / 3, 150)
+            self.view.addSubview(canoButton)
+            self.view.addSubview(pedersonButton)
+            self.view.addSubview(ichiroButton)
+        }
+    }
+    
+    //MARK:
+    
     
     //MARK: Bar button item functions
     
@@ -226,8 +406,11 @@ class CompareView: UIViewController, PlayerDelegate {
     }
     
     func restart() {
-        self.playerRight.playFromBeginning()
-        self.playerLeft.playFromBeginning()
+        playerRight.playFromBeginning()
+        playerRight.pause()
+        playerLeft.playFromBeginning()
+        playerLeft.pause()
+        toolbar.setItems(playItems, animated: true)
     }
     
     func play(sender: UIBarButtonItem) {
@@ -241,17 +424,18 @@ class CompareView: UIViewController, PlayerDelegate {
     }
     
     func done(sender: UIBarButtonItem) {
-        //playerRight.view.removeFromSuperview()
-        //playerLeft.view.removeFromSuperview()
+        playerLeft.view.removeFromSuperview()
+        playerRight.view.removeFromSuperview()
+        
+        
+        
         let value = UIInterfaceOrientation.Portrait.rawValue
         
         UIDevice.currentDevice().setValue(value, forKey: "orientation")
         
         navigationController?.setNavigationBarHidden(false , animated: true)
         
-        playerRight.view.removeFromSuperview()
-        playerLeft.view.removeFromSuperview()
-       // navigationController?.popToViewController(<#viewController: UIViewController#>, animated: <#Bool#>)
+        
         navigationController?.popToRootViewControllerAnimated(true)
     }
     
@@ -355,7 +539,6 @@ class CompareView: UIViewController, PlayerDelegate {
     
     
     override func shouldAutorotate() -> Bool {
-        println("autoRotate")
         return false
     }
     

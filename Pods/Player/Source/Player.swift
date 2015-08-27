@@ -30,6 +30,8 @@ import AVFoundation
 import CoreGraphics
 import CoreMedia
 
+let playerFinished = "com.andrewcbancroft.specialNotificationKey"
+
 public enum PlaybackState: Int, Printable {
     case Stopped = 0
     case Playing
@@ -112,9 +114,6 @@ public class Player: UIViewController {
 
     public var startTime = CMTime()
     
-    public var playerDidPlay = false
-    
-    public var didNotFinish = true
     
     public func setStartPoint(start : CMTime) {
         println("sets start point")
@@ -275,15 +274,12 @@ public class Player: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationWillResignActive:", name: UIApplicationWillResignActiveNotification, object: UIApplication.sharedApplication())
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "applicationDidEnterBackground:", name: UIApplicationDidEnterBackgroundNotification, object: UIApplication.sharedApplication())
+        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "updateNotificationSentLabel", name: mySpecialNotificationKey, object: nil)
     }
 
     // MARK: methods
     
     public func playFromBeginning() {
-        didNotFinish = true
-        
-        playerDidPlay = true
-        
         self.delegate?.playerPlaybackWillStartFromBeginning(self)
         self.player.seekToTime(startTime)
         self.playFromCurrentTime()
@@ -301,24 +297,13 @@ public class Player: UIViewController {
         self.player.pause()
     }
     
-    public func changeFirstTime(val : Bool) {
-//        self.firstTime = val
-//        if(firstTime) {
-//            println("!")
-//            self.playbackLoops = false
-//        } else {
-//            println("!!")
-            self.playbackLoops = true
-//        }
-    }
-    
     public func stepForward() {
         var step = CMTimeMake(1, 20)
         var newTime = CMTimeAdd(playerItem!.currentTime(), step)
         let floatNew = Float(CMTimeGetSeconds(newTime))
         var totalTime = Float(CMTimeGetSeconds(self.playerItem!.duration))
         if(floatNew >= totalTime) {
-            didNotFinish = false
+            NSNotificationCenter.defaultCenter().postNotificationName(playerFinished, object: self)
             self.player.seekToTime(startTime)
         } else {
             self.player.seekToTime(newTime, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero)
@@ -445,7 +430,7 @@ public class Player: UIViewController {
     // MARK: NSNotifications
 
     public func playerItemDidPlayToEndTime(aNotification: NSNotification) {
-        didNotFinish = false
+        NSNotificationCenter.defaultCenter().postNotificationName(playerFinished, object: self)
         if self.playbackLoops.boolValue == true || self.playbackFreezesAtEnd.boolValue == true {
             self.player.seekToTime(startTime)
         }

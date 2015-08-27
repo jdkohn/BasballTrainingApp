@@ -9,13 +9,22 @@
 
 /* To Add
 
-Syncing Videos Better - Restart both at same time
-Re-sync button
-Control speed of steps
-
+CompareView
+    Undo button for draw
+    Control speed of steps
+    Compare to different player button
 */
 
 /* Problems
+
+
+
+*/
+
+/* Kinda Problems
+
+Players restarting after being sync lagging - sent to pause instead
+
 
 */
 

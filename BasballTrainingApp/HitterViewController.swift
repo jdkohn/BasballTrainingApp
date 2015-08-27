@@ -29,8 +29,12 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
     
     var right = Bool()
     
+    var name = String()
+    
     var rightLinks = [String]()
     var leftLinks = [String]()
+    var rightNames = [String]()
+    var leftNames = [String]()
     
     var compareVC : CompareView? = nil
 
@@ -56,11 +60,20 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
         rightLinks.append(bundle.pathForResource("TroutCropped.mp4", ofType: nil)!)
         rightLinks.append(bundle.pathForResource("BryantCropped.mp4", ofType: nil)!)
         rightLinks.append(bundle.pathForResource("mccutchenVid.mp4", ofType: nil)!)
+        rightNames.append("Stanton")
+        rightNames.append("Trout")
+        rightNames.append("Bryant")
+        rightNames.append("McCutchen")
+        
         
         leftLinks.append(bundle.pathForResource("IchiroCropped.mp4", ofType: nil)!)
         leftLinks.append(bundle.pathForResource("Cano.mp4", ofType: nil)!)
         leftLinks.append(bundle.pathForResource("PedersonCropped.mp4", ofType: nil)!)
         leftLinks.append(bundle.pathForResource("GriffeyCropped.mp4", ofType: nil)!)
+        leftNames.append("Ichiro")
+        leftNames.append("Cano")
+        leftNames.append("Pederson")
+        leftNames.append("Griffey")
     }
     
     
@@ -108,8 +121,10 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
         
         if(right) {
             proUrl = rightLinks[indexPath.row]
+            name = rightNames[indexPath.row]
         } else {
             proUrl = leftLinks[indexPath.row]
+            name = leftNames[indexPath.row]
         }
         
         self.performSegueWithIdentifier("navToCompareView", sender: nil)
@@ -141,6 +156,7 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
             navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == true, animated: true)
             controller.setHitterUrl(myUrl)
             controller.setProfessionalUrl(proUrl)
+            controller.currentHitter = name
             controller.setSide(right)
         }
     }
