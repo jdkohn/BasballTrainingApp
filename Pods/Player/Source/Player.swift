@@ -116,7 +116,6 @@ public class Player: UIViewController {
     
     
     public func setStartPoint(start : CMTime) {
-        println("sets start point")
 
         self.startTime = start
         
@@ -164,7 +163,6 @@ public class Player: UIViewController {
                 }
                 
             }
-            println(filepath)
         }
         
     }
@@ -341,10 +339,6 @@ public class Player: UIViewController {
         self.playbackState = .Stopped
         self.delegate?.playerPlaybackStateDidChange(self)
         self.delegate?.playerPlaybackDidEnd(self)
-    }
-    
-    public func printTime(time: CMTime) {
-        println(Float(CMTimeGetSeconds(time)))
     }
 
     // MARK: private setup

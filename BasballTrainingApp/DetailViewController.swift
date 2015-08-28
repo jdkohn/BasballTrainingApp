@@ -237,12 +237,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
     func refreshName() {
         topBar.title = self.swings[self.idx].valueForKey("name") as? String
     }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        
-        println("!")
-    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -320,9 +315,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
                 inManagedObjectContext:
                 managedContext)
             
-            println(self.swings[self.idx])
-            
-            
             managedContext.deleteObject(self.swings[self.idx])
             
             
@@ -351,8 +343,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
         
         alert.addAction(UIAlertAction(title: "Rename", style: .Default, handler: { (action) -> Void in
             let textField = alert.textFields![0] as! UITextField
-            println("Text field: \(textField.text)")
-            
             //CoreData stuff
             let appDelegate =
             UIApplication.sharedApplication().delegate as! AppDelegate
@@ -363,8 +353,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
 
             
             self.swings[self.idx].setValue(textField.text, forKey: "name")
-            
-            println(self.swings[self.idx])
             
             managedContext.save(nil)
             
@@ -383,11 +371,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
     }
     
     func sendAlert(sender: UIButton) {   
-       
-        println(self.swings[self.idx].valueForKey("rightHanded"))
         
-            
-            
             //CoreData stuff
             let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
             let managedContext = appDelegate.managedObjectContext!
@@ -441,7 +425,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
             controller.navigationItem.leftItemsSupplementBackButton = true
         
         } else if segue.identifier == "returnToMain" {
-            println("segue opened")
             let controller = segue.destinationViewController as! MasterViewController
         }
     }

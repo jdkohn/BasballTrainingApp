@@ -94,6 +94,7 @@
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="--" id="mOI-FS-AaM"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="compareButton" destination="TFc-mE-0GL" id="fmV-qh-hAg"/>
                         <outlet property="detailDescriptionLabel" destination="0XM-y9-sOw" id="deQ-Na-JPF"/>
@@ -139,36 +140,78 @@
         <scene sceneID="oAF-8E-Snv">
             <objects>
                 <tableViewController storyboardIdentifier="HitterViewController" title="HitterVC" id="uIy-if-dHA" customClass="HitterViewController" customModule="BasballTrainingApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="150" sectionHeaderHeight="22" sectionFooterHeight="22" id="5jj-gM-T6Q">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" indicatorStyle="black" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="192" sectionHeaderHeight="22" sectionFooterHeight="22" id="5jj-gM-T6Q">
                         <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexBackgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HitterCellID" rowHeight="150" id="K6a-lm-T17" customClass="HitterCell" customModule="BasballTrainingApp" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HitterCellID" rowHeight="192" id="K6a-lm-T17" customClass="HitterCell" customModule="BasballTrainingApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="K6a-lm-T17" id="OeD-xs-UnX">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TxB-ex-5Pn">
-                                            <rect key="frame" x="324" y="0.0" width="268" height="149"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TxB-ex-5Pn">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="191"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGY-38-cil">
-                                            <rect key="frame" x="8" y="64" width="308" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <rect key="frame" x="199" y="73" width="202" height="46"/>
+                                            <fontDescription key="fontDescription" name="MarkerFelt-Wide" family="Marker Felt" pointSize="28"/>
+                                            <color key="textColor" red="0.98850128439999996" green="0.89919852830000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="TxB-ex-5Pn" secondAttribute="trailing" id="11b-4Q-byl"/>
+                                        <constraint firstItem="TxB-ex-5Pn" firstAttribute="trailing" secondItem="OeD-xs-UnX" secondAttribute="trailingMargin" id="29z-Cu-pdI"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="ZGY-38-cil" secondAttribute="trailing" constant="191" id="3j6-tP-ygJ"/>
                                         <constraint firstItem="TxB-ex-5Pn" firstAttribute="leading" secondItem="ZGY-38-cil" secondAttribute="trailing" constant="8" id="3pW-NP-KZM"/>
+                                        <constraint firstItem="TxB-ex-5Pn" firstAttribute="top" secondItem="OeD-xs-UnX" secondAttribute="topMargin" constant="-8" id="8HC-3Z-Fgw"/>
+                                        <constraint firstItem="TxB-ex-5Pn" firstAttribute="leading" secondItem="OeD-xs-UnX" secondAttribute="leadingMargin" id="Bpa-uE-Krl"/>
                                         <constraint firstItem="ZGY-38-cil" firstAttribute="top" secondItem="OeD-xs-UnX" secondAttribute="topMargin" constant="56" id="Ck6-9d-6wE"/>
+                                        <constraint firstItem="ZGY-38-cil" firstAttribute="top" secondItem="OeD-xs-UnX" secondAttribute="topMargin" constant="77" id="FWW-so-0oQ"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="TxB-ex-5Pn" secondAttribute="bottom" constant="-8" id="HW8-Ga-SbD"/>
                                         <constraint firstItem="ZGY-38-cil" firstAttribute="leading" secondItem="OeD-xs-UnX" secondAttribute="leadingMargin" id="JEj-PG-Nvo"/>
                                         <constraint firstItem="TxB-ex-5Pn" firstAttribute="trailing" secondItem="OeD-xs-UnX" secondAttribute="trailingMargin" id="W94-0x-YP6"/>
+                                        <constraint firstItem="TxB-ex-5Pn" firstAttribute="top" secondItem="OeD-xs-UnX" secondAttribute="topMargin" constant="-8" id="X5z-x7-flz"/>
                                         <constraint firstItem="TxB-ex-5Pn" firstAttribute="top" secondItem="OeD-xs-UnX" secondAttribute="topMargin" id="Y3C-by-23I"/>
+                                        <constraint firstItem="ZGY-38-cil" firstAttribute="leading" secondItem="OeD-xs-UnX" secondAttribute="leadingMargin" constant="191" id="aUv-JB-F7D"/>
+                                        <constraint firstItem="TxB-ex-5Pn" firstAttribute="leading" secondItem="OeD-xs-UnX" secondAttribute="leadingMargin" id="aak-wS-rvI"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="ZGY-38-cil" secondAttribute="bottom" constant="56" id="agv-55-mtW"/>
+                                        <constraint firstItem="TxB-ex-5Pn" firstAttribute="leading" secondItem="OeD-xs-UnX" secondAttribute="leadingMargin" id="b1o-M9-8NG"/>
+                                        <constraint firstItem="ZGY-38-cil" firstAttribute="top" secondItem="OeD-xs-UnX" secondAttribute="topMargin" constant="65" id="cEa-Bo-VZR"/>
+                                        <constraint firstAttribute="centerX" secondItem="ZGY-38-cil" secondAttribute="centerX" id="ew1-Tz-A9e"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="ZGY-38-cil" secondAttribute="bottom" constant="64" id="ga1-Nm-gWl"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="TxB-ex-5Pn" secondAttribute="trailing" constant="-8" id="hiZ-tK-s8x"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="TxB-ex-5Pn" secondAttribute="bottom" id="j15-3o-Qtr"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="ZGY-38-cil" secondAttribute="bottom" constant="77" id="rou-pW-KGG"/>
+                                        <constraint firstItem="TxB-ex-5Pn" firstAttribute="leading" secondItem="OeD-xs-UnX" secondAttribute="leadingMargin" constant="-8" id="vV0-N0-kmA"/>
+                                        <constraint firstItem="TxB-ex-5Pn" firstAttribute="trailing" secondItem="OeD-xs-UnX" secondAttribute="trailingMargin" id="wIe-BU-bQR"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="11b-4Q-byl"/>
+                                            <exclude reference="29z-Cu-pdI"/>
+                                            <exclude reference="3pW-NP-KZM"/>
+                                            <exclude reference="Bpa-uE-Krl"/>
+                                            <exclude reference="W94-0x-YP6"/>
+                                            <exclude reference="X5z-x7-flz"/>
+                                            <exclude reference="Y3C-by-23I"/>
+                                            <exclude reference="aak-wS-rvI"/>
+                                            <exclude reference="b1o-M9-8NG"/>
+                                            <exclude reference="j15-3o-Qtr"/>
+                                            <exclude reference="wIe-BU-bQR"/>
+                                            <exclude reference="3j6-tP-ygJ"/>
+                                            <exclude reference="Ck6-9d-6wE"/>
+                                            <exclude reference="FWW-so-0oQ"/>
+                                            <exclude reference="JEj-PG-Nvo"/>
+                                            <exclude reference="aUv-JB-F7D"/>
+                                            <exclude reference="agv-55-mtW"/>
+                                            <exclude reference="rou-pW-KGG"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" none="YES" button="YES"/>
@@ -240,12 +283,33 @@
             </objects>
             <point key="canvasLocation" x="-856" y="-330"/>
         </scene>
+        <!--Pro Swing View Controller-->
+        <scene sceneID="hHu-4k-8cp">
+            <objects>
+                <viewController id="L5k-Li-aFZ" customClass="ProSwingViewController" customModule="BasballTrainingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hRf-WJ-w35"/>
+                        <viewControllerLayoutGuide type="bottom" id="lDn-0F-fNz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="MUm-8j-cIj">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="stD-VE-T4C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1529" y="-927"/>
+        </scene>
         <!--Master-->
         <scene sceneID="smW-Zh-WAh">
             <objects>
                 <tableViewController storyboardIdentifier="Master" title="Master" clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" customClass="MasterViewController" customModule="BasballTrainingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="r7i-6Z-zg0">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="556"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -264,6 +328,7 @@
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>
                                     </subviews>
+                                    <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -277,7 +342,19 @@
                             <outlet property="delegate" destination="7bK-jq-Zjz" id="RA6-mI-bju"/>
                         </connections>
                     </tableView>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="4ld-pg-JWj"/>
+                        <barButtonItem image="bottombtn.png" id="PTX-mz-6fT">
+                            <color key="tintColor" red="1" green="0.0" blue="0.070236308710000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <segue destination="L5k-Li-aFZ" kind="show" id="Xe8-j6-fhk"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="My Swings" id="Zdf-7t-Un8" propertyAccessControl="all"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
@@ -299,10 +376,13 @@
             <point key="canvasLocation" x="-45" y="129"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bottombtn.png" width="200" height="40"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="TDP-U1-HPA"/>
+        <segue reference="Vjg-YH-mcP"/>
         <segue reference="32q-nH-hhF"/>
-        <segue reference="JIi-HT-HP8"/>
+        <segue reference="TDP-U1-HPA"/>
         <segue reference="6S0-TO-JiA"/>
     </inferredMetricsTieBreakers>
 </document>

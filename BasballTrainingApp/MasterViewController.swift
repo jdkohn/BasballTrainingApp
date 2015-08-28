@@ -10,13 +10,10 @@
 /* To Add
 
 CompareView
-    Change pro cancel button
     Control speed of steps
 */
 
 /* Problems
-
-
 
 */
 
@@ -46,6 +43,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     var recorded = false
     var url = String()
     
+    let toolbar = UIToolbar()
     
     let captureSession = AVCaptureSession()
     var previewLayer : AVCaptureVideoPreviewLayer?
@@ -74,7 +72,8 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         //creates add button
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
-        
+
+        self.navigationController?.setToolbarHidden(false, animated: false)
         
         if let split = self.splitViewController {
             let controllers = split.viewControllers
@@ -83,6 +82,10 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         picker!.delegate = self
         println("App opened")
         
+        self.navigationController?.navigationBar.barTintColor = UIColor.lightGrayColor()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.redColor()]
+        
+        self.navigationController?.toolbar.barTintColor = UIColor.lightGrayColor()
         
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
@@ -256,21 +259,17 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             recorded = false
         }
         
-        println("about to print url")
-        println("url: " + url)
+
         let urlString = url
-        println("url String: " + urlString)
         
         
         //let image = (info[UIImagePickerControllerOriginalImage] as? UIImage)
 
         let thumbnail = UIImagePNGRepresentation(image)
-        println("gets PNGRep of image")
         
         //gets the date
         let date = getDate()
-        println("gets date")
-        
+     
         //CoreData stuff
         let appDelegate =
         UIApplication.sharedApplication().delegate as! AppDelegate
@@ -307,7 +306,6 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     func imagePickerControllerDidCancel(picker: UIImagePickerController)
     {
         picker.dismissViewControllerAnimated(true, completion: nil)
-        println("picker cancel.")
     }
     
     func capture(url : NSURL) -> UIImage {
@@ -375,7 +373,13 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
         cell.textLabel!.text = swings[indexPath.row].valueForKey("name") as? String
+        if((indexPath.row as Int) % 2 == 0 ) {
+            cell.backgroundColor = UIColor.lightGrayColor()
+        } else {
+            cell.backgroundColor = UIColor.whiteColor()
+        }
         return cell
+        
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -385,7 +389,8 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
     
     
     //remove item from list
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle:
+        UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             
             //CoreData stuff
@@ -395,9 +400,6 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             let entity =  NSEntityDescription.entityForName("Swing",
                 inManagedObjectContext:
                 managedContext)
-            
-            println(swings[indexPath.row])
-            
             
             managedContext.deleteObject(swings[indexPath.row])
             
@@ -412,10 +414,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
-    
 
-    
-    
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
             dispatch_time(
@@ -423,5 +422,13 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
                 Int64(delay * Double(NSEC_PER_SEC))
             ),
             dispatch_get_main_queue(), closure)
+    }
+    
+    override func shouldAutorotate() -> Bool {
+        return false
+    }
+    
+    override func supportedInterfaceOrientations() -> Int {
+        return Int(UIInterfaceOrientationMask.Portrait.rawValue)
     }
 }

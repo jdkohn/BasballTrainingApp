@@ -250,8 +250,8 @@ class CompareView: UIViewController, PlayerDelegate {
         //cancelChangeHitterButton
         cancelChangeHitterButton.frame = CGRectMake((self.view.frame.size.width / 2) - 50,50,100,45)
         cancelChangeHitterButton.setTitle("Cancel", forState: UIControlState.Normal)
-        cancelChangeHitterButton.backgroundColor = UIColor.redColor()
-        cancelChangeHitterButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
+        cancelChangeHitterButton.backgroundColor = UIColor.lightGrayColor()
+        cancelChangeHitterButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
         cancelChangeHitterButton.addTarget(self, action: "cancelChangeHitter:", forControlEvents: UIControlEvents.TouchUpInside)
         
         

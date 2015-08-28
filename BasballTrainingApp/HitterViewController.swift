@@ -113,9 +113,13 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
             cell.bkImageView.image = image
             cell.headingLabel.text = entry.heading
         }
+        self.view.bringSubviewToFront(cell.headingLabel)
+        cell.bkImageView.alpha = 0.7
+        cell.backgroundColor = UIColor.blackColor()
         return cell
     }
     
+
     //on click of the cell
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         

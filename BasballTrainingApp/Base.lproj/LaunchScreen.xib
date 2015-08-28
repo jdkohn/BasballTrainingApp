@@ -23,36 +23,53 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="8" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QiS-9t-YD8">
-                    <rect key="frame" x="8" y="57" width="464" height="160"/>
-                    <attributedString key="attributedText">
-                        <fragment content="BTA">
-                            <attributes>
-                                <color key="NSColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <font key="NSFont" size="64" name="EurostileRegular"/>
-                                <font key="NSOriginalFont" size="64" name="EurostileRegular"/>
-                                <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                            </attributes>
-                        </fragment>
-                    </attributedString>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jacob Kohn" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZvQ-f6-g4M">
+                    <rect key="frame" x="194" y="191" width="93" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Baseball Training App" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtF-qN-cjo">
+                    <rect key="frame" x="157" y="162" width="167" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="foundry10smal.png" translatesAutoresizingMaskIntoConstraints="NO" id="dM1-H1-PHV">
+                    <rect key="frame" x="198" y="220" width="84" height="39"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
             <constraints>
-                <constraint firstItem="QiS-9t-YD8" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="3zc-qp-YQg"/>
                 <constraint firstItem="kId-c2-rCX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="bottom" multiplier="1/3" constant="1" id="5cJ-9S-tgC"/>
+                <constraint firstAttribute="centerX" secondItem="jtF-qN-cjo" secondAttribute="centerX" id="6bl-hV-gT0"/>
+                <constraint firstAttribute="bottom" secondItem="dM1-H1-PHV" secondAttribute="bottom" constant="8" id="6mw-aK-rTa"/>
+                <constraint firstItem="dM1-H1-PHV" firstAttribute="top" secondItem="ZvQ-f6-g4M" secondAttribute="bottom" constant="8" id="8Yw-Pe-LQj"/>
+                <constraint firstItem="ZvQ-f6-g4M" firstAttribute="top" secondItem="jtF-qN-cjo" secondAttribute="bottom" constant="8" id="Aja-Rm-dcz"/>
+                <constraint firstItem="jtF-qN-cjo" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="162" id="CKE-TO-15H"/>
                 <constraint firstAttribute="centerX" secondItem="kId-c2-rCX" secondAttribute="centerX" id="Koa-jz-hwk"/>
                 <constraint firstAttribute="bottom" secondItem="8ie-xW-0ye" secondAttribute="bottom" constant="20" id="Kzo-t9-V3l"/>
                 <constraint firstItem="8ie-xW-0ye" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="MfP-vx-nX0"/>
+                <constraint firstAttribute="centerX" secondItem="ZvQ-f6-g4M" secondAttribute="centerX" id="Ydg-2x-bqc"/>
                 <constraint firstAttribute="centerX" secondItem="8ie-xW-0ye" secondAttribute="centerX" id="ZEH-qu-HZ9"/>
-                <constraint firstAttribute="trailing" secondItem="QiS-9t-YD8" secondAttribute="trailing" constant="8" id="eVI-07-PgO"/>
-                <constraint firstItem="QiS-9t-YD8" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="57" id="fFX-MI-BYa"/>
                 <constraint firstItem="kId-c2-rCX" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" symbolic="YES" id="fvb-Df-36g"/>
+                <constraint firstAttribute="centerX" secondItem="dM1-H1-PHV" secondAttribute="centerX" id="iGR-Lf-WPw"/>
+                <constraint firstItem="dM1-H1-PHV" firstAttribute="top" secondItem="ZvQ-f6-g4M" secondAttribute="bottom" id="s5o-QM-Aad"/>
+                <constraint firstItem="dM1-H1-PHV" firstAttribute="top" secondItem="jtF-qN-cjo" secondAttribute="bottom" constant="18" id="zs8-0r-kep"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="6mw-aK-rTa"/>
+                    <exclude reference="s5o-QM-Aad"/>
+                    <exclude reference="zs8-0r-kep"/>
+                </mask>
+            </variation>
             <point key="canvasLocation" x="548" y="455"/>
         </view>
     </objects>
+    <resources>
+        <image name="foundry10smal.png" width="81" height="30"/>
+    </resources>
 </document>
