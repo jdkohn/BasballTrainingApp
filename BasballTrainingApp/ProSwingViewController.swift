@@ -134,7 +134,7 @@ class ProSwingViewController: UIViewController, PlayerDelegate {
         hitterLinks.append(bundle.pathForResource("GriffeyCropped.mp4", ofType: nil)!)
         
         let drawIcon = UIImage(named: "pencil2.png")
-        let drawingIcon = UIImage(named: "pencil3.png")
+        let drawingIcon = UIImage(named: "pencil4.png")
         
         let stopButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "done:")
         let stepBackwardButton = UIBarButtonItem(barButtonSystemItem: .Rewind, target: self, action: "stepBackward:")

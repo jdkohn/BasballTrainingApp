@@ -100,12 +100,14 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         managedContext.executeFetchRequest(fetchRequest,
             error: &error) as? [NSManagedObject]
         
+        
         if let results = fetchedResults {
             swings = results
         } else {
             println("Could not fetch \(error), \(error!.userInfo)")
         }
         
+        swings = swings.reverse()
     }
     
     override func didReceiveMemoryWarning() {
@@ -295,7 +297,7 @@ class MasterViewController: UITableViewController, UIAlertViewDelegate,UIImagePi
         
         swings.insert(swingObject, atIndex: swings.count)
         
-        
+        managedContext.save(nil)
         
         let indexPath = NSIndexPath(forRow: 0, inSection: 0)
         self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)

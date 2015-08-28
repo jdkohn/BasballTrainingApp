@@ -185,7 +185,7 @@ class CompareView: UIViewController, PlayerDelegate {
         
         //toobar buttons
         let drawIcon = UIImage(named: "pencil2.png")
-        let drawingIcon = UIImage(named: "pencil3.png")
+        let drawingIcon = UIImage(named: "pencil4.png")
         
         let stopButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "done:")
         let stepBackwardButton = UIBarButtonItem(barButtonSystemItem: .Rewind, target: self, action: "stepBackward:")
@@ -236,22 +236,21 @@ class CompareView: UIViewController, PlayerDelegate {
         resyncButton.frame = CGRectMake(self.view.frame.size.width - 70, 0, 70, 30)
         resyncButton.setTitle("Re-Sync", forState: .Normal)
         resyncButton.backgroundColor = UIColor.lightGrayColor()
-        resyncButton.tintColor = UIColor.blackColor()
-        resyncButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        resyncButton.setTitleColor(UIColor.redColor(), forState: .Normal)
         resyncButton.addTarget(self, action: "resync:", forControlEvents: UIControlEvents.TouchUpInside)
         
         //changeHitterButton
         changeHitterButton.frame = CGRectMake(0,0,100,30)
         changeHitterButton.setTitle("Change Pro", forState: UIControlState.Normal)
         changeHitterButton.backgroundColor = UIColor.lightGrayColor()
-        changeHitterButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        changeHitterButton.setTitleColor(UIColor.redColor(), forState: .Normal)
         changeHitterButton.addTarget(self, action: "changeHitter:", forControlEvents: UIControlEvents.TouchUpInside)
 
         //cancelChangeHitterButton
         cancelChangeHitterButton.frame = CGRectMake((self.view.frame.size.width / 2) - 50,50,100,45)
         cancelChangeHitterButton.setTitle("Cancel", forState: UIControlState.Normal)
         cancelChangeHitterButton.backgroundColor = UIColor.lightGrayColor()
-        cancelChangeHitterButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        cancelChangeHitterButton.setTitleColor(UIColor.redColor(), forState: .Normal)
         cancelChangeHitterButton.addTarget(self, action: "cancelChangeHitter:", forControlEvents: UIControlEvents.TouchUpInside)
         
         
@@ -476,7 +475,6 @@ class CompareView: UIViewController, PlayerDelegate {
         UIDevice.currentDevice().setValue(value, forKey: "orientation")
         
         navigationController?.setNavigationBarHidden(false , animated: true)
-        
         
         navigationController?.popToRootViewControllerAnimated(true)
     }

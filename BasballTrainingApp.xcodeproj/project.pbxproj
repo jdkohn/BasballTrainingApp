@@ -21,6 +21,7 @@
 		2C8E30C41B91060500FC81D4 /* ProSwingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8E30C31B91060500FC81D4 /* ProSwingViewController.swift */; };
 		2C8E30C61B9115A100FC81D4 /* foundry10.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2C8E30C51B9115A100FC81D4 /* foundry10.jpg */; };
 		2C8E30C81B91175600FC81D4 /* foundry10smal.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C8E30C71B91175600FC81D4 /* foundry10smal.png */; };
+		2C8E30CC1B911AF600FC81D4 /* pencil4.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C8E30CB1B911AF600FC81D4 /* pencil4.png */; };
 		2CA4F69E1B71B2FF009F72BE /* LeftData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA4F69D1B71B2FF009F72BE /* LeftData.swift */; };
 		2CAEA2401B72B44100B8BEA9 /* CompareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CAEA23F1B72B44100B8BEA9 /* CompareView.swift */; };
 		2CAEA2421B73364500B8BEA9 /* cano.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 2CAEA2411B73364500B8BEA9 /* cano.jpg */; };
@@ -39,7 +40,6 @@
 		2CBBC40B1B59C5F700996BB5 /* drawsomething.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBBC40A1B59C5F700996BB5 /* drawsomething.png */; };
 		2CBBC40D1B59C98900996BB5 /* pencil.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBBC40C1B59C98900996BB5 /* pencil.png */; };
 		2CBBC40F1B59CB4C00996BB5 /* pencil2.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBBC40E1B59CB4C00996BB5 /* pencil2.png */; };
-		2CBBC4111B59CCDA00996BB5 /* pencil3.png in Resources */ = {isa = PBXBuildFile; fileRef = 2CBBC4101B59CCDA00996BB5 /* pencil3.png */; };
 		2CCD84C21B39EA41001EC2FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD84C11B39EA41001EC2FD /* AppDelegate.swift */; };
 		2CCD84C41B39EA41001EC2FD /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD84C31B39EA41001EC2FD /* MasterViewController.swift */; };
 		2CCD84C61B39EA41001EC2FD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CCD84C51B39EA41001EC2FD /* DetailViewController.swift */; };
@@ -75,6 +75,7 @@
 		2C8E30C31B91060500FC81D4 /* ProSwingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProSwingViewController.swift; sourceTree = "<group>"; };
 		2C8E30C51B9115A100FC81D4 /* foundry10.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = foundry10.jpg; sourceTree = "<group>"; };
 		2C8E30C71B91175600FC81D4 /* foundry10smal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foundry10smal.png; sourceTree = "<group>"; };
+		2C8E30CB1B911AF600FC81D4 /* pencil4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil4.png; sourceTree = "<group>"; };
 		2CA4F69D1B71B2FF009F72BE /* LeftData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeftData.swift; sourceTree = "<group>"; };
 		2CAEA23F1B72B44100B8BEA9 /* CompareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompareView.swift; sourceTree = "<group>"; };
 		2CAEA2411B73364500B8BEA9 /* cano.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cano.jpg; sourceTree = "<group>"; };
@@ -93,7 +94,6 @@
 		2CBBC40A1B59C5F700996BB5 /* drawsomething.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drawsomething.png; sourceTree = "<group>"; };
 		2CBBC40C1B59C98900996BB5 /* pencil.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil.png; sourceTree = "<group>"; };
 		2CBBC40E1B59CB4C00996BB5 /* pencil2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil2.png; sourceTree = "<group>"; };
-		2CBBC4101B59CCDA00996BB5 /* pencil3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pencil3.png; sourceTree = "<group>"; };
 		2CCD84BC1B39EA41001EC2FD /* BasballTrainingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BasballTrainingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CCD84C01B39EA41001EC2FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CCD84C11B39EA41001EC2FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 				2C2B9F161B4F1F4100BE340A /* bryant.jpg */,
 				2CBBC40C1B59C98900996BB5 /* pencil.png */,
 				2CBBC40E1B59CB4C00996BB5 /* pencil2.png */,
-				2CBBC4101B59CCDA00996BB5 /* pencil3.png */,
+				2C8E30CB1B911AF600FC81D4 /* pencil4.png */,
 				2C8E30BF1B90FC3800FC81D4 /* bottombtn.png */,
 				2CBBC40A1B59C5F700996BB5 /* drawsomething.png */,
 				2CCD84CC1B39EA41001EC2FD /* LaunchScreen.xib */,
@@ -326,12 +326,12 @@
 				2C8E30C61B9115A100FC81D4 /* foundry10.jpg in Resources */,
 				2C7F74521B73DB4100EAC3A7 /* mccutchenVid.mp4 in Resources */,
 				2CBBC40B1B59C5F700996BB5 /* drawsomething.png in Resources */,
-				2CBBC4111B59CCDA00996BB5 /* pencil3.png in Resources */,
 				2CBBC40F1B59CB4C00996BB5 /* pencil2.png in Resources */,
 				2CCD84C91B39EA41001EC2FD /* Main.storyboard in Resources */,
 				2C8E30C01B90FC3800FC81D4 /* bottombtn.png in Resources */,
 				2CB086621B8BB6E300594D63 /* BryantCropped.mp4 in Resources */,
 				2CCD84CE1B39EA41001EC2FD /* LaunchScreen.xib in Resources */,
+				2C8E30CC1B911AF600FC81D4 /* pencil4.png in Resources */,
 				2CCD84CB1B39EA41001EC2FD /* Images.xcassets in Resources */,
 				2C2B9F171B4F1F4100BE340A /* bryant.jpg in Resources */,
 				2C771ADB1B3A05CF00FA6E2D /* cruz.jpg in Resources */,

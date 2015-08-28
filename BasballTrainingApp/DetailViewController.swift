@@ -93,30 +93,19 @@ class DetailViewController: UIViewController, PlayerDelegate {
         navigationController?.setNavigationBarHidden(navigationController?.navigationBarHidden == false, animated: true)
         
         self.view.addSubview(self.player.view)
-                if((self.swings[self.idx].valueForKey("yetToSetStartPoint")) as! Bool == true) {
-            
-            self.player.setStartPoint(kCMTimeZero)
-            
-            
-            
-            self.setStartPointButton.frame = CGRectMake(0,0,self.view.frame.width, 44)
-            self.setStartPointButton.setTitle("Set Start Point", forState: .Normal)
-            self.setStartPointButton.backgroundColor = UIColor.blackColor()
-            self.setStartPointButton.tintColor = UIColor.whiteColor()
-            self.setStartPointButton.addTarget(self, action: "setStartTimeToCurrent:", forControlEvents: UIControlEvents.TouchUpInside)
-            
-            self.player.view.addSubview(setStartPointButton)
-        }
+
         player.playbackState = PlaybackState.Playing
 
         //set toolbar size and contents
         toolbar.frame = CGRectMake((self.view.frame.size.width / 2) - 85, self.view.frame.size.height - 44, 170, 44)
-        toolbar.setItems(pauseItems, animated: true)
+        toolbar.setItems(playItems, animated: true)
         
         //add toolbar to the view
         toolbar.barStyle = UIBarStyle.Black
 
         self.player.view.addSubview(toolbar)
+        
+
     }
 
     func setStartTimeToCurrent(sender: UIButton) {
@@ -131,7 +120,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
     func addButtons() {
         
         let drawIcon = UIImage(named: "pencil2.png")
-        let drawingIcon = UIImage(named: "pencil3.png")
+        let drawingIcon = UIImage(named: "pencil4.png")
         
         let stopButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "done:")
         let stepBackwardButton = UIBarButtonItem(barButtonSystemItem: .Rewind, target: self, action: "stepBackward:")
@@ -140,8 +129,6 @@ class DetailViewController: UIViewController, PlayerDelegate {
         let stepForwardButton = UIBarButtonItem(barButtonSystemItem: .FastForward, target: self, action: "stepForward:")
         let drawButton = UIBarButtonItem(image: drawIcon, style: .Plain, target: self, action: "draw:")
         let cancelDrawButton = UIBarButtonItem(image: drawingIcon, style: .Plain, target: self, action: "endDraw:")
-        
-        
         
         //add to paused toolbar
         pauseItems.append(stopButton)
@@ -221,8 +208,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
         renameButton2.frame = CGRectMake(4, self.view.frame.maxY - 48, (self.view.frame.width - 8) / 2, 44)
         renameButton2.addTarget(self, action: "renameSwing:", forControlEvents: .TouchUpInside)
         renameButton2.setTitle("Rename", forState: .Normal)
-        renameButton2.backgroundColor = UIColor.blackColor()
-        renameButton2.tintColor = UIColor.whiteColor()
+        renameButton2.backgroundColor = UIColor.lightGrayColor()
+        renameButton2.tintColor = UIColor.redColor()
         self.view.addSubview(renameButton2)
         
         let deleteButton2 = UIButton.buttonWithType(.System) as! UIButton
@@ -242,6 +229,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
         
         self.configureView()
         self.configureActions()
@@ -288,6 +277,8 @@ class DetailViewController: UIViewController, PlayerDelegate {
             println("Could not fetch \(error), \(error!.userInfo)")
         }
         
+        self.idx = self.swings.count - self.idx - 1
+        
         refreshName()
         detailDescriptionLabel.text = self.swings[self.idx].valueForKey("date") as? String
         
@@ -298,6 +289,7 @@ class DetailViewController: UIViewController, PlayerDelegate {
         self.player.view.frame = self.view.bounds
         self.player.path = self.url
         self.player.setStartPoint(kCMTimeZero)
+        
         
     }
     

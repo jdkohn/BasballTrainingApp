@@ -115,7 +115,7 @@ class HitterViewController: UITableViewController, UITableViewDataSource, UITabl
         }
         self.view.bringSubviewToFront(cell.headingLabel)
         cell.bkImageView.alpha = 0.7
-        cell.backgroundColor = UIColor.blackColor()
+        cell.backgroundColor = UIColor.lightGrayColor()
         return cell
     }
     
